@@ -6,15 +6,31 @@ export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => vo
   const { t, lang } = useI18n();
   const img = tourImages[tour.image_key] ?? tourImages.hero;
   const soldOut = tour.spots_left <= 0;
+  const isClass = tour.category === "class";
   return (
-    <article className="group flex flex-col overflow-hidden rounded-md border border-border bg-card">
-      <div className="aspect-[4/3] overflow-hidden">
+    <article
+      className={
+        "group flex flex-col overflow-hidden rounded-md border bg-card " +
+        (isClass ? "border-[color:var(--corn)]/60" : "border-border")
+      }
+    >
+      <div className="aspect-[4/3] overflow-hidden relative">
         <img
           src={img}
           alt={tour.title}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <span
+          className={
+            "absolute top-3 left-3 text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm " +
+            (isClass
+              ? "bg-[color:var(--corn)] text-primary"
+              : "bg-primary/85 text-primary-foreground")
+          }
+        >
+          {isClass ? t("category.class") : t("category.tour")}
+        </span>
       </div>
       <div className="p-6 flex flex-col flex-1">
         <div className="text-xs uppercase tracking-widest text-accent">
@@ -31,7 +47,9 @@ export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => vo
           </div>
           <div>
             <dt className="uppercase tracking-widest text-muted-foreground">{t("agenda.duration")}</dt>
-            <dd className="text-primary mt-0.5">{t("agenda.durationValue")}</dd>
+            <dd className="text-primary mt-0.5">
+              {Math.round(tour.duration_minutes / 60 * 10) / 10} h
+            </dd>
           </div>
         </dl>
         <div className="mt-6 flex items-center justify-between">

@@ -15,6 +15,7 @@ export type AdminTour = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  category: "tour" | "class";
   created_at: string;
 };
 
@@ -31,9 +32,11 @@ export type TourInput = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  category: "tour" | "class";
 };
 
-const ALLOWED_IMAGE_KEYS = ["hero", "tortillas", "street", "mezcal", "market"];
+const ALLOWED_IMAGE_KEYS = ["hero", "tortillas", "street", "mezcal", "market", "class", "chef-milpa"];
+const ALLOWED_CATEGORIES = ["tour", "class"] as const;
 
 function validate(input: TourInput): TourInput {
   const clean = {
@@ -49,6 +52,7 @@ function validate(input: TourInput): TourInput {
     description_es: String(input.description_es ?? "").trim(),
     description_fr: String(input.description_fr ?? "").trim(),
     image_key: String(input.image_key ?? "hero").trim(),
+    category: String(input.category ?? "tour").trim() as "tour" | "class",
   };
   if (clean.title.length < 3 || clean.title.length > 160) throw new Error("Title must be 3-160 chars");
   if (!/^[a-z0-9-]{3,80}$/.test(clean.slug)) throw new Error("Slug must be lowercase letters, numbers, dashes (3-80)");
@@ -64,6 +68,7 @@ function validate(input: TourInput): TourInput {
     if (v.length < 10 || v.length > 2000) throw new Error(`Description ${k} must be 10-2000 chars`);
   }
   if (!ALLOWED_IMAGE_KEYS.includes(clean.image_key)) throw new Error("Unknown image key");
+  if (!ALLOWED_CATEGORIES.includes(clean.category)) throw new Error("Unknown category");
   return clean;
 }
 
@@ -142,3 +147,4 @@ export const deleteTour = createServerFn({ method: "POST" })
   });
 
 export const IMAGE_KEYS = ALLOWED_IMAGE_KEYS;
+export const CATEGORIES = ALLOWED_CATEGORIES;
