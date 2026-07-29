@@ -1,5 +1,5 @@
 // Server-only email helpers. Never import from client code.
-import { generateTicketPdf, bytesToBase64 } from "./ticket.server";
+import { generateTicketAttachments } from "./ticket.server";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 
 type Lang = "en" | "es" | "fr";
@@ -94,7 +94,7 @@ export async function sendBookingConfirmation(input: {
   const s = strings[input.lang];
   let attachments: Array<{ filename: string; content: string }> | undefined;
   try {
-    const pdfBytes = await generateTicketPdf({
+    attachments = generateTicketAttachments({
       guestName: input.name,
       tourTitle: input.tourTitle,
       tourDate: input.tourDate,
@@ -103,14 +103,8 @@ export async function sendBookingConfirmation(input: {
       bookingId: input.bookingId,
       lang: input.lang,
     });
-    attachments = [
-      {
-        filename: `milpachef-ticket-${input.bookingId.slice(0, 8)}.pdf`,
-        content: bytesToBase64(pdfBytes),
-      },
-    ];
   } catch (e) {
-    console.error("[email] ticket pdf generation failed (non-fatal)", e);
+    console.error("[email] ticket image generation failed (non-fatal)", e);
   }
   const html = `
     <div style="font-family: Georgia, serif; max-width: 560px; margin: auto; color: #2a2a2a;">
