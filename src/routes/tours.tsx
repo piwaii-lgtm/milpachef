@@ -59,6 +59,51 @@ function ToursPage() {
       )}
 
       <BookingDialog tour={booking} open={!!booking} onClose={() => setBooking(null)} />
+
+      {/* Tastings + practical info (tours only) */}
+      <div className="mt-24 md:mt-32 border-t border-border pt-16">
+        <div className="max-w-2xl mb-12">
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-3">
+            {t("tastings.title")}
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-primary leading-tight">
+            {t("tastings.title")}
+          </h2>
+          <p className="text-muted-foreground mt-3">{t("tastings.subtitle")}</p>
+        </div>
+        <ul className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-6">
+          {[
+            "t.nahuatl",
+            "t.pulque",
+            "t.crickets",
+            "t.mole",
+            "t.mezcal",
+            "t.coffee",
+            "t.beer",
+            "t.cocktail",
+            "t.sweets",
+            "t.icecream",
+          ].map((k) => (
+            <li key={k} className="border-t border-accent/40 pt-3">
+              <div className="font-serif text-lg text-primary leading-snug">{t(k)}</div>
+            </li>
+          ))}
+        </ul>
+        <div className="grid md:grid-cols-2 gap-8 mt-16">
+          <div className="border-l-2 border-accent pl-6">
+            <div className="uppercase tracking-[0.3em] text-xs text-accent mb-2">
+              {t("meet.title")}
+            </div>
+            <p className="font-serif text-xl text-primary">{t("meet.value")}</p>
+          </div>
+          <div className="border-l-2 border-accent pl-6">
+            <div className="uppercase tracking-[0.3em] text-xs text-accent mb-2">
+              {t("cancel.title")}
+            </div>
+            <p className="font-serif text-xl text-primary">{t("cancel.body")}</p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
