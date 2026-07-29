@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/lib/i18n";
 import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
@@ -5,9 +6,18 @@ import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
 export function SiteHeader() {
   const { t, lang, setLang } = useI18n();
   const langs: Lang[] = ["en", "es", "fr"];
+  const [open, setOpen] = useState(false);
   const linkCls =
     "text-sm tracking-wide uppercase text-primary/70 hover:text-primary transition-colors";
   const activeCls = "text-primary";
+  const items: { to: string; label: string; exact?: boolean }[] = [
+    { to: "/", label: t("nav.home"), exact: true },
+    { to: "/tours", label: t("nav.tours") },
+    { to: "/classes", label: t("nav.classes") },
+    { to: "/products", label: t("nav.products") },
+    { to: "/about", label: t("nav.about") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
 
   return (
     <header className="border-b border-border/60 bg-background/85 backdrop-blur sticky top-0 z-40">
@@ -65,8 +75,48 @@ export function SiteHeader() {
           >
             {t("nav.book")}
           </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={t("nav.menu")}
+            className="md:hidden inline-flex flex-col justify-center gap-1.5 p-2 text-primary"
+          >
+            <span className="block h-px w-5 bg-current" />
+            <span className="block h-px w-5 bg-current" />
+            <span className="block h-px w-5 bg-current" />
+          </button>
         </div>
       </div>
+
+      {open && (
+        <nav className="md:hidden border-t border-border/60 bg-background">
+          <ul className="container-editorial py-4 flex flex-col gap-3">
+            {items.map((i) => (
+              <li key={i.to}>
+                <Link
+                  to={i.to}
+                  onClick={() => setOpen(false)}
+                  className={linkCls}
+                  activeProps={{ className: activeCls }}
+                  activeOptions={i.exact ? { exact: true } : undefined}
+                >
+                  {i.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                to="/reserve"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center rounded-sm bg-primary text-primary-foreground text-sm px-4 py-2"
+              >
+                {t("nav.book")}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

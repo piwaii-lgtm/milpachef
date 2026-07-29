@@ -9,8 +9,8 @@ export function SiteFooter() {
       className="mt-24 text-primary-foreground"
       style={{ backgroundColor: "var(--milpa-deep)" }}
     >
-      <div className="container-editorial py-16 grid md:grid-cols-3 gap-10">
-        <div>
+      <div className="container-editorial py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+        <div className="lg:col-span-2">
           <img
             src={logoAsset.url}
             alt="Milpa Chef"
@@ -24,10 +24,26 @@ export function SiteFooter() {
         </div>
         <div>
           <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mb-3">
-            {t("nav.tours")}
+            {t("footer.experiences")}
           </div>
           <ul className="space-y-2 text-sm">
             <li><Link to="/tours" className="hover:text-[color:var(--corn)]">{t("nav.tours")}</Link></li>
+            <li><Link to="/classes" className="hover:text-[color:var(--corn)]">{t("nav.classes")}</Link></li>
+            <li><Link to="/reserve" className="hover:text-[color:var(--corn)]">{t("footer.reserve")}</Link></li>
+          </ul>
+          <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mt-6 mb-3">
+            {t("footer.shop")}
+          </div>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/products" className="hover:text-[color:var(--corn)]">{t("nav.products")}</Link></li>
+          </ul>
+        </div>
+        <div>
+          <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mb-3">
+            {t("footer.company")}
+          </div>
+          <ul className="space-y-2 text-sm">
+            <li><Link to="/" className="hover:text-[color:var(--corn)]">{t("nav.home")}</Link></li>
             <li><Link to="/about" className="hover:text-[color:var(--corn)]">{t("nav.about")}</Link></li>
             <li><Link to="/contact" className="hover:text-[color:var(--corn)]">{t("nav.contact")}</Link></li>
           </ul>
@@ -39,6 +55,21 @@ export function SiteFooter() {
           <ul className="space-y-2 text-sm">
             <li>Cholula, Puebla · México</li>
             <li><a href="mailto:alfonso@milpachef.com" className="hover:text-[color:var(--corn)]">alfonso@milpachef.com</a></li>
+            <li>
+              <a
+                href="https://wa.me/522221706820"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:text-[color:var(--corn)]"
+              >
+                WhatsApp · +52 222 170 6820
+              </a>
+            </li>
+          </ul>
+          <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mt-6 mb-3">
+            {t("footer.follow")}
+          </div>
+          <ul className="space-y-2 text-sm">
             <li>
               <a
                 href="https://www.instagram.com/milpachef/"
