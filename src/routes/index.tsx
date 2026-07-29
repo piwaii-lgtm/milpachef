@@ -6,6 +6,16 @@ import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours
 import { heroImage, marketImage, classImage } from "@/lib/tour-images";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
+import groupAsset from "@/assets/chef-group-table.jpg.asset.json";
+import salomeaAsset from "@/assets/g-salomea.jpg.asset.json";
+import marcoJuliaAsset from "@/assets/g-marco-julia.jpg.asset.json";
+import robertoValeriaAsset from "@/assets/g-roberto-valeria.jpg.asset.json";
+
+const guestPhotos: Record<string, string> = {
+  "Salomea Chichowska": salomeaAsset.url,
+  "Marco y Julia": marcoJuliaAsset.url,
+  "Roberto y Valeria": robertoValeriaAsset.url,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,6 +100,49 @@ function Home() {
       </section>
 
       {/* About / pillars */}
+      {/* Services */}
+      <section className="container-editorial py-20 md:py-24">
+        <h2 className="font-serif text-3xl md:text-4xl text-primary text-center max-w-3xl mx-auto leading-tight">
+          {t("services.title")}
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          {[
+            { key: "experiences", to: "/reserve" as const },
+            { key: "products", to: "/products" as const },
+            { key: "advisory", to: "/contact" as const },
+          ].map(({ key, to }) => (
+            <Link
+              key={key}
+              to={to}
+              className="border-t-2 border-accent pt-4 group"
+            >
+              <div className="font-serif text-xl text-primary group-hover:text-[color:var(--milpa-deep)]">
+                {t(`services.${key}`)}
+              </div>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                {t(`services.${key}.body`)}
+              </p>
+            </Link>
+          ))}
+          <a
+            href="https://www.instagram.com/milpachef/"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="border-t-2 border-accent pt-4 group"
+          >
+            <div className="font-serif text-xl text-primary group-hover:text-[color:var(--milpa-deep)]">
+              {t("services.recipes")}
+            </div>
+            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+              {t("services.recipes.body")}
+            </p>
+          </a>
+        </div>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto mt-12">
+          {t("services.note")}
+        </p>
+      </section>
+
       <section className="container-editorial py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
@@ -199,16 +252,47 @@ function Home() {
           {testimonials.map((tt) => (
             <figure
               key={tt.id}
-              className="border-l-2 border-accent pl-6 py-2"
+              className="border-l-2 border-accent pl-6 py-2 flex gap-5 items-start"
             >
+              {guestPhotos[tt.guest_name] && (
+                <img
+                  src={guestPhotos[tt.guest_name]}
+                  alt={`${tt.guest_name}, guest of Milpa Chef`}
+                  loading="lazy"
+                  className="w-16 h-16 shrink-0 rounded-full object-cover"
+                />
+              )}
+              <div>
               <blockquote className="font-serif text-2xl text-primary leading-snug italic">
                 “{pickQuote(tt, lang)}”
               </blockquote>
               <figcaption className="mt-4 text-sm text-muted-foreground uppercase tracking-widest">
                 {tt.guest_name} · {tt.origin}
               </figcaption>
+              </div>
             </figure>
           ))}
+        </div>
+      </section>
+
+      {/* Movement band */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
+        <div className="container-editorial py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center text-primary-foreground">
+          <div>
+            <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-4">
+              {t("brand.motto")}
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl leading-tight">{t("movement.title")}</h2>
+            <p className="text-primary-foreground/80 mt-4 leading-relaxed">{t("movement.body")}</p>
+          </div>
+          <div className="aspect-[4/3] overflow-hidden rounded-md">
+            <img
+              src={groupAsset.url}
+              alt="Alfonso Rocha with a group of guests around a long shared table in Cholula"
+              loading="lazy"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </section>
 
