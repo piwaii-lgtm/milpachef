@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
 const tabs = [
-  { to: "/_authenticated/admin", label: "Bookings" },
-  { to: "/_authenticated/admin/tours", label: "Experience cards" },
+  { to: "/admin", label: "Bookings" },
+  { to: "/admin/tours", label: "Experience cards" },
 ] as const;
 
 export function AdminTabs() {
