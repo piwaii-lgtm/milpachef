@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { marketImage } from "@/lib/tour-images";
+import chefAsset from "@/assets/chef-milpa.png.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -52,10 +52,10 @@ function AboutPage() {
             ))}
           </div>
         </div>
-        <div className="aspect-[4/5] overflow-hidden rounded-md">
+        <div className="aspect-[4/5] overflow-hidden rounded-md bg-[#f2a71b]">
           <img
-            src={marketImage}
-            alt="Milpa Chef in a Cholula market"
+            src={chefAsset.url}
+            alt="Milpa Chef holding heirloom black corn in Cholula"
             loading="lazy"
             className="w-full h-full object-cover"
           />
