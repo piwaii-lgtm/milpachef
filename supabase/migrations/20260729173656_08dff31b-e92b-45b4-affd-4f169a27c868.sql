@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.bookings_validate_capacity() FROM PUBLIC, anon, authenticated;
