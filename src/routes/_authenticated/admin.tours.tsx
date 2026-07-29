@@ -36,7 +36,7 @@ function toLocalInput(iso: string) {
 function blankForm(category: "tour" | "class"): TourInput {
   const d = new Date();
   d.setDate(d.getDate() + 7);
-  d.setHours(category === "class" ? 11 : 17, 0, 0, 0);
+  d.setHours(14, 0, 0, 0);
   return {
     ...TOUR_DEFAULTS[category],
     slug: defaultSlug(category, d),

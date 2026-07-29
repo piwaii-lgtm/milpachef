@@ -57,6 +57,7 @@ const strings: Record<Lang, {
 function formatDate(iso: string, lang: Lang) {
   const locale = lang === "es" ? "es-MX" : lang === "fr" ? "fr-FR" : "en-US";
   return new Date(iso).toLocaleString(locale, {
+    timeZone: "America/Mexico_City",
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -94,7 +95,7 @@ export async function sendBookingConfirmation(input: {
   const s = strings[input.lang];
   let attachments: Array<{ filename: string; content: string }> | undefined;
   try {
-    attachments = generateTicketAttachments({
+    attachments = await generateTicketAttachments({
       guestName: input.name,
       tourTitle: input.tourTitle,
       tourDate: input.tourDate,
