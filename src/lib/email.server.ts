@@ -1,4 +1,5 @@
 // Server-only email helpers. Never import from client code.
+import { generateTicketPdf, bytesToBase64 } from "./ticket.server";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 
 type Lang = "en" | "es" | "fr";
@@ -89,7 +90,28 @@ export async function sendBookingConfirmation(input: {
     console.warn("[email] LOVABLE_API_KEY or RESEND_API_KEY missing; skipping email");
     return;
   }
+  const replyTo = process.env.REPLY_TO_EMAIL;
   const s = strings[input.lang];
+  let attachments: Array<{ filename: string; content: string }> | undefined;
+  try {
+    const pdfBytes = await generateTicketPdf({
+      guestName: input.name,
+      tourTitle: input.tourTitle,
+      tourDate: input.tourDate,
+      meetingPoint: input.meetingPoint,
+      partySize: input.partySize,
+      bookingId: input.bookingId,
+      lang: input.lang,
+    });
+    attachments = [
+      {
+        filename: `milpachef-ticket-${input.bookingId.slice(0, 8)}.pdf`,
+        content: bytesToBase64(pdfBytes),
+      },
+    ];
+  } catch (e) {
+    console.error("[email] ticket pdf generation failed (non-fatal)", e);
+  }
   const html = `
     <div style="font-family: Georgia, serif; max-width: 560px; margin: auto; color: #2a2a2a;">
       <h1 style="color: #2f4a2a; font-size: 22px;">${escapeHtml(input.tourTitle)}</h1>
@@ -117,8 +139,10 @@ export async function sendBookingConfirmation(input: {
       // TODO: swap to bookings@milpachef.com after verifying a domain in Resend.
       from: "Milpa Chef <onboarding@resend.dev>",
       to: [input.email],
+      ...(replyTo ? { reply_to: replyTo } : {}),
       subject: s.subject(input.tourTitle),
       html,
+      ...(attachments ? { attachments } : {}),
     }),
   });
   if (!response.ok) {
