@@ -61,6 +61,19 @@ function ContactPage() {
             </a>
           </dd>
         </div>
+        <div className="grid grid-cols-3 py-6 items-baseline gap-4">
+          <dt className="uppercase tracking-widest text-xs text-muted-foreground">WhatsApp</dt>
+          <dd className="col-span-2 font-serif text-2xl text-primary">
+            <a
+              href="https://wa.me/522221706820"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="hover:text-accent"
+            >
+              +52 222 170 6820
+            </a>
+          </dd>
+        </div>
         {socials.map((s) => (
           <div key={s.label} className="grid grid-cols-3 py-6 items-baseline gap-4">
             <dt className="uppercase tracking-widest text-xs text-muted-foreground">{s.label}</dt>
@@ -91,22 +104,29 @@ function ContactPage() {
         <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight mb-8">
           {t("contact.feedTitle")}
         </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-md overflow-hidden border border-border bg-card">
-            <iframe
-              title="Milpa Chef on Facebook"
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmilpachefmx%2F&tabs=timeline&width=500&height=640&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-              width="100%"
-              height={640}
-              style={{ border: "none", overflow: "hidden" }}
-              scrolling="no"
-              loading="lazy"
-              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
-            />
+        <div
+          className="rounded-md border border-border overflow-hidden"
+          style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 6%, var(--cream))" }}
+        >
+          <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-border">
+            <div>
+              <div className="font-serif text-xl text-primary leading-none">TikTok</div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                @milpachef
+              </div>
+            </div>
+            <a
+              href="https://www.tiktok.com/@milpachef"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-sm bg-primary text-primary-foreground px-4 py-2 text-xs uppercase tracking-widest hover:brightness-110"
+            >
+              {t("contact.follow")}
+            </a>
           </div>
-          <div className="rounded-md overflow-hidden border border-border bg-card p-4">
+          <div className="px-2 py-4 md:px-6 flex justify-center">
             <blockquote
-              className="tiktok-embed"
+              className="tiktok-embed w-full"
               cite="https://www.tiktok.com/@milpachef"
               data-unique-id="milpachef"
               data-embed-type="creator"
