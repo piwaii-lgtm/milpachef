@@ -10,19 +10,20 @@ import { BookingDialog } from "@/components/site/BookingDialog";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Milpa Chef — Cholula food tours led by a Slow Food chef" },
+      { title: "Milpa Chef — Cholula food tours & Mexican cooking classes" },
       {
         name: "description",
         content:
-          "Join Milpa Chef for a small-group Slow Food walking tour of Cholula, Puebla. Heirloom-corn tortillas, seasonal mole, mezcal and the producers behind them.",
+          "Culinary experiences in Cholula, Puebla with chef Alfonso Rocha Robles: small-group Slow Food walking tours (MXN $595) and hands-on Mexican cooking classes (MXN $1,295). Heirloom corn, mole poblano, mezcal.",
       },
-      { property: "og:title", content: "Milpa Chef — Cholula food tours" },
+      { property: "og:title", content: "Milpa Chef — Cholula food tours & cooking classes" },
       {
         property: "og:description",
-        content: "Small-group Slow Food walking tours in Cholula, Puebla.",
+        content: "Small-group food tours and Mexican cooking classes in Cholula, Puebla.",
       },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
