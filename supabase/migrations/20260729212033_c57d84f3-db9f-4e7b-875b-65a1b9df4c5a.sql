@@ -1,0 +1,16 @@
+insert into public.testimonials (guest_name, origin, quote_en, quote_es, quote_fr, rating, featured) values
+('Salomea Chichowska','Polonia',
+ 'The experience with MilpaChef was much more than a cooking class — it was a journey through the history of Mexico via its flavors.',
+ 'La experiencia con MilpaChef fue mucho más que una clase de cocina, fue un viaje a la historia de México a través de sus sabores.',
+ 'L''expérience avec MilpaChef a été bien plus qu''un cours de cuisine : un voyage dans l''histoire du Mexique à travers ses saveurs.',
+ 5,true),
+('Marco y Julia','Alemania',
+ 'We learned to cook, but we also understood the origin and the importance of every ingredient. Unforgettable!',
+ 'Aprendimos a cocinar, pero también entendimos el origen y la importancia de cada ingrediente. ¡Inolvidable!',
+ 'Nous avons appris à cuisiner, mais aussi compris l''origine et l''importance de chaque ingrédient. Inoubliable !',
+ 5,true),
+('Roberto y Valeria','Italia',
+ 'Incredible cultural and gastronomic experience. The dinner prepared by chef Alfonso was spectacular.',
+ 'Increíble experiencia cultural y gastronómica. La cena elaborada por el chef Alfonso fue espectacular.',
+ 'Incroyable expérience culturelle et gastronomique. Le dîner préparé par le chef Alfonso était spectaculaire.',
+ 5,true);

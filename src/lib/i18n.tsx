@@ -91,6 +91,19 @@ const en: Dict = {
   "classes.cta": "See upcoming classes",
   "classes.homeTitle": "Or cook it yourself.",
   "classes.homeBody": "If the tour left you hungry to learn, the cooking class puts you at the metate and the comal. Four hours, eight seats, one long meal together at the end.",
+  "brand.motto": "Cocina con raíz",
+  "services.title": "Eco-gastronomy services with roots and a future",
+  "services.note": "We tailor every experience to your tastes and needs: vegan, vegetarian, gluten-free or traditional cooking — always with local, seasonal ingredients.",
+  "services.experiences": "Explore the experiences",
+  "services.experiences.body": "Food tours, cooking classes and custom workshops in Cholula.",
+  "services.products": "Buy ancestral foods",
+  "services.products.body": "Native corn, beans, chiles, salts and ferments straight from producer communities.",
+  "services.advisory": "Consult my advisory",
+  "services.advisory.body": "Sustainable gastronomy, tourism and social projects — a decade directing Slow Food Mexico.",
+  "services.recipes": "Discover the MilpaChef recipe book",
+  "services.recipes.body": "Ancestral Mexican and international dishes cooked with milpa ingredients.",
+  "movement.title": "Discover the flavor of the milpa, support the local economy and join a movement for the land, culture and good eating.",
+  "movement.body": "Cooking with meaning, flavor and sustainability — exploring the ancestral foods of Puebla and Mexico through authentic experiences, cooking with history and products with identity.",
 };
 
 const es: Dict = {
@@ -180,6 +193,19 @@ const es: Dict = {
   "classes.cta": "Ver próximas clases",
   "classes.homeTitle": "O cocínalo tú.",
   "classes.homeBody": "Si el tour te dejó con ganas de aprender, la clase te pone frente al metate y al comal. Cuatro horas, ocho lugares, una comida larga al final.",
+  "brand.motto": "Cocina con raíz",
+  "services.title": "Servicios de eco-gastronomía con raíces y futuro",
+  "services.note": "Creamos experiencias personalizadas según tus gustos y necesidades: cocina vegana, vegetariana, sin gluten o tradicional, siempre con ingredientes locales y de temporada.",
+  "services.experiences": "Explora las experiencias",
+  "services.experiences.body": "Tours gastronómicos, clases de cocina y talleres personalizados en Cholula.",
+  "services.products": "Compra alimentos ancestrales",
+  "services.products.body": "Maíz nativo, frijoles, chiles, sales y fermentos directo de comunidades productoras.",
+  "services.advisory": "Consulta mi asesoría",
+  "services.advisory.body": "Gastronomía sustentable, turismo y proyectos sociales — una década dirigiendo Slow Food México.",
+  "services.recipes": "Conoce el recetario MilpaChef",
+  "services.recipes.body": "Platillos ancestrales, mexicanos e internacionales con ingredientes de la milpa.",
+  "movement.title": "Descubre el sabor de la milpa, apoya la economía local y forma parte de un movimiento por la tierra, la cultura y el buen comer.",
+  "movement.body": "Cocina con sentido, sabor y sustentabilidad: explora el mundo de los alimentos ancestrales de Puebla y México a través de experiencias auténticas, cocina con historia y productos con identidad.",
 };
 
 const fr: Dict = {
@@ -269,6 +295,19 @@ const fr: Dict = {
   "classes.cta": "Voir les prochains cours",
   "classes.homeTitle": "Ou cuisinez-le vous-même.",
   "classes.homeBody": "Si la balade vous a donné envie d'apprendre, le cours vous met devant le metate et le comal. Quatre heures, huit places, un long repas partagé à la fin.",
+  "brand.motto": "Cocina con raíz",
+  "services.title": "Services d'éco-gastronomie, entre racines et futur",
+  "services.note": "Nous créons des expériences sur mesure selon vos goûts et besoins : cuisine végane, végétarienne, sans gluten ou traditionnelle, toujours avec des ingrédients locaux et de saison.",
+  "services.experiences": "Explorez les expériences",
+  "services.experiences.body": "Balades gourmandes, cours de cuisine et ateliers sur mesure à Cholula.",
+  "services.products": "Achetez des aliments ancestraux",
+  "services.products.body": "Maïs ancien, haricots, piments, sels et ferments directement des communautés productrices.",
+  "services.advisory": "Consultez mon conseil",
+  "services.advisory.body": "Gastronomie durable, tourisme et projets sociaux — une décennie à la direction de Slow Food Mexique.",
+  "services.recipes": "Découvrez le recettaire MilpaChef",
+  "services.recipes.body": "Plats ancestraux, mexicains et internationaux cuisinés avec les ingrédients de la milpa.",
+  "movement.title": "Découvrez la saveur de la milpa, soutenez l'économie locale et rejoignez un mouvement pour la terre, la culture et le bien manger.",
+  "movement.body": "Une cuisine qui a du sens, du goût et de la durabilité : explorez les aliments ancestraux de Puebla et du Mexique à travers des expériences authentiques, une cuisine avec de l'histoire et des produits avec une identité.",
 };
 
 const dicts: Record<Lang, Dict> = { en, es, fr };

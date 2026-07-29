@@ -20,6 +20,7 @@ export function SiteFooter() {
           <p className="text-primary-foreground/70 max-w-xs text-sm leading-relaxed">
             {t("footer.tagline")}
           </p>
+          <p className="mt-3 font-serif italic text-[color:var(--corn)]">{t("brand.motto")}</p>
         </div>
         <div>
           <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mb-3">
