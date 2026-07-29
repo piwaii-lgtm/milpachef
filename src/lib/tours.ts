@@ -48,25 +48,6 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
   return (data ?? []) as Testimonial[];
 }
 
-export type BookingInput = {
-  tour_id: string;
-  guest_name: string;
-  guest_email: string;
-  party_size: number;
-  notes?: string;
-  amount_mxn: number;
-};
-
-export async function createBooking(input: BookingInput) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .insert({ ...input, status: "pending" })
-    .select("id")
-    .single();
-  if (error) throw error;
-  return data;
-}
-
 export function pickDescription(t: Tour, lang: "en" | "es" | "fr") {
   if (lang === "es") return t.description_es;
   if (lang === "fr") return t.description_fr;
