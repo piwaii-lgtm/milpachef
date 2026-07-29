@@ -10,14 +10,14 @@ export function SiteHeader() {
   const linkCls =
     "text-sm tracking-wide uppercase text-primary/70 hover:text-primary transition-colors";
   const activeCls = "text-primary";
-  const items = [
+  const items: { to: string; label: string; exact?: boolean }[] = [
     { to: "/", label: t("nav.home"), exact: true },
     { to: "/tours", label: t("nav.tours") },
     { to: "/classes", label: t("nav.classes") },
     { to: "/products", label: t("nav.products") },
     { to: "/about", label: t("nav.about") },
     { to: "/contact", label: t("nav.contact") },
-  ] as const;
+  ];
 
   return (
     <header className="border-b border-border/60 bg-background/85 backdrop-blur sticky top-0 z-40">
