@@ -145,7 +145,6 @@ function ContactPage() {
           </div>
         </div>
         <p className="text-muted-foreground text-sm mt-6">
-          {t("contact.feedNote")}{" "}
           <a
             href="https://www.instagram.com/milpachef/"
             target="_blank"
