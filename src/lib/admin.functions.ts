@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { createStripeClient, getStripeErrorMessage, type StripeEnv } from "@/lib/stripe.server";
 
 export type BookingRow = {
   id: string;
@@ -10,6 +11,7 @@ export type BookingRow = {
   amount_mxn: number;
   status: string;
   stripe_session_id: string | null;
+  stripe_payment_intent: string | null;
   paid_at: string | null;
   created_at: string;
   notes: string | null;
@@ -18,7 +20,7 @@ export type BookingRow = {
 };
 
 export type BookingStatus = {
-  status: "pending" | "paid" | "failed" | "canceled" | "unknown";
+  status: "pending" | "paid" | "failed" | "canceled" | "refunded" | "expired" | "unknown";
   tourTitle?: string;
   tourDate?: string;
   meetingPoint?: string;
@@ -28,8 +30,9 @@ export type BookingStatus = {
 };
 
 export const getBookingStatus = createServerFn({ method: "GET" })
-  .inputValidator((data: { bookingId: string }) => {
+  .inputValidator((data: { bookingId: string; token: string }) => {
     if (!/^[a-f0-9-]{36}$/i.test(data.bookingId)) throw new Error("Invalid bookingId");
+    if (!/^[a-f0-9-]{36}$/i.test(data.token)) throw new Error("Invalid token");
     return data;
   })
   .handler(async ({ data }): Promise<BookingStatus> => {
@@ -37,12 +40,15 @@ export const getBookingStatus = createServerFn({ method: "GET" })
     const { data: row, error } = await supabaseAdmin
       .from("bookings")
       .select(
-        "status, party_size, amount_mxn, guest_email, tours!inner(title, tour_date, meeting_point)",
+        "status, party_size, amount_mxn, guest_email, access_token, tours!inner(title, tour_date, meeting_point)",
       )
       .eq("id", data.bookingId)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!row) return { status: "unknown" };
+    if ((row as { access_token: string }).access_token !== data.token) {
+      return { status: "unknown" };
+    }
     const tour = row.tours as unknown as {
       title: string;
       tour_date: string;
@@ -70,10 +76,12 @@ export const listBookings = createServerFn({ method: "GET" })
     if (!isAdmin) throw new Response("Forbidden", { status: 403 });
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // Opportunistic sweep of abandoned pending bookings (>30 min).
+    await supabaseAdmin.rpc("expire_stale_bookings");
     const { data, error } = await supabaseAdmin
       .from("bookings")
       .select(
-        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, stripe_session_id, paid_at, created_at, notes, tours!inner(title, tour_date)",
+        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, stripe_session_id, stripe_payment_intent, paid_at, created_at, notes, tours!inner(title, tour_date)",
       )
       .order("paid_at", { ascending: false, nullsFirst: false })
       .order("created_at", { ascending: false })
@@ -90,6 +98,7 @@ export const listBookings = createServerFn({ method: "GET" })
         amount_mxn: r.amount_mxn,
         status: r.status,
         stripe_session_id: r.stripe_session_id,
+        stripe_payment_intent: (r as { stripe_payment_intent: string | null }).stripe_payment_intent,
         paid_at: r.paid_at,
         created_at: r.created_at,
         notes: r.notes,
@@ -97,4 +106,50 @@ export const listBookings = createServerFn({ method: "GET" })
         tour_date: tour.tour_date,
       };
     });
+  });
+
+export const cancelAndRefundBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { bookingId: string; environment: StripeEnv }) => {
+    if (!/^[a-f0-9-]{36}$/i.test(data.bookingId)) throw new Error("Invalid bookingId");
+    if (data.environment !== "sandbox" && data.environment !== "live") throw new Error("Invalid env");
+    return data;
+  })
+  .handler(async ({ data, context }): Promise<{ ok: true; refunded: boolean } | { error: string }> => {
+    const { data: isAdmin, error: roleErr } = await context.supabase.rpc("has_role", {
+      _user_id: context.userId,
+      _role: "admin",
+    });
+    if (roleErr) throw new Error(roleErr.message);
+    if (!isAdmin) throw new Response("Forbidden", { status: 403 });
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: b, error } = await supabaseAdmin
+      .from("bookings")
+      .select("id, status, stripe_payment_intent")
+      .eq("id", data.bookingId)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!b) return { error: "Booking not found" };
+    if (b.status === "refunded" || b.status === "canceled") {
+      return { ok: true, refunded: false };
+    }
+
+    // If paid, issue a Stripe refund first. Only after Stripe accepts do we mutate DB.
+    if (b.status === "paid") {
+      if (!b.stripe_payment_intent) return { error: "Missing Stripe payment intent on this booking" };
+      try {
+        const stripe = createStripeClient(data.environment);
+        await stripe.refunds.create({ payment_intent: b.stripe_payment_intent });
+      } catch (e) {
+        return { error: getStripeErrorMessage(e) };
+      }
+    }
+
+    const { data: rpcData, error: rpcErr } = await supabaseAdmin.rpc("refund_booking_and_restore", {
+      _booking_id: data.bookingId,
+    });
+    if (rpcErr) throw new Error(rpcErr.message);
+    const row = Array.isArray(rpcData) ? rpcData[0] : rpcData;
+    return { ok: true, refunded: Boolean(row?.was_paid) };
   });
