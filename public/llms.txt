@@ -1,0 +1,18 @@
+# Milpa Chef
+
+> Slow Food walking tours of Cholula, Puebla, Mexico, led by Milpa Chef. Small groups (max 10), heirloom-corn tastings, seasonal mole, mezcal, and the producers behind them. MXN $450 per person.
+
+Milpa Chef is a Cholula-based cook and Slow Food advocate. The signature offering is the Gastro Tour by Milpa Chef — a ~3-hour walking tour with six tasting stops through markets, molinos, and street vendors in San Andrés and San Pedro Cholula, in the state of Puebla, Mexico.
+
+The site is available in English, Spanish, and French. Reservations are made online; payment is completed at checkout.
+
+## Pages
+
+- [Home](/): Overview of the Gastro Tour, story, upcoming dates, testimonials.
+- [Tours](/tours): Full agenda of upcoming Gastro Tours with dates, meeting point, spots left, price (MXN $450), and online reservation.
+- [About](/about): Milpa Chef's story, Slow Food principles, sourcing philosophy.
+- [Contact](/contact): Email hola@milpachef.com and Instagram @milpachef for private tours, chef's table dinners, or custom itineraries.
+
+## Optional
+
+- [Instagram](https://www.instagram.com/milpachef/): Photos and stories from recent tours.
