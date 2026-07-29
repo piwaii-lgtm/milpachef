@@ -57,6 +57,7 @@ const strings: Record<Lang, {
 function formatDate(iso: string, lang: Lang) {
   const locale = lang === "es" ? "es-MX" : lang === "fr" ? "fr-FR" : "en-US";
   return new Date(iso).toLocaleString(locale, {
+    timeZone: "America/Mexico_City",
     weekday: "long",
     day: "numeric",
     month: "long",
