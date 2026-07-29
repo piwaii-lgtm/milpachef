@@ -35,7 +35,7 @@ export type TourInput = {
   category: "tour" | "class";
 };
 
-const ALLOWED_IMAGE_KEYS = ["hero", "tortillas", "street", "mezcal", "market", "class", "class-cooking", "class-market", "class-dish", "chef-milpa"];
+const ALLOWED_IMAGE_KEYS = ["hero", "tortillas", "street", "mezcal", "market", "class", "class-cooking", "class-market", "class-dish", "class-coaster", "chef-milpa"];
 const ALLOWED_CATEGORIES = ["tour", "class"] as const;
 
 function validate(input: TourInput): TourInput {
