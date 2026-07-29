@@ -10,6 +10,7 @@ export type BookingRow = {
   party_size: number;
   amount_mxn: number;
   status: string;
+  guest_language: string;
   stripe_session_id: string | null;
   stripe_payment_intent: string | null;
   paid_at: string | null;
@@ -82,7 +83,7 @@ export const listBookings = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("bookings")
       .select(
-        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, stripe_session_id, stripe_payment_intent, paid_at, created_at, notes, tours!inner(title, tour_date)",
+        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, guest_language, stripe_session_id, stripe_payment_intent, paid_at, created_at, notes, tours!inner(title, tour_date)",
       )
       .order("paid_at", { ascending: false, nullsFirst: false })
       .order("created_at", { ascending: false })
@@ -98,6 +99,7 @@ export const listBookings = createServerFn({ method: "GET" })
         party_size: r.party_size,
         amount_mxn: r.amount_mxn,
         status: r.status,
+        guest_language: (r as { guest_language: string | null }).guest_language ?? "en",
         stripe_session_id: r.stripe_session_id,
         stripe_payment_intent: (r as { stripe_payment_intent: string | null }).stripe_payment_intent,
         paid_at: r.paid_at,
