@@ -11,10 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as ReserveRouteImport } from './routes/reserve'
+import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConsultingRouteImport } from './routes/consulting'
 import { Route as ClassesRouteImport } from './routes/classes'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -34,14 +39,34 @@ const ReserveRoute = ReserveRouteImport.update({
   path: '/reserve',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsultingRoute = ConsultingRouteImport.update({
+  id: '/consulting',
+  path: '/consulting',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClassesRoute = ClassesRouteImport.update({
@@ -52,6 +77,11 @@ const ClassesRoute = ClassesRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -98,10 +128,15 @@ const ApiPublicPaymentsWebhookRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
+  '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/impact': typeof ImpactRoute
+  '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
+  '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -113,10 +148,15 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
+  '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/impact': typeof ImpactRoute
+  '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
+  '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -130,10 +170,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/academy': typeof AcademyRoute
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
+  '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/impact': typeof ImpactRoute
+  '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
+  '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -147,10 +192,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/academy'
     | '/auth'
     | '/classes'
+    | '/consulting'
     | '/contact'
+    | '/impact'
+    | '/platform'
     | '/products'
+    | '/research'
     | '/reserve'
     | '/tours'
     | '/booking/checkout'
@@ -162,10 +212,15 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/academy'
     | '/auth'
     | '/classes'
+    | '/consulting'
     | '/contact'
+    | '/impact'
+    | '/platform'
     | '/products'
+    | '/research'
     | '/reserve'
     | '/tours'
     | '/booking/checkout'
@@ -178,10 +233,15 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/academy'
     | '/auth'
     | '/classes'
+    | '/consulting'
     | '/contact'
+    | '/impact'
+    | '/platform'
     | '/products'
+    | '/research'
     | '/reserve'
     | '/tours'
     | '/booking/checkout'
@@ -195,10 +255,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AcademyRoute: typeof AcademyRoute
   AuthRoute: typeof AuthRoute
   ClassesRoute: typeof ClassesRoute
+  ConsultingRoute: typeof ConsultingRoute
   ContactRoute: typeof ContactRoute
+  ImpactRoute: typeof ImpactRoute
+  PlatformRoute: typeof PlatformRoute
   ProductsRoute: typeof ProductsRoute
+  ResearchRoute: typeof ResearchRoute
   ReserveRoute: typeof ReserveRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
@@ -222,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReserveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -229,11 +301,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform': {
+      id: '/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consulting': {
+      id: '/consulting'
+      path: '/consulting'
+      fullPath: '/consulting'
+      preLoaderRoute: typeof ConsultingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/classes': {
@@ -248,6 +341,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -326,10 +426,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AcademyRoute: AcademyRoute,
   AuthRoute: AuthRoute,
   ClassesRoute: ClassesRoute,
+  ConsultingRoute: ConsultingRoute,
   ContactRoute: ContactRoute,
+  ImpactRoute: ImpactRoute,
+  PlatformRoute: PlatformRoute,
   ProductsRoute: ProductsRoute,
+  ResearchRoute: ResearchRoute,
   ReserveRoute: ReserveRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
@@ -339,3 +444,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

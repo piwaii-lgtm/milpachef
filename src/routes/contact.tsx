@@ -50,7 +50,8 @@ function ContactPage() {
       <h1 className="font-serif text-4xl md:text-6xl text-primary leading-tight mb-6">
         {t("contact.title")}
       </h1>
-      <p className="text-muted-foreground text-lg mb-10">{t("contact.body")}</p>
+      <p className="text-muted-foreground text-lg mb-3">{t("contact.body")}</p>
+      <p className="text-muted-foreground mb-10">{t("contact.enquiry")}</p>
 
       <dl className="divide-y divide-border border-y border-border">
         <div className="grid grid-cols-3 py-6 items-baseline gap-4">
@@ -59,6 +60,14 @@ function ContactPage() {
             <a href="mailto:alfonso@milpachef.com" className="hover:text-accent">
               alfonso@milpachef.com
             </a>
+          </dd>
+        </div>
+        <div className="grid grid-cols-3 py-6 items-baseline gap-4">
+          <dt className="uppercase tracking-widest text-xs text-muted-foreground">
+            {t("contact.address.label")}
+          </dt>
+          <dd className="col-span-2 font-serif text-2xl text-primary">
+            <address className="not-italic">{t("contact.address")}</address>
           </dd>
         </div>
         <div className="grid grid-cols-3 py-6 items-baseline gap-4">
