@@ -209,13 +209,6 @@ export type Database = {
         }[]
       }
       expire_stale_bookings: { Args: never; Returns: number }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
       mark_booking_failed: { Args: { _booking_id: string }; Returns: undefined }
       refund_booking_and_restore: {
         Args: { _booking_id: string }
