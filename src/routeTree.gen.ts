@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ClassesRouteImport } from './routes/classes'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -25,6 +26,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
+  '/products': typeof ProductsRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
+  '/products': typeof ProductsRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
+  '/products': typeof ProductsRoute
   '/tours': typeof ToursRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/classes'
     | '/contact'
+    | '/products'
     | '/tours'
     | '/admin'
     | '/booking/checkout'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/classes'
     | '/contact'
+    | '/products'
     | '/tours'
     | '/admin'
     | '/booking/checkout'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/classes'
     | '/contact'
+    | '/products'
     | '/tours'
     | '/_authenticated/admin'
     | '/booking/checkout'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ClassesRoute: typeof ClassesRoute
   ContactRoute: typeof ContactRoute
+  ProductsRoute: typeof ProductsRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -298,6 +318,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ClassesRoute: ClassesRoute,
   ContactRoute: ContactRoute,
+  ProductsRoute: ProductsRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,
@@ -306,13 +327,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

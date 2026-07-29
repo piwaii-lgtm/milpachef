@@ -31,6 +31,9 @@ export function SiteHeader() {
           <Link to="/classes" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.classes")}
           </Link>
+          <Link to="/products" className={linkCls} activeProps={{ className: activeCls }}>
+            {t("nav.products")}
+          </Link>
           <Link to="/about" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.about")}
           </Link>
