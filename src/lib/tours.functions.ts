@@ -68,12 +68,15 @@ function validate(input: TourInput): TourInput {
 }
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data: isAdmin, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("user_roles")
+    .select("user_id")
+    .eq("user_id", context.userId)
+    .eq("role", "admin")
+    .maybeSingle();
   if (error) throw new Error(error.message);
-  if (!isAdmin) throw new Response("Forbidden", { status: 403 });
+  if (!data) throw new Response("Forbidden", { status: 403 });
 }
 
 export const listAllTours = createServerFn({ method: "GET" })
