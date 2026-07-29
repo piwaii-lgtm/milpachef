@@ -15,6 +15,7 @@ export function SiteHeader() {
     { to: "/tours", label: t("nav.tours") },
     { to: "/classes", label: t("nav.classes") },
     { to: "/products", label: t("nav.products") },
+    { to: "/platform", label: t("nav.platform") },
     { to: "/about", label: t("nav.about") },
     { to: "/contact", label: t("nav.contact") },
   ];
@@ -44,6 +45,9 @@ export function SiteHeader() {
           </Link>
           <Link to="/products" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.products")}
+          </Link>
+          <Link to="/platform" className={linkCls} activeProps={{ className: activeCls }}>
+            {t("nav.platform")}
           </Link>
           <Link to="/about" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.about")}

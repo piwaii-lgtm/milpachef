@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { getAreas } from "@/lib/platform";
 import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
 
 export function SiteFooter() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <footer
       className="mt-24 text-primary-foreground"
@@ -40,6 +41,23 @@ export function SiteFooter() {
         </div>
         <div>
           <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mb-3">
+            {t("platform.areas")}
+          </div>
+          <ul className="space-y-2 text-sm">
+            {getAreas(lang).map((a) => (
+              <li key={a.slug}>
+                <Link to={a.to} className="hover:text-[color:var(--corn)]">
+                  {a.title}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to="/platform" className="hover:text-[color:var(--corn)]">
+                {t("nav.platform")}
+              </Link>
+            </li>
+          </ul>
+          <div className="uppercase tracking-widest text-xs text-primary-foreground/50 mt-6 mb-3">
             {t("footer.company")}
           </div>
           <ul className="space-y-2 text-sm">
@@ -53,7 +71,7 @@ export function SiteFooter() {
             {t("contact.title")}
           </div>
           <ul className="space-y-2 text-sm">
-            <li>Cholula, Puebla · México</li>
+            <li>4 Poniente #722, Col. Centro<br />San Pedro Cholula, Puebla · México</li>
             <li><a href="mailto:alfonso@milpachef.com" className="hover:text-[color:var(--corn)]">alfonso@milpachef.com</a></li>
             <li>
               <a

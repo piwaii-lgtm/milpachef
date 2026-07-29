@@ -1,20 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { pillars, philosophy } from "@/lib/platform";
 import chefAsset from "@/assets/chef-milpa.png.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Milpa Chef — Slow Food in Cholula" },
+      { title: "About MilpaChef — Alfonso Rocha, chef & anthropologist" },
       {
         name: "description",
         content:
-          "Milpa Chef is a Cholula-based cook and Slow Food advocate leading small-group food tours that put producers, native corn and sustainability first.",
+          "Alfonso Rocha is a chef, anthropologist and sustainable gastronomy specialist with over seventeen years working with rural communities, producers and universities across Mexico. MilpaChef is his platform for food heritage.",
       },
-      { property: "og:title", content: "About Milpa Chef" },
+      { property: "og:title", content: "About MilpaChef — Alfonso Rocha" },
       {
         property: "og:description",
-        content: "A Cholula-based cook and Slow Food advocate.",
+        content: "Chef, anthropologist and specialist in sustainable Mexican gastronomy.",
       },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "profile" },
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="container-editorial py-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-16 items-start">
@@ -60,6 +61,58 @@ function AboutPage() {
             className="w-full h-full object-cover"
           />
         </div>
+      </div>
+
+      {/* Philosophy */}
+      <div className="mt-24 grid md:grid-cols-2 gap-14 items-start">
+        <div>
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+            {t("philosophy.label")}
+          </div>
+          <div className="font-serif text-3xl md:text-4xl text-primary leading-tight space-y-2">
+            {philosophy[lang].map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+            {t("chef.label")}
+          </div>
+          <p className="text-muted-foreground leading-relaxed text-lg">{t("chef.body")}</p>
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mt-10 mb-4">
+            {t("tone.label")}
+          </div>
+          <p className="text-muted-foreground leading-relaxed">{t("tone.body")}</p>
+        </div>
+      </div>
+
+      {/* Pillars */}
+      <div className="mt-24">
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mb-10">
+          {t("pillars.label")}
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {pillars[lang].map((p) => (
+            <div key={p.title}>
+              <div className="w-8 h-px bg-accent mb-3" />
+              <h2 className="font-serif text-2xl text-primary mb-1">{p.title}</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mission & vision */}
+      <div className="mt-24 grid md:grid-cols-2 gap-14">
+        {(["mission", "vision"] as const).map((k) => (
+          <div key={k}>
+            <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+              {t(`${k}.label`)}
+            </div>
+            <p className="font-serif text-2xl text-primary leading-snug">{t(`${k}.body`)}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

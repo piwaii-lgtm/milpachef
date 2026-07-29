@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
 import { heroImage, marketImage, classImage } from "@/lib/tour-images";
+import { getAreas, philosophy } from "@/lib/platform";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
@@ -99,48 +100,49 @@ function Home() {
         </div>
       </section>
 
-      {/* About / pillars */}
-      {/* Services */}
-      <section className="container-editorial py-20 md:py-24">
-        <h2 className="font-serif text-3xl md:text-4xl text-primary text-center max-w-3xl mx-auto leading-tight">
-          {t("services.title")}
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {[
-            { key: "experiences", to: "/reserve" as const },
-            { key: "products", to: "/products" as const },
-            { key: "advisory", to: "/contact" as const },
-          ].map(({ key, to }) => (
+      {/* Manifesto — more than a food tour */}
+      <section className="container-editorial py-20 md:py-28">
+        <div className="grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
+          <div className="font-serif text-3xl md:text-4xl text-primary leading-tight space-y-2">
+            {philosophy[lang].map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+          <div>
+            <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+              {t("platform.eyebrow")}
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">
+              {t("platform.title")}
+            </h2>
+            <p className="text-muted-foreground mt-5 leading-relaxed text-lg">
+              {t("platform.lead")}
+            </p>
             <Link
-              key={key}
-              to={to}
-              className="border-t-2 border-accent pt-4 group"
+              to="/platform"
+              className="mt-6 inline-flex text-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-[color:var(--milpa-deep)]"
             >
-              <div className="font-serif text-xl text-primary group-hover:text-[color:var(--milpa-deep)]">
-                {t(`services.${key}`)}
+              {t("nav.platform")} →
+            </Link>
+          </div>
+        </div>
+
+        {/* Six areas */}
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mt-20 mb-8">
+          {t("platform.areas")}
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {getAreas(lang).map((a) => (
+            <Link key={a.slug} to={a.to} className="border-t-2 border-accent pt-4 group">
+              <div className="text-xs tracking-widest text-muted-foreground mb-1">{a.number}</div>
+              <div className="font-serif text-2xl text-primary group-hover:text-[color:var(--milpa-deep)]">
+                {a.title}
               </div>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                {t(`services.${key}.body`)}
-              </p>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{a.tagline}</p>
             </Link>
           ))}
-          <a
-            href="https://www.instagram.com/milpachef/"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="border-t-2 border-accent pt-4 group"
-          >
-            <div className="font-serif text-xl text-primary group-hover:text-[color:var(--milpa-deep)]">
-              {t("services.recipes")}
-            </div>
-            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-              {t("services.recipes.body")}
-            </p>
-          </a>
         </div>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto mt-12">
-          {t("services.note")}
-        </p>
+        <p className="text-muted-foreground max-w-3xl mt-12">{t("services.note")}</p>
       </section>
 
       <section className="container-editorial py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
