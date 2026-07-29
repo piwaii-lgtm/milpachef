@@ -30,12 +30,20 @@ function AuthPage() {
     e.preventDefault();
     setLoading(true);
     try {
+      // staff can type a plain username (e.g. "admin"); map it to the staff mailbox
+      const identifier = email.trim().toLowerCase();
+      const resolvedEmail = identifier.includes("@")
+        ? identifier
+        : `${identifier}@milpachef.com`;
       if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({
+          email: resolvedEmail,
+          password,
+        });
         if (error) throw error;
       } else {
         const { error } = await supabase.auth.signUp({
-          email,
+          email: resolvedEmail,
           password,
           options: { emailRedirectTo: `${window.location.origin}/admin` },
         });
@@ -61,11 +69,13 @@ function AuthPage() {
       <form onSubmit={submit} className="space-y-4">
         <div>
           <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
-            Email
+            Username or email
           </label>
           <input
             required
-            type="email"
+            type="text"
+            autoComplete="username"
+            placeholder="admin"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full border border-input bg-background rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
