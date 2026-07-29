@@ -38,7 +38,7 @@ export function SiteFooter() {
           </div>
           <ul className="space-y-2 text-sm">
             <li>Cholula, Puebla · México</li>
-            <li><a href="mailto:hola@milpachef.com" className="hover:text-[color:var(--corn)]">hola@milpachef.com</a></li>
+            <li><a href="mailto:alfonso@milpachef.com" className="hover:text-[color:var(--corn)]">alfonso@milpachef.com</a></li>
             <li>
               <a
                 href="https://www.instagram.com/milpachef/"
@@ -46,7 +46,27 @@ export function SiteFooter() {
                 rel="noreferrer noopener"
                 className="hover:text-[color:var(--corn)]"
               >
-                @milpachef
+                Instagram · @milpachef
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/milpachefmx/"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:text-[color:var(--corn)]"
+              >
+                Facebook · /milpachefmx
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.tiktok.com/@milpachef"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:text-[color:var(--corn)]"
+              >
+                TikTok · @milpachef
               </a>
             </li>
           </ul>
