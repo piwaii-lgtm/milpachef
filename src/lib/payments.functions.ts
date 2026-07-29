@@ -6,7 +6,7 @@ import {
 } from "@/lib/stripe.server";
 
 export type CheckoutResult =
-  | { clientSecret: string; bookingId: string }
+  | { clientSecret: string; bookingId: string; accessToken: string }
   | { error: string };
 
 export const startCheckout = createServerFn({ method: "POST" })
@@ -71,9 +71,12 @@ export const startCheckout = createServerFn({ method: "POST" })
           currency: "mxn",
           status: "pending",
         })
-        .select("id")
+        .select("id, access_token")
         .single();
       if (insertError || !booking) throw new Error(insertError?.message ?? "Booking insert failed");
+
+      // Best-effort sweep of stale pending bookings so admin views stay tidy.
+      supabaseAdmin.rpc("expire_stale_bookings").then(() => {}, () => {});
 
       // Create Stripe embedded session
       const stripe = createStripeClient(data.environment);
@@ -109,7 +112,11 @@ export const startCheckout = createServerFn({ method: "POST" })
         .update({ stripe_session_id: session.id })
         .eq("id", booking.id);
 
-      return { clientSecret: session.client_secret ?? "", bookingId: booking.id };
+      return {
+        clientSecret: session.client_secret ?? "",
+        bookingId: booking.id,
+        accessToken: (booking as { access_token: string }).access_token,
+      };
     } catch (error) {
       console.error("[startCheckout]", error);
       return { error: getStripeErrorMessage(error) };
