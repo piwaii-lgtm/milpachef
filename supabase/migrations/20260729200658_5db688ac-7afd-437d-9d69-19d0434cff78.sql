@@ -1,0 +1,1 @@
+ALTER TABLE public.bookings ADD COLUMN IF NOT EXISTS guest_language text NOT NULL DEFAULT 'en' CHECK (guest_language IN ('en','es','fr'));
