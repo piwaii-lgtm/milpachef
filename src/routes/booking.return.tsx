@@ -15,13 +15,14 @@ export const Route = createFileRoute("/booking/return")({
   validateSearch: (s: Record<string, unknown>) => ({
     session_id: typeof s.session_id === "string" ? s.session_id : undefined,
     bookingId: typeof s.bookingId === "string" ? s.bookingId : undefined,
+    t: typeof s.t === "string" ? s.t : undefined,
   }),
   component: BookingReturn,
 });
 
 function BookingReturn() {
   const { t } = useI18n();
-  const { session_id, bookingId } = Route.useSearch();
+  const { session_id, bookingId, t: token } = Route.useSearch();
   const fetchStatus = useServerFn(getBookingStatus);
 
   useEffect(() => {
@@ -31,9 +32,9 @@ function BookingReturn() {
   }, [bookingId]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["booking-status", bookingId],
-    queryFn: () => fetchStatus({ data: { bookingId: bookingId! } }),
-    enabled: !!bookingId,
+    queryKey: ["booking-status", bookingId, token],
+    queryFn: () => fetchStatus({ data: { bookingId: bookingId!, token: token! } }),
+    enabled: !!bookingId && !!token,
     // Poll a few times so slow webhooks catch up
     refetchInterval: (q) => (q.state.data?.status === "paid" ? false : 2000),
     refetchIntervalInBackground: false,
