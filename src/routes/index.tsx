@@ -254,21 +254,28 @@ function Home() {
               key={tt.id}
               className="border-l-2 border-accent pl-6 py-2 flex gap-5 items-start"
             >
-              {guestPhotos[tt.guest_name] && (
+              {guestPhotos[tt.guest_name] ? (
                 <img
                   src={guestPhotos[tt.guest_name]}
                   alt={`${tt.guest_name}, guest of Milpa Chef`}
                   loading="lazy"
                   className="w-16 h-16 shrink-0 rounded-full object-cover"
                 />
+              ) : (
+                <div
+                  aria-hidden
+                  className="w-16 h-16 shrink-0 rounded-full bg-accent/15 text-accent font-serif text-2xl flex items-center justify-center"
+                >
+                  {tt.guest_name.charAt(0)}
+                </div>
               )}
-              <div>
-              <blockquote className="font-serif text-2xl text-primary leading-snug italic">
-                “{pickQuote(tt, lang)}”
-              </blockquote>
-              <figcaption className="mt-4 text-sm text-muted-foreground uppercase tracking-widest">
-                {tt.guest_name} · {tt.origin}
-              </figcaption>
+              <div className="flex-1">
+                <blockquote className="font-serif text-2xl text-primary leading-snug italic">
+                  “{pickQuote(tt, lang)}”
+                </blockquote>
+                <figcaption className="mt-4 text-sm text-muted-foreground uppercase tracking-widest">
+                  {tt.guest_name} · {tt.origin}
+                </figcaption>
               </div>
             </figure>
           ))}
