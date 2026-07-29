@@ -68,14 +68,15 @@ export const getBookingStatus = createServerFn({ method: "GET" })
 export const listBookings = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<BookingRow[]> => {
-    const { data: isAdmin, error: roleErr } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    if (roleErr) throw new Error(roleErr.message);
-    if (!isAdmin) throw new Response("Forbidden", { status: 403 });
-
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: roleRow, error: roleErr } = await supabaseAdmin
+      .from("user_roles")
+      .select("user_id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (roleErr) throw new Error(roleErr.message);
+    if (!roleRow) throw new Response("Forbidden", { status: 403 });
     // Opportunistic sweep of abandoned pending bookings (>30 min).
     await supabaseAdmin.rpc("expire_stale_bookings");
     const { data, error } = await supabaseAdmin
@@ -116,14 +117,15 @@ export const cancelAndRefundBooking = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data, context }): Promise<{ ok: true; refunded: boolean } | { error: string }> => {
-    const { data: isAdmin, error: roleErr } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    if (roleErr) throw new Error(roleErr.message);
-    if (!isAdmin) throw new Response("Forbidden", { status: 403 });
-
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: roleRow, error: roleErr } = await supabaseAdmin
+      .from("user_roles")
+      .select("user_id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (roleErr) throw new Error(roleErr.message);
+    if (!roleRow) throw new Response("Forbidden", { status: 403 });
     const { data: b, error } = await supabaseAdmin
       .from("bookings")
       .select("id, status, stripe_payment_intent")
