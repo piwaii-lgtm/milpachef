@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AdminTabs } from "@/components/site/AdminTabs";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -73,9 +74,6 @@ function AdminPage() {
           <button onClick={() => refetch()} className="text-sm underline text-primary">
             Refresh
           </button>
-          <Link to="/_authenticated/admin/tours" className="text-sm underline text-primary">
-            Manage tours
-          </Link>
           <Link to="/" className="text-sm underline text-muted-foreground">
             Site
           </Link>
@@ -84,6 +82,8 @@ function AdminPage() {
           </button>
         </div>
       </div>
+
+      <AdminTabs />
 
       {isLoading && <p className="text-muted-foreground">Loading…</p>}
       {error && (

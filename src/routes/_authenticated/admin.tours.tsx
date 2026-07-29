@@ -14,6 +14,7 @@ import {
   type TourInput,
 } from "@/lib/tours.functions";
 import { TOUR_DEFAULTS, defaultSlug } from "@/lib/tour-defaults";
+import { AdminTabs } from "@/components/site/AdminTabs";
 import { tourImages } from "@/lib/tour-images";
 
 export const Route = createFileRoute("/_authenticated/admin/tours")({
@@ -155,11 +156,12 @@ function ManageToursPage() {
           </p>
         </div>
         <div className="flex gap-4 text-sm">
-          <Link to="/_authenticated/admin" className="underline text-primary">Bookings</Link>
           <Link to="/tours" className="underline text-muted-foreground">Public agenda</Link>
           <Link to="/" className="underline text-muted-foreground">Site</Link>
         </div>
       </div>
+
+      <AdminTabs />
 
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="flex gap-1 border border-border rounded-sm p-1 bg-card">
