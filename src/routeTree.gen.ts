@@ -20,7 +20,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookingReturnRouteImport } from './routes/booking.return'
 import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
@@ -78,15 +78,15 @@ const BookingCheckoutRoute = BookingCheckoutRouteImport.update({
   path: '/booking/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminToursRoute = AuthenticatedAdminToursRouteImport.update({
-  id: '/tours',
-  path: '/tours',
-  getParentRoute: () => AuthenticatedAdminRoute,
+  id: '/admin/tours',
+  path: '/admin/tours',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
@@ -104,10 +104,10 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -119,10 +119,10 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
@@ -136,10 +136,10 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
   '/_authenticated/admin/tours': typeof AuthenticatedAdminToursRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
@@ -153,10 +153,10 @@ export interface FileRouteTypes {
     | '/products'
     | '/reserve'
     | '/tours'
-    | '/admin'
     | '/booking/checkout'
     | '/booking/return'
     | '/admin/tours'
+    | '/admin/'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -168,10 +168,10 @@ export interface FileRouteTypes {
     | '/products'
     | '/reserve'
     | '/tours'
-    | '/admin'
     | '/booking/checkout'
     | '/booking/return'
     | '/admin/tours'
+    | '/admin'
     | '/api/public/payments/webhook'
   id:
     | '__root__'
@@ -184,10 +184,10 @@ export interface FileRouteTypes {
     | '/products'
     | '/reserve'
     | '/tours'
-    | '/_authenticated/admin'
     | '/booking/checkout'
     | '/booking/return'
     | '/_authenticated/admin/tours'
+    | '/_authenticated/admin/'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -285,19 +285,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
       path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/tours': {
       id: '/_authenticated/admin/tours'
-      path: '/tours'
+      path: '/admin/tours'
       fullPath: '/admin/tours'
       preLoaderRoute: typeof AuthenticatedAdminToursRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
@@ -309,23 +309,14 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
-  AuthenticatedAdminToursRoute: typeof AuthenticatedAdminToursRoute
-}
-
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminToursRoute: AuthenticatedAdminToursRoute,
-}
-
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
-
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedAdminToursRoute: typeof AuthenticatedAdminToursRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedAdminToursRoute: AuthenticatedAdminToursRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -348,3 +339,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
