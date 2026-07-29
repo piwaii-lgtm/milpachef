@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       bookings: {
         Row: {
+          access_token: string
           amount_mxn: number
           created_at: string
           currency: string
@@ -32,6 +33,7 @@ export type Database = {
           unit_price_mxn: number | null
         }
         Insert: {
+          access_token?: string
           amount_mxn: number
           created_at?: string
           currency?: string
@@ -48,6 +50,7 @@ export type Database = {
           unit_price_mxn?: number | null
         }
         Update: {
+          access_token?: string
           amount_mxn?: number
           created_at?: string
           currency?: string
@@ -205,6 +208,7 @@ export type Database = {
           tour_title: string
         }[]
       }
+      expire_stale_bookings: { Args: never; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -213,6 +217,15 @@ export type Database = {
         Returns: boolean
       }
       mark_booking_failed: { Args: { _booking_id: string }; Returns: undefined }
+      refund_booking_and_restore: {
+        Args: { _booking_id: string }
+        Returns: {
+          booking_id: string
+          party_size: number
+          tour_id: string
+          was_paid: boolean
+        }[]
+      }
     }
     Enums: {
       app_role: "admin"
