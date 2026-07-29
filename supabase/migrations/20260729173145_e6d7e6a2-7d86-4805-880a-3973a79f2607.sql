@@ -1,0 +1,1 @@
+UPDATE public.tours SET price_mxn = 595;
