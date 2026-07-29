@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
-import { heroImage, marketImage } from "@/lib/tour-images";
+import { heroImage, marketImage, classImage } from "@/lib/tour-images";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 
@@ -33,6 +33,10 @@ function Home() {
   const { t, lang } = useI18n();
   const [booking, setBooking] = useState<Tour | null>(null);
   const { data: tours = [] } = useQuery({ queryKey: ["tours"], queryFn: () => fetchTours(3) });
+  const { data: classes = [] } = useQuery({
+    queryKey: ["tours", "classes", "home"],
+    queryFn: () => fetchTours(3, "class"),
+  });
   const { data: testimonials = [] } = useQuery({
     queryKey: ["testimonials"],
     queryFn: fetchTestimonials,
@@ -148,6 +152,39 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Cooking classes */}
+      {classes.length > 0 && (
+        <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
+          <div className="absolute inset-0 opacity-25">
+            <img src={classImage} alt="" className="w-full h-full object-cover" />
+          </div>
+          <div className="relative container-editorial py-24 md:py-32 text-primary-foreground">
+            <div className="flex items-end justify-between mb-12 gap-6 flex-wrap">
+              <div className="max-w-xl">
+                <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-3">
+                  {t("classes.eyebrow")}
+                </div>
+                <h2 className="font-serif text-4xl md:text-5xl leading-tight">
+                  {t("classes.homeTitle")}
+                </h2>
+                <p className="text-primary-foreground/80 mt-3">{t("classes.homeBody")}</p>
+              </div>
+              <Link
+                to="/classes"
+                className="inline-flex items-center text-sm uppercase tracking-widest text-[color:var(--corn)] border-b border-[color:var(--corn)] pb-1 hover:brightness-95"
+              >
+                {t("classes.cta")} →
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              {classes.map((tour) => (
+                <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Testimonials */}
       <section className="container-editorial py-24 md:py-32">

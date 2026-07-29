@@ -14,6 +14,7 @@ export type Tour = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  category: "tour" | "class";
 };
 
 export type Testimonial = {
@@ -26,14 +27,16 @@ export type Testimonial = {
   rating: number;
 };
 
-export async function fetchTours(limit = 12): Promise<Tour[]> {
+export async function fetchTours(limit = 12, category?: "tour" | "class"): Promise<Tour[]> {
   const nowIso = new Date().toISOString();
-  const { data, error } = await supabase
+  let q = supabase
     .from("tours")
     .select("*")
     .gte("tour_date", nowIso)
     .order("tour_date", { ascending: true })
     .limit(limit);
+  if (category) q = q.eq("category", category);
+  const { data, error } = await q;
   if (error) throw error;
   return (data ?? []) as Tour[];
 }

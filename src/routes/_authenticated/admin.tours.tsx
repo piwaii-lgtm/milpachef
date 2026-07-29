@@ -9,6 +9,7 @@ import {
   updateTour,
   deleteTour,
   IMAGE_KEYS,
+  CATEGORIES,
   type AdminTour,
   type TourInput,
 } from "@/lib/tours.functions";
@@ -36,6 +37,7 @@ const empty: TourInput = {
   description_es: "",
   description_fr: "",
   image_key: "hero",
+  category: "tour",
 };
 
 function toLocalInput(iso: string) {
@@ -74,6 +76,7 @@ function ManageToursPage() {
         description_es: editing.description_es,
         description_fr: editing.description_fr,
         image_key: editing.image_key,
+        category: editing.category ?? "tour",
       });
     } else {
       setForm(empty);
@@ -175,6 +178,18 @@ function ManageToursPage() {
           <Field label="Cover image">
             <select className={inputCls} value={form.image_key} onChange={(e) => set("image_key", e.target.value)}>
               {IMAGE_KEYS.map((k) => <option key={k} value={k}>{k}</option>)}
+            </select>
+          </Field>
+
+          <Field label="Category">
+            <select
+              className={inputCls}
+              value={form.category}
+              onChange={(e) => set("category", e.target.value as "tour" | "class")}
+            >
+              {CATEGORIES.map((c) => (
+                <option key={c} value={c}>{c === "tour" ? "Food tour" : "Cooking class"}</option>
+              ))}
             </select>
           </Field>
 

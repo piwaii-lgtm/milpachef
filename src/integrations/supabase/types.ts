@@ -115,6 +115,7 @@ export type Database = {
       tours: {
         Row: {
           capacity: number
+          category: string
           created_at: string
           description_en: string
           description_es: string
@@ -131,6 +132,7 @@ export type Database = {
         }
         Insert: {
           capacity?: number
+          category?: string
           created_at?: string
           description_en: string
           description_es: string
@@ -147,6 +149,7 @@ export type Database = {
         }
         Update: {
           capacity?: number
+          category?: string
           created_at?: string
           description_en?: string
           description_es?: string
