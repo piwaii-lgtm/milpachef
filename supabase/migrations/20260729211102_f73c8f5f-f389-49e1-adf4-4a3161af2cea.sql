@@ -1,0 +1,1 @@
+UPDATE public.tours SET image_key = 'class-coaster' WHERE slug = 'cooking-class-antojitos-2026-08-24';
