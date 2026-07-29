@@ -61,6 +61,19 @@ function ContactPage() {
             </a>
           </dd>
         </div>
+        <div className="grid grid-cols-3 py-6 items-baseline gap-4">
+          <dt className="uppercase tracking-widest text-xs text-muted-foreground">WhatsApp</dt>
+          <dd className="col-span-2 font-serif text-2xl text-primary">
+            <a
+              href="https://wa.me/522221706820"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="hover:text-accent"
+            >
+              +52 222 170 6820
+            </a>
+          </dd>
+        </div>
         {socials.map((s) => (
           <div key={s.label} className="grid grid-cols-3 py-6 items-baseline gap-4">
             <dt className="uppercase tracking-widest text-xs text-muted-foreground">{s.label}</dt>
