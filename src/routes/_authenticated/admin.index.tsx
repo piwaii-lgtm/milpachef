@@ -8,7 +8,7 @@ import { listBookings, cancelAndRefundBooking } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { getStripeEnvironment } from "@/lib/stripe";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
       { title: "Admin — Milpa Chef" },
