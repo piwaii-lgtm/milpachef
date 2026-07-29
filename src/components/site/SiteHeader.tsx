@@ -59,7 +59,7 @@ export function SiteHeader() {
             ))}
           </div>
           <Link
-            to="/tours"
+            to="/reserve"
             className="hidden sm:inline-flex items-center rounded-sm bg-primary text-primary-foreground text-sm px-4 py-2 hover:bg-[color:var(--milpa-deep)] transition-colors"
           >
             {t("nav.book")}
