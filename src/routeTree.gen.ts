@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ClassesRouteImport } from './routes/classes'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -29,6 +30,11 @@ const ToursRoute = ToursRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/classes'
     | '/contact'
     | '/tours'
     | '/admin'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/classes'
     | '/contact'
     | '/tours'
     | '/admin'
@@ -146,6 +157,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/classes'
     | '/contact'
     | '/tours'
     | '/_authenticated/admin'
@@ -160,6 +172,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  ClassesRoute: typeof ClassesRoute
   ContactRoute: typeof ContactRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -276,6 +296,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  ClassesRoute: ClassesRoute,
   ContactRoute: ContactRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
