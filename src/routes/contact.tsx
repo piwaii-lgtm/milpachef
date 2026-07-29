@@ -1,5 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
+
+const socials = [
+  { label: "Instagram", href: "https://www.instagram.com/milpachef/", handle: "@milpachef" },
+  { label: "Facebook", href: "https://www.facebook.com/milpachefmx/", handle: "/milpachefmx" },
+  { label: "TikTok", href: "https://www.tiktok.com/@milpachef", handle: "@milpachef" },
+];
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -25,6 +32,16 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { t } = useI18n();
+
+  useEffect(() => {
+    const src = "https://www.tiktok.com/embed.js";
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
+
   return (
     <section className="container-editorial py-16 md:py-24 max-w-3xl">
       <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
