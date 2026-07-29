@@ -1,105 +1,54 @@
+## Goal
+Link your existing Stripe account to this project, reuse its products/prices for the Gastro Tour, and enable full tax/compliance handling once live.
 
-# Fixing the booking & payment flow
+## How linking works (user-driven)
+Lovable's built-in Stripe integration is already enabled in test mode. To point it at your existing account:
 
-Goal: Stripe is the source of truth for "paid", spots can't be oversold, prices can't be tampered with, you can see paid bookings in an admin page, and guests get a real confirmation email. No subscriptions.
+1. Open the **Payments** panel → click **Go live**.
+2. **Step 1 — Claim**: on Stripe's page, choose **Sign in to an existing account** and select your account (do NOT create a new one).
+3. **Step 2 — Activate for live**: complete Stripe's activation wizard if not already done.
+4. **Step 3 — Install Lovable app on live**: on Stripe's "Choose what to copy" screen, include the **Lovable app** and your existing **products/prices**.
+5. **Step 4 — Provision live keys**: automatic. Lovable writes `pk_live_…` into `.env.production` and creates live webhooks.
+6. **Step 5 — Readiness check**: run it from the Payments panel.
 
-## What's broken today
+No code needed for the linking itself.
 
-1. Bookings insert from the browser with a client-supplied price — a user can pay MXN $1.
-2. Nothing marks a booking `paid` (no webhook handler, no return-page verification).
-3. `spots_left` is never decremented — same tour can be booked into infinity.
-4. Anon can INSERT any row into `bookings` (`WITH CHECK (true)`) with arbitrary status.
-5. `/booking/return` shows "confirmed" for any string in the URL.
-6. No admin surface, no auth, no guest confirmation email.
+## Code changes I'll make after Step 5 passes
 
-## Fix plan
+### 1. Reuse an existing Stripe price (instead of dynamic pricing)
+- You'll tell me the **lookup_key** of the tour price in your Stripe account (e.g. `milpa_gastro_tour_595mxn`). If it doesn't have one, you set it once in the Stripe Dashboard → Product → Price → *lookup key*.
+- Edit `src/lib/payments.functions.ts` `startCheckout`:
+  - Resolve the price via `stripe.prices.list({ lookup_keys: [PRICE_LOOKUP_KEY] })` instead of building `price_data` inline.
+  - Trusted server-side amount: read `unit_amount` / `currency` from the resolved Stripe price (not from `tours.price_mxn`) so DB and Stripe stay authoritative-in-Stripe.
+  - Keep the pending-booking + `access_token` + webhook flow unchanged.
+- Update `bookings.currency` to whatever the Stripe price uses (still `mxn` if that's how the price is configured).
+- The `/admin/tours` price field becomes display-only for the site; actual charge always comes from Stripe.
 
-### 1. Schema tighten + roles + atomic confirm  *(already applied)*
+### 2. Enable full compliance handling (+3.5%)
+- In the same `startCheckout` handler, add `managed_payments: { enabled: true }` to `stripe.checkout.sessions.create(...)` (cast params to `Stripe.Checkout.SessionCreateParams` — the field is not yet in the SDK types).
+- Remove any conflicting fields: no `automatic_tax`, no `tax_id_collection`, no `payment_method_types`, etc.
+- Stamp session metadata: `{ managed_payments: "true", customer_country: <detected>, userId? }`.
+- Detect buyer country client-side via `https://www.cloudflare.com/cdn-cgi/trace` and pass it to `startCheckout` for metadata/reporting.
+- Resolve/create a Stripe **Customer** with `metadata.userId` for logged-in bookings (guest bookings keep `customer_email` only).
 
-The migration for this ran in a prior turn:
-- `bookings` gained `paid_at`, `stripe_payment_intent`, `currency`, `unit_price_mxn` + status CHECK.
-- Removed the permissive anon INSERT policy.
-- Added `app_role` enum, `public.user_roles`, `public.has_role()`.
-- Admins can SELECT bookings; the webhook decrements spots atomically via `confirm_booking_and_decrement()`.
+### 3. Product tax code
+- Your existing product in Stripe needs a **tax code** for compliance handling to work (e.g. `txcd_20030000` "Sightseeing tours / cultural experiences" — I'll confirm the exact best match from Stripe's list before applying).
+- Set once in Stripe Dashboard → Product → Tax code. No code change.
 
-### 2. Server-side price and capacity enforcement
+### 4. Live webhook wiring
+- Step 4 creates the live webhook endpoint pointed at `/api/public/payments/webhook?env=live` automatically.
+- Verify the signing secret is present in Cloud env after Step 4; no code change needed — our webhook handler already selects `sandbox` vs `live` from `?env=`.
 
-Rewrite `createTourCheckout` in `src/lib/payments.functions.ts`:
-- Inputs: `tourId`, `partySize`, `guestName`, `guestEmail`, `notes`, `returnUrl`, `environment`.
-- Load `supabaseAdmin` inside the handler; read the tour, verify `spots_left >= partySize`, compute `amount = tour.price_mxn * partySize`.
-- Insert the booking with server-trusted amount + `status='pending'`.
-- Create Stripe embedded session with `line_items[price_data]` (variable amount), `metadata.booking_id`, `payment_intent_data.metadata.booking_id`, and `product_data.metadata.lovable_external_id = 'gastro_tour'` so it links back to the registered product.
-- Store `stripe_session_id` on the booking, return `{ clientSecret, bookingId }`.
+### 5. Remove the go-live banner
+- `PaymentTestModeBanner` already hides itself when a `pk_live_…` token is present. Nothing to do.
 
-`BookingDialog` becomes a thin form — no direct Supabase writes.
+## What I need from you (in the next message, once Step 4 completes)
+1. The **lookup_key** of the tour price in your Stripe account (or confirmation to set one, and what to set it to).
+2. Confirmation your Stripe seller country is one of the 36 supported for full compliance handling (US/CA/UK/AU/HK/EU/CH/NO/IS/LI/GI). If it's Mexico, full handling is **not** available for you — I'll switch that step to `automatic_tax` (+0.5%) instead.
+3. Confirmation the tour product in Stripe has (or will have) a tax code set.
 
-### 3. Stripe webhook handler (Lovable-managed)
-
-Create the file at exactly `src/routes/api/public/payments/webhook.ts` (Lovable already registered this URL with Stripe and stored `PAYMENTS_SANDBOX_WEBHOOK_SECRET`). No dashboard configuration needed.
-
-- Read raw body, verify signature via `verifyWebhook(req, env)` — `env` comes from `?env=sandbox|live` query param.
-- On `checkout.session.completed` (and `payment_intent.succeeded` as backup): pull `booking_id` from metadata, call `confirm_booking_and_decrement(...)` via `supabaseAdmin`. Idempotent.
-- On `checkout.session.expired` / `payment_intent.payment_failed`: call `mark_booking_failed(...)`.
-- After a successful confirm: send Resend email.
-- Always return 200 quickly; log-and-swallow email failures so Stripe doesn't retry.
-
-Also add `verifyWebhook` to `src/lib/stripe.server.ts` (HMAC-SHA256, no SDK dep).
-
-### 4. Return page actually verifies
-
-`/booking/return` calls a new public server fn `getBookingStatus({ bookingId })` that uses `supabaseAdmin` to read status. UI shows pending / paid / failed + tour details, polling every 2s up to 20s to cover webhook latency.
-
-### 5. Resend confirmation email
-
-- Request `RESEND_API_KEY` via `add_secret` (only secret you need to paste).
-- New `src/lib/email.server.ts`: `sendBookingConfirmation({ email, name, tourTitle, tourDate, meetingPoint, partySize, amount })`. One EN/ES/FR HTML template picked from guest email TLD as a rough hint, defaulting to EN.
-- Called from the webhook after `confirm_booking_and_decrement` returns `already_paid = false`.
-- From address: `Milpa Chef <onboarding@resend.dev>` until you verify a real sender domain in Resend (then swap to `bookings@milpachef.com`).
-
-### 6. Admin login + admin page
-
-- Run `supabase--configure_auth`: email/password on, signup enabled, auto-confirm on (so you can create your admin without SMTP), HIBP on.
-- `/auth` public route — email + password sign-in and one-time sign-up.
-- `src/routes/_authenticated/route.tsx` (integration-managed gate).
-- `src/routes/_authenticated/admin.tsx` — bookings table (paid first) via `listBookings` server fn using `requireSupabaseAuth`, which additionally checks `has_role(userId,'admin')` and 403s otherwise.
-- After you sign up, I'll run a one-off `supabase--insert` to grant your user the `admin` role (I'll ask for your email at that step).
-- Sign-out button in the header when a session exists.
-
-### 7. Cleanup
-
-- Remove client-side `createBooking` from `src/lib/tours.ts`.
-- `errorComponent` / `notFoundComponent` on new routes.
-
-## Testing in the preview
-
-1. **Setup**:
-   - Paste your **Resend API key** when the secure form appears.
-   - Go to `/auth`, sign up with your email. Tell me the email; I run one SQL insert to make you admin.
-
-2. **Happy path**:
-   - `/tours` → Reserve → fill form (party=2) → submit.
-   - Stripe embedded form loads. Card: `4242 4242 4242 4242`, any future expiry, any CVC, any ZIP.
-   - Lands on `/booking/return`. Within ~2s it flips to "Confirmed". Confirmation email arrives.
-   - `/admin` → row shows `paid`. `/tours` → `spots_left` dropped by 2.
-
-3. **Failure paths**:
-   - `4000 0000 0000 0002` (declined): return page shows `failed`; spots not decremented.
-   - `4000 0025 0000 3155` (3DS): approve the challenge to complete.
-   - Try to book more guests than `spots_left`: server fn refuses before Stripe is invoked.
-
-4. **Tamper check**: intercept the checkout server-fn call and modify `partySize` — server recomputes amount from the tour row; Stripe charges the correct total.
-
-## Files touched
-
-- `src/lib/stripe.server.ts` — add `verifyWebhook`
-- `src/lib/payments.functions.ts` — rewrite
-- `src/lib/email.server.ts` — new
-- `src/lib/admin.functions.ts` — new (`listBookings`, `getBookingStatus`, `grantAdminRole` helper unused by UI)
-- `src/routes/api/public/payments/webhook.ts` — new
-- `src/routes/auth.tsx` — new
-- `src/routes/_authenticated/route.tsx` + `_authenticated/admin.tsx` — new
-- `src/routes/booking.return.tsx` — verify via server fn
-- `src/components/site/BookingDialog.tsx` — simplify
-- `src/lib/tours.ts` — remove `createBooking`
-- `src/components/site/SiteHeader.tsx` — sign-out when signed in
-- Secrets requested: `RESEND_API_KEY` only (Stripe webhook secret is auto-managed)
+## Test plan after switch
+1. Preview still runs test mode (`pk_test_…`) — book with `4242 4242 4242 4242`, confirm return page + confirmation email + admin row.
+2. On the **published** site, do one small real booking end-to-end with a real card, then immediately **Refund** from `/admin` to verify the Stripe refund + spot restoration works in live.
+3. In Stripe Dashboard → Payments, confirm the live charge shows the product name and tax line (compliance handling active).
+4. Trigger a webhook test from Stripe Dashboard → Developers → Webhooks (live) → send `checkout.session.completed` → confirm 200 response.
