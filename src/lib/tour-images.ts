@@ -7,6 +7,7 @@ import classImg from "@/assets/tour-class.jpg";
 import classCooking from "@/assets/class-cooking.jpg";
 import classMarket from "@/assets/class-market.jpg";
 import classDish from "@/assets/class-dish.jpg";
+import chefMarketAsset from "@/assets/chef-market.png.asset.json";
 
 export const tourImages: Record<string, string> = {
   hero,
@@ -21,7 +22,7 @@ export const tourImages: Record<string, string> = {
 };
 
 export const heroImage = hero;
-export const marketImage = market;
+export const marketImage = chefMarketAsset.url;
 export const classImage = classCooking;
 export const classMarketImage = classMarket;
 export const classDishImage = classDish;
