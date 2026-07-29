@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { createBooking, formatTourDate, type Tour } from "@/lib/tours";
+import { formatTourDate, type Tour } from "@/lib/tours";
+import { startCheckout } from "@/lib/payments.functions";
+import { getStripeEnvironment } from "@/lib/stripe";
 
 export function BookingDialog({
   tour,
@@ -33,28 +35,30 @@ export function BookingDialog({
     e.preventDefault();
     setSubmitting(true);
     try {
-      const booking = await createBooking({
-        tour_id: tour.id,
-        guest_name: name.trim(),
-        guest_email: email.trim(),
-        party_size: party,
-        notes: notes.trim() || undefined,
-        amount_mxn: total,
-      });
-      onClose();
-      navigate({
-        to: "/booking/checkout",
-        search: {
-          bookingId: booking.id,
-          tour: tour.title,
-          amount: total,
-          party,
-          email: email.trim(),
+      const result = await startCheckout({
+        data: {
+          tourId: tour.id,
+          partySize: party,
+          guestName: name.trim(),
+          guestEmail: email.trim(),
+          notes: notes.trim() || undefined,
+          lang,
+          returnUrl: `${window.location.origin}/booking/return?session_id={CHECKOUT_SESSION_ID}&bookingId={BOOKING_ID}`,
+          environment: getStripeEnvironment(),
         },
       });
+      if ("error" in result) throw new Error(result.error);
+      // Stash the fresh client secret for the checkout route; keyed by bookingId.
+      const returnUrl = `${window.location.origin}/booking/return?session_id={CHECKOUT_SESSION_ID}&bookingId=${result.bookingId}`;
+      sessionStorage.setItem(
+        `stripe-cs:${result.bookingId}`,
+        JSON.stringify({ clientSecret: result.clientSecret, returnUrl }),
+      );
+      onClose();
+      navigate({ to: "/booking/checkout", search: { bookingId: result.bookingId } });
     } catch (err) {
       console.error(err);
-      toast.error(t("book.error"));
+      toast.error(err instanceof Error ? err.message : t("book.error"));
       setSubmitting(false);
     }
   };

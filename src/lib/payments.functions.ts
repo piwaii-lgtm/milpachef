@@ -5,29 +5,77 @@ import {
   getStripeErrorMessage,
 } from "@/lib/stripe.server";
 
-type CheckoutResult = { clientSecret: string } | { error: string };
+export type CheckoutResult =
+  | { clientSecret: string; bookingId: string }
+  | { error: string };
 
-export const createTourCheckout = createServerFn({ method: "POST" })
+export const startCheckout = createServerFn({ method: "POST" })
   .inputValidator(
     (data: {
-      bookingId: string;
-      tourTitle: string;
-      amountMxn: number;
+      tourId: string;
       partySize: number;
-      customerEmail: string;
+      guestName: string;
+      guestEmail: string;
+      notes?: string;
+      lang: "en" | "es" | "fr";
       returnUrl: string;
       environment: StripeEnv;
     }) => {
-      if (!/^[a-f0-9-]{36}$/i.test(data.bookingId)) throw new Error("Invalid bookingId");
-      if (!Number.isInteger(data.amountMxn) || data.amountMxn < 50) {
-        throw new Error("Invalid amount");
+      if (!/^[a-f0-9-]{36}$/i.test(data.tourId)) throw new Error("Invalid tourId");
+      if (!Number.isInteger(data.partySize) || data.partySize < 1 || data.partySize > 10) {
+        throw new Error("Party size must be between 1 and 10");
       }
-      if (!data.customerEmail.includes("@")) throw new Error("Invalid email");
-      return data;
+      const name = data.guestName.trim();
+      if (name.length < 2 || name.length > 100) throw new Error("Please enter a valid name");
+      const email = data.guestEmail.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Please enter a valid email");
+      if (data.notes && data.notes.length > 500) throw new Error("Notes too long");
+      if (!["en", "es", "fr"].includes(data.lang)) throw new Error("Invalid language");
+      if (!data.returnUrl.startsWith("http")) throw new Error("Invalid returnUrl");
+      return { ...data, guestName: name, guestEmail: email };
     },
   )
   .handler(async ({ data }): Promise<CheckoutResult> => {
     try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+      // Trusted read of tour price + capacity
+      const { data: tour, error: tourError } = await supabaseAdmin
+        .from("tours")
+        .select("id, title, price_mxn, spots_left, tour_date")
+        .eq("id", data.tourId)
+        .maybeSingle();
+      if (tourError) throw new Error(tourError.message);
+      if (!tour) return { error: "This tour is no longer available." };
+      if (tour.spots_left < data.partySize) {
+        return { error: `Only ${tour.spots_left} spot(s) left on this tour.` };
+      }
+      if (new Date(tour.tour_date).getTime() < Date.now()) {
+        return { error: "This tour has already started." };
+      }
+
+      const unitPriceMxn = tour.price_mxn;
+      const amountMxn = unitPriceMxn * data.partySize;
+
+      // Create pending booking with trusted amount
+      const { data: booking, error: insertError } = await supabaseAdmin
+        .from("bookings")
+        .insert({
+          tour_id: tour.id,
+          guest_name: data.guestName,
+          guest_email: data.guestEmail,
+          party_size: data.partySize,
+          notes: data.notes ?? null,
+          amount_mxn: amountMxn,
+          unit_price_mxn: unitPriceMxn,
+          currency: "mxn",
+          status: "pending",
+        })
+        .select("id")
+        .single();
+      if (insertError || !booking) throw new Error(insertError?.message ?? "Booking insert failed");
+
+      // Create Stripe embedded session
       const stripe = createStripeClient(data.environment);
       const session = await stripe.checkout.sessions.create({
         line_items: [
@@ -35,27 +83,35 @@ export const createTourCheckout = createServerFn({ method: "POST" })
             price_data: {
               currency: "mxn",
               product_data: {
-                name: `${data.tourTitle} — Milpa Chef`,
-                description: `Gastro Tour reservation for ${data.partySize} guest(s)`,
+                name: `${tour.title} — Milpa Chef`,
+                description: `Reservation for ${data.partySize} guest(s)`,
+                metadata: { lovable_external_id: "gastro_tour" },
               },
-              // Stripe expects amount in the smallest unit; MXN uses centavos (x100)
-              unit_amount: data.amountMxn * 100,
+              unit_amount: unitPriceMxn * 100,
             },
-            quantity: 1,
+            quantity: data.partySize,
           },
         ],
         mode: "payment",
         ui_mode: "embedded_page",
         return_url: data.returnUrl,
-        customer_email: data.customerEmail,
+        customer_email: data.guestEmail,
         payment_intent_data: {
-          description: `${data.tourTitle} — Milpa Chef`,
-          metadata: { booking_id: data.bookingId },
+          description: `${tour.title} — Milpa Chef`,
+          metadata: { booking_id: booking.id, lang: data.lang },
         },
-        metadata: { booking_id: data.bookingId },
+        metadata: { booking_id: booking.id, lang: data.lang },
       });
-      return { clientSecret: session.client_secret ?? "" };
+
+      // Persist session id
+      await supabaseAdmin
+        .from("bookings")
+        .update({ stripe_session_id: session.id })
+        .eq("id", booking.id);
+
+      return { clientSecret: session.client_secret ?? "", bookingId: booking.id };
     } catch (error) {
+      console.error("[startCheckout]", error);
       return { error: getStripeErrorMessage(error) };
     }
   });
