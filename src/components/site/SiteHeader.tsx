@@ -28,6 +28,9 @@ export function SiteHeader() {
           <Link to="/tours" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.tours")}
           </Link>
+          <Link to="/classes" className={linkCls} activeProps={{ className: activeCls }}>
+            {t("nav.classes")}
+          </Link>
           <Link to="/about" className={linkCls} activeProps={{ className: activeCls }}>
             {t("nav.about")}
           </Link>

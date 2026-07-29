@@ -32,8 +32,8 @@ function ToursPage() {
   const { t } = useI18n();
   const [booking, setBooking] = useState<Tour | null>(null);
   const { data: tours = [], isLoading } = useQuery({
-    queryKey: ["tours", "all"],
-    queryFn: () => fetchTours(24),
+    queryKey: ["tours", "food-tours"],
+    queryFn: () => fetchTours(24, "tour"),
   });
 
   return (

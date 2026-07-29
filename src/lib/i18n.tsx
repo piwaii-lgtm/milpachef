@@ -7,6 +7,7 @@ type Dict = Record<string, string>;
 const en: Dict = {
   "nav.home": "Home",
   "nav.tours": "Tours",
+  "nav.classes": "Cooking classes",
   "nav.about": "About",
   "nav.contact": "Contact",
   "nav.book": "Reserve a spot",
@@ -71,11 +72,20 @@ const en: Dict = {
   "footer.tagline": "Food tours in Cholula, cooked with intention.",
   "footer.rights": "© Milpa Chef. All rights reserved.",
   "lang.label": "Language",
+  "category.tour": "Food tour",
+  "category.class": "Cooking class",
+  "classes.eyebrow": "Cooking classes · Small groups · MXN $985",
+  "classes.title": "Cook Cholula, hands in the masa.",
+  "classes.subtitle": "Half-day cooking classes with Alfonso in his private kitchen: heirloom-corn tortillas, mole poblano, antojitos, tamales — recipes you take home and a long lunch to share.",
+  "classes.cta": "See upcoming classes",
+  "classes.homeTitle": "Or cook it yourself.",
+  "classes.homeBody": "If the tour left you hungry to learn, the cooking class puts you at the metate and the comal. Four hours, eight seats, one long meal together at the end.",
 };
 
 const es: Dict = {
   "nav.home": "Inicio",
   "nav.tours": "Tours",
+  "nav.classes": "Clases de cocina",
   "nav.about": "Nosotros",
   "nav.contact": "Contacto",
   "nav.book": "Reservar",
@@ -140,11 +150,20 @@ const es: Dict = {
   "footer.tagline": "Tours gastronómicos en Cholula, cocinados con intención.",
   "footer.rights": "© Milpa Chef. Todos los derechos reservados.",
   "lang.label": "Idioma",
+  "category.tour": "Tour gastronómico",
+  "category.class": "Clase de cocina",
+  "classes.eyebrow": "Clases de cocina · Grupos pequeños · MXN $985",
+  "classes.title": "Cocina Cholula, manos en la masa.",
+  "classes.subtitle": "Clases de medio día con Alfonso en su cocina privada: tortillas de maíz nativo, mole poblano, antojitos, tamales — recetas que te llevas y una comida larga al final.",
+  "classes.cta": "Ver próximas clases",
+  "classes.homeTitle": "O cocínalo tú.",
+  "classes.homeBody": "Si el tour te dejó con ganas de aprender, la clase te pone frente al metate y al comal. Cuatro horas, ocho lugares, una comida larga al final.",
 };
 
 const fr: Dict = {
   "nav.home": "Accueil",
   "nav.tours": "Balades",
+  "nav.classes": "Cours de cuisine",
   "nav.about": "À propos",
   "nav.contact": "Contact",
   "nav.book": "Réserver",
@@ -209,6 +228,14 @@ const fr: Dict = {
   "footer.tagline": "Balades gourmandes à Cholula, cuisinées avec intention.",
   "footer.rights": "© Milpa Chef. Tous droits réservés.",
   "lang.label": "Langue",
+  "category.tour": "Balade gourmande",
+  "category.class": "Cours de cuisine",
+  "classes.eyebrow": "Cours de cuisine · Petits groupes · 985 MXN",
+  "classes.title": "Cuisinez Cholula, les mains dans la masa.",
+  "classes.subtitle": "Cours d'une demi-journée avec Alfonso dans sa cuisine privée : tortillas au maïs ancien, mole poblano, antojitos, tamales — recettes à emporter et long déjeuner partagé à la fin.",
+  "classes.cta": "Voir les prochains cours",
+  "classes.homeTitle": "Ou cuisinez-le vous-même.",
+  "classes.homeBody": "Si la balade vous a donné envie d'apprendre, le cours vous met devant le metate et le comal. Quatre heures, huit places, un long repas partagé à la fin.",
 };
 
 const dicts: Record<Lang, Dict> = { en, es, fr };
