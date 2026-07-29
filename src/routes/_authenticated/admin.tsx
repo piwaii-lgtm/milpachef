@@ -70,14 +70,14 @@ function AdminPage() {
               : ""}
           </p>
         </div>
-        <div className="flex gap-3">
-          <button onClick={() => refetch()} className="text-sm underline text-primary">
+        <div className="relative z-10 flex gap-3">
+          <button type="button" onClick={() => refetch()} className="text-sm underline text-primary cursor-pointer">
             Refresh
           </button>
           <Link to="/" className="text-sm underline text-muted-foreground">
             Site
           </Link>
-          <button onClick={signOut} className="text-sm underline text-muted-foreground">
+          <button type="button" onClick={signOut} className="text-sm underline text-muted-foreground cursor-pointer">
             Sign out
           </button>
         </div>
