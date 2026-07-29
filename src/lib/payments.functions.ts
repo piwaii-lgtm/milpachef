@@ -18,6 +18,7 @@ export const startCheckout = createServerFn({ method: "POST" })
       guestEmail: string;
       notes?: string;
       lang: "en" | "es" | "fr";
+      guestLanguage: "en" | "es" | "fr";
       returnUrl: string;
       environment: StripeEnv;
     }) => {
@@ -31,6 +32,7 @@ export const startCheckout = createServerFn({ method: "POST" })
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Please enter a valid email");
       if (data.notes && data.notes.length > 500) throw new Error("Notes too long");
       if (!["en", "es", "fr"].includes(data.lang)) throw new Error("Invalid language");
+      if (!["en", "es", "fr"].includes(data.guestLanguage)) throw new Error("Invalid guest language");
       if (!data.returnUrl.startsWith("http")) throw new Error("Invalid returnUrl");
       return { ...data, guestName: name, guestEmail: email };
     },
@@ -70,6 +72,7 @@ export const startCheckout = createServerFn({ method: "POST" })
           unit_price_mxn: unitPriceMxn,
           currency: "mxn",
           status: "pending",
+          guest_language: data.guestLanguage,
         })
         .select("id, access_token")
         .single();
