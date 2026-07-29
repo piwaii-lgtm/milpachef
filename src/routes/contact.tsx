@@ -1,5 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
+
+const socials = [
+  { label: "Instagram", href: "https://www.instagram.com/milpachef/", handle: "@milpachef" },
+  { label: "Facebook", href: "https://www.facebook.com/milpachefmx/", handle: "/milpachefmx" },
+  { label: "TikTok", href: "https://www.tiktok.com/@milpachef", handle: "@milpachef" },
+];
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -25,6 +32,16 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { t } = useI18n();
+
+  useEffect(() => {
+    const src = "https://www.tiktok.com/embed.js";
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
+
   return (
     <section className="container-editorial py-16 md:py-24 max-w-3xl">
       <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
@@ -39,22 +56,26 @@ function ContactPage() {
         <div className="grid grid-cols-3 py-6 items-baseline gap-4">
           <dt className="uppercase tracking-widest text-xs text-muted-foreground">Email</dt>
           <dd className="col-span-2 font-serif text-2xl text-primary">
-            <a href="mailto:hola@milpachef.com" className="hover:text-accent">hola@milpachef.com</a>
-          </dd>
-        </div>
-        <div className="grid grid-cols-3 py-6 items-baseline gap-4">
-          <dt className="uppercase tracking-widest text-xs text-muted-foreground">Instagram</dt>
-          <dd className="col-span-2 font-serif text-2xl text-primary">
-            <a
-              href="https://www.instagram.com/milpachef/"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="hover:text-accent"
-            >
-              @milpachef
+            <a href="mailto:alfonso@milpachef.com" className="hover:text-accent">
+              alfonso@milpachef.com
             </a>
           </dd>
         </div>
+        {socials.map((s) => (
+          <div key={s.label} className="grid grid-cols-3 py-6 items-baseline gap-4">
+            <dt className="uppercase tracking-widest text-xs text-muted-foreground">{s.label}</dt>
+            <dd className="col-span-2 font-serif text-2xl text-primary">
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="hover:text-accent"
+              >
+                {s.handle}
+              </a>
+            </dd>
+          </div>
+        ))}
         <div className="grid grid-cols-3 py-6 items-baseline gap-4">
           <dt className="uppercase tracking-widest text-xs text-muted-foreground">Cholula, MX</dt>
           <dd className="col-span-2 text-muted-foreground">
@@ -62,6 +83,59 @@ function ContactPage() {
           </dd>
         </div>
       </dl>
+
+      <div className="mt-20">
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+          {t("contact.feedBadge")}
+        </div>
+        <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight mb-8">
+          {t("contact.feedTitle")}
+        </h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="rounded-md overflow-hidden border border-border bg-card">
+            <iframe
+              title="Milpa Chef on Facebook"
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmilpachefmx%2F&tabs=timeline&width=500&height=640&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+              width="100%"
+              height={640}
+              style={{ border: "none", overflow: "hidden" }}
+              scrolling="no"
+              loading="lazy"
+              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
+            />
+          </div>
+          <div className="rounded-md overflow-hidden border border-border bg-card p-4">
+            <blockquote
+              className="tiktok-embed"
+              cite="https://www.tiktok.com/@milpachef"
+              data-unique-id="milpachef"
+              data-embed-type="creator"
+              style={{ maxWidth: 780, minWidth: 288 }}
+            >
+              <section>
+                <a
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="https://www.tiktok.com/@milpachef?refer=creator_embed"
+                >
+                  @milpachef
+                </a>
+              </section>
+            </blockquote>
+          </div>
+        </div>
+        <p className="text-muted-foreground text-sm mt-6">
+          {t("contact.feedNote")}{" "}
+          <a
+            href="https://www.instagram.com/milpachef/"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="text-accent hover:underline"
+          >
+            @milpachef
+          </a>
+        </p>
+      </div>
     </section>
   );
 }
