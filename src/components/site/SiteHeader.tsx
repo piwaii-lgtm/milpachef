@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/lib/i18n";
+import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
 
 export function SiteHeader() {
   const { t, lang, setLang } = useI18n();
@@ -11,14 +12,14 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border/60 bg-background/85 backdrop-blur sticky top-0 z-40">
       <div className="container-editorial flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-3">
-          <span
-            className="w-8 h-8 rounded-sm flex items-center justify-center text-primary-foreground font-serif text-xl"
-            style={{ backgroundColor: "var(--milpa)" }}
-          >
-            M
-          </span>
-          <span className="font-serif text-xl text-primary leading-none">Milpa Chef</span>
+        <Link to="/" className="flex items-center" aria-label="Milpa Chef — home">
+          <img
+            src={logoAsset.url}
+            alt="Milpa Chef"
+            className="h-10 md:h-11 w-auto"
+            loading="eager"
+            decoding="async"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

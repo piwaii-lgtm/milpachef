@@ -1,6 +1,7 @@
 import { useI18n } from "@/lib/i18n";
 import { formatTourDate, pickDescription, type Tour } from "@/lib/tours";
 import { tourImages } from "@/lib/tour-images";
+import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
 
 export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => void }) {
   const { t, lang } = useI18n();
@@ -31,6 +32,11 @@ export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => vo
         >
           {isClass ? t("category.class") : t("category.tour")}
         </span>
+        {isClass && (
+          <div className="absolute bottom-3 right-3 bg-background/90 backdrop-blur-sm rounded-sm p-2 shadow-sm">
+            <img src={logoAsset.url} alt="" className="h-10 w-auto" loading="lazy" />
+          </div>
+        )}
       </div>
       <div className="p-6 flex flex-col flex-1">
         <div className="text-xs uppercase tracking-widest text-accent">

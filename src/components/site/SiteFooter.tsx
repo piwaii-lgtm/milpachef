@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import logoAsset from "@/assets/milpa-chef-logo.png.asset.json";
 
 export function SiteFooter() {
   const { t } = useI18n();
@@ -10,7 +11,12 @@ export function SiteFooter() {
     >
       <div className="container-editorial py-16 grid md:grid-cols-3 gap-10">
         <div>
-          <div className="font-serif text-3xl mb-3">Milpa Chef</div>
+          <img
+            src={logoAsset.url}
+            alt="Milpa Chef"
+            className="h-16 w-auto mb-4 brightness-0 invert opacity-95"
+            loading="lazy"
+          />
           <p className="text-primary-foreground/70 max-w-xs text-sm leading-relaxed">
             {t("footer.tagline")}
           </p>
