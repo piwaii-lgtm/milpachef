@@ -14,7 +14,140 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          amount_mxn: number
+          created_at: string
+          guest_email: string
+          guest_name: string
+          id: string
+          notes: string | null
+          party_size: number
+          status: string
+          stripe_session_id: string | null
+          tour_id: string
+        }
+        Insert: {
+          amount_mxn: number
+          created_at?: string
+          guest_email: string
+          guest_name: string
+          id?: string
+          notes?: string | null
+          party_size?: number
+          status?: string
+          stripe_session_id?: string | null
+          tour_id: string
+        }
+        Update: {
+          amount_mxn?: number
+          created_at?: string
+          guest_email?: string
+          guest_name?: string
+          id?: string
+          notes?: string | null
+          party_size?: number
+          status?: string
+          stripe_session_id?: string | null
+          tour_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          featured: boolean
+          guest_name: string
+          id: string
+          origin: string
+          quote_en: string
+          quote_es: string
+          quote_fr: string
+          rating: number
+        }
+        Insert: {
+          created_at?: string
+          featured?: boolean
+          guest_name: string
+          id?: string
+          origin: string
+          quote_en: string
+          quote_es: string
+          quote_fr: string
+          rating?: number
+        }
+        Update: {
+          created_at?: string
+          featured?: boolean
+          guest_name?: string
+          id?: string
+          origin?: string
+          quote_en?: string
+          quote_es?: string
+          quote_fr?: string
+          rating?: number
+        }
+        Relationships: []
+      }
+      tours: {
+        Row: {
+          capacity: number
+          created_at: string
+          description_en: string
+          description_es: string
+          description_fr: string
+          duration_minutes: number
+          id: string
+          image_key: string
+          meeting_point: string
+          price_mxn: number
+          slug: string
+          spots_left: number
+          title: string
+          tour_date: string
+        }
+        Insert: {
+          capacity?: number
+          created_at?: string
+          description_en: string
+          description_es: string
+          description_fr: string
+          duration_minutes?: number
+          id?: string
+          image_key?: string
+          meeting_point: string
+          price_mxn?: number
+          slug: string
+          spots_left?: number
+          title: string
+          tour_date: string
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          description_en?: string
+          description_es?: string
+          description_fr?: string
+          duration_minutes?: number
+          id?: string
+          image_key?: string
+          meeting_point?: string
+          price_mxn?: number
+          slug?: string
+          spots_left?: number
+          title?: string
+          tour_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
