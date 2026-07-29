@@ -21,16 +21,16 @@ const guestPhotos: Record<string, string> = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Milpa Chef — Cholula food tours & Mexican cooking classes" },
+      { title: "MilpaChef — sustainable Mexican gastronomy in Cholula" },
       {
         name: "description",
         content:
-          "Culinary experiences in Cholula, Puebla with chef Alfonso Rocha Robles: small-group Slow Food walking tours (MXN $595) and hands-on Mexican cooking classes (MXN $1,295). Heirloom corn, mole poblano, mezcal.",
+          "MilpaChef is a platform for sustainable Mexican gastronomy in Cholula, Puebla: food tours (MXN $595), cooking classes (MXN $1,295), ancestral products, consulting, academy, research and impact — led by chef and anthropologist Alfonso Rocha.",
       },
-      { property: "og:title", content: "Milpa Chef — Cholula food tours & cooking classes" },
+      { property: "og:title", content: "MilpaChef — more than a food tour in Cholula" },
       {
         property: "og:description",
-        content: "Small-group food tours and Mexican cooking classes in Cholula, Puebla.",
+        content: "Experiences, products, consulting, academy, research and impact around sustainable Mexican gastronomy.",
       },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
