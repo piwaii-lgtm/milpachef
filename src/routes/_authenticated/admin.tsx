@@ -104,6 +104,7 @@ function AdminPage() {
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Guest</th>
                 <th className="px-4 py-3">Party</th>
+                <th className="px-4 py-3">Lang</th>
                 <th className="px-4 py-3">Amount</th>
                 <th className="px-4 py-3">Created</th>
                 <th className="px-4 py-3"></th>
@@ -126,6 +127,9 @@ function AdminPage() {
                     <div className="text-xs text-muted-foreground">{b.guest_email}</div>
                   </td>
                   <td className="px-4 py-3">{b.party_size}</td>
+                  <td className="px-4 py-3 uppercase text-xs tracking-widest text-muted-foreground">
+                    {b.guest_language}
+                  </td>
                   <td className="px-4 py-3 whitespace-nowrap">MXN ${b.amount_mxn}</td>
                   <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
                     {new Date(b.created_at).toLocaleString()}

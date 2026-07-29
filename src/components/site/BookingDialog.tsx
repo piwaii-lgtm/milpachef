@@ -21,11 +21,15 @@ export function BookingDialog({
   const [email, setEmail] = useState("");
   const [party, setParty] = useState(1);
   const [notes, setNotes] = useState("");
+  const [guestLang, setGuestLang] = useState<"en" | "es" | "fr">(lang);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (open) setSubmitting(false);
-  }, [open, tour?.id]);
+    if (open) {
+      setSubmitting(false);
+      setGuestLang(lang);
+    }
+  }, [open, tour?.id, lang]);
 
   if (!open || !tour) return null;
 
@@ -43,6 +47,7 @@ export function BookingDialog({
           guestEmail: email.trim(),
           notes: notes.trim() || undefined,
           lang,
+          guestLanguage: guestLang,
           returnUrl: `${window.location.origin}/booking/return?session_id={CHECKOUT_SESSION_ID}&bookingId={BOOKING_ID}`,
           environment: getStripeEnvironment(),
         },
@@ -128,6 +133,21 @@ export function BookingDialog({
                 rows={2}
                 className="w-full border border-input bg-background rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
               />
+            </div>
+            <div>
+              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+                {t("book.language")}
+              </label>
+              <select
+                value={guestLang}
+                onChange={(e) => setGuestLang(e.target.value as "en" | "es" | "fr")}
+                className="w-full border border-input bg-background rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="en">{t("book.lang.en")}</option>
+                <option value="es">{t("book.lang.es")}</option>
+                <option value="fr">{t("book.lang.fr")}</option>
+              </select>
+              <p className="text-xs text-muted-foreground mt-1">{t("book.language.help")}</p>
             </div>
             <div className="flex items-center justify-between border-t border-border pt-4">
               <div>

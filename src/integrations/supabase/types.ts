@@ -21,6 +21,7 @@ export type Database = {
           created_at: string
           currency: string
           guest_email: string
+          guest_language: string
           guest_name: string
           id: string
           notes: string | null
@@ -38,6 +39,7 @@ export type Database = {
           created_at?: string
           currency?: string
           guest_email: string
+          guest_language?: string
           guest_name: string
           id?: string
           notes?: string | null
@@ -55,6 +57,7 @@ export type Database = {
           created_at?: string
           currency?: string
           guest_email?: string
+          guest_language?: string
           guest_name?: string
           id?: string
           notes?: string | null

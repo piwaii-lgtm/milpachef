@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ClassesRouteImport } from './routes/classes'
@@ -26,6 +27,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsRoute = ProductsRouteImport.update({
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
+  '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
+  '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/classes': typeof ClassesRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
+  '/reserve': typeof ReserveRoute
   '/tours': typeof ToursRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/booking/checkout': typeof BookingCheckoutRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/classes'
     | '/contact'
     | '/products'
+    | '/reserve'
     | '/tours'
     | '/admin'
     | '/booking/checkout'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/classes'
     | '/contact'
     | '/products'
+    | '/reserve'
     | '/tours'
     | '/admin'
     | '/booking/checkout'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/classes'
     | '/contact'
     | '/products'
+    | '/reserve'
     | '/tours'
     | '/_authenticated/admin'
     | '/booking/checkout'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   ClassesRoute: typeof ClassesRoute
   ContactRoute: typeof ContactRoute
   ProductsRoute: typeof ProductsRoute
+  ReserveRoute: typeof ReserveRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products': {
@@ -319,6 +339,7 @@ const rootRouteChildren: RootRouteChildren = {
   ClassesRoute: ClassesRoute,
   ContactRoute: ContactRoute,
   ProductsRoute: ProductsRoute,
+  ReserveRoute: ReserveRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,
