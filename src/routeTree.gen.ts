@@ -13,6 +13,8 @@ import { Route as ToursRouteImport } from './routes/tours'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookingReturnRouteImport } from './routes/booking.return'
+import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
 
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
@@ -34,18 +36,32 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingReturnRoute = BookingReturnRouteImport.update({
+  id: '/booking/return',
+  path: '/booking/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingCheckoutRoute = BookingCheckoutRouteImport.update({
+  id: '/booking/checkout',
+  path: '/booking/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
+  '/booking/checkout': typeof BookingCheckoutRoute
+  '/booking/return': typeof BookingReturnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
+  '/booking/checkout': typeof BookingCheckoutRoute
+  '/booking/return': typeof BookingReturnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,34 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/tours': typeof ToursRoute
+  '/booking/checkout': typeof BookingCheckoutRoute
+  '/booking/return': typeof BookingReturnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/tours'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/tours'
+    | '/booking/checkout'
+    | '/booking/return'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/tours'
-  id: '__root__' | '/' | '/about' | '/contact' | '/tours'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/tours'
+    | '/booking/checkout'
+    | '/booking/return'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/tours'
+    | '/booking/checkout'
+    | '/booking/return'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +104,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   ToursRoute: typeof ToursRoute
+  BookingCheckoutRoute: typeof BookingCheckoutRoute
+  BookingReturnRoute: typeof BookingReturnRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +138,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking/return': {
+      id: '/booking/return'
+      path: '/booking/return'
+      fullPath: '/booking/return'
+      preLoaderRoute: typeof BookingReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/checkout': {
+      id: '/booking/checkout'
+      path: '/booking/checkout'
+      fullPath: '/booking/checkout'
+      preLoaderRoute: typeof BookingCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +160,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   ToursRoute: ToursRoute,
+  BookingCheckoutRoute: BookingCheckoutRoute,
+  BookingReturnRoute: BookingReturnRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

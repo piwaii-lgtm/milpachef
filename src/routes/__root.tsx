@@ -15,6 +15,7 @@ import { I18nProvider } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
+import { PaymentTestModeBanner } from "@/components/site/PaymentTestModeBanner";
 
 function NotFoundComponent() {
   return (
@@ -166,6 +167,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <div className="min-h-screen flex flex-col">
+          <PaymentTestModeBanner />
           <SiteHeader />
           <main className="flex-1">
             <Outlet />
