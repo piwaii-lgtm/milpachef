@@ -16,7 +16,7 @@ const labels: Record<Lang, {
 }> = {
   en: {
     header: "MILPA CHEF",
-    ticket: "Gastro Tour Ticket",
+    ticket: "Experience Ticket",
     guest: "Guest",
     when: "When",
     where: "Meeting point",
@@ -28,7 +28,7 @@ const labels: Record<Lang, {
   },
   es: {
     header: "MILPA CHEF",
-    ticket: "Boleto Gastro Tour",
+    ticket: "Boleto de experiencia",
     guest: "Invitado",
     when: "Cuándo",
     where: "Punto de encuentro",
@@ -40,7 +40,7 @@ const labels: Record<Lang, {
   },
   fr: {
     header: "MILPA CHEF",
-    ticket: "Billet Gastro Tour",
+    ticket: "Billet d'expérience",
     guest: "Invité",
     when: "Quand",
     where: "Point de rendez-vous",
