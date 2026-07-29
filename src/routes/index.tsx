@@ -12,9 +12,9 @@ import marcoJuliaAsset from "@/assets/g-marco-julia.jpg.asset.json";
 import robertoValeriaAsset from "@/assets/g-roberto-valeria.jpg.asset.json";
 
 const guestPhotos: Record<string, string> = {
-  "Salomea Chichowska": salomeaAsset.url,
-  "Marco y Julia": marcoJuliaAsset.url,
-  "Roberto y Valeria": robertoValeriaAsset.url,
+  Salomea: salomeaAsset.url,
+  "Marco & Julia": marcoJuliaAsset.url,
+  "Roberto & Valeria": robertoValeriaAsset.url,
 };
 
 export const Route = createFileRoute("/")({
