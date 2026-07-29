@@ -6,7 +6,7 @@ import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours
 import { heroImage, marketImage, classImage } from "@/lib/tour-images";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
-import groupAsset from "@/assets/chef-group-table.jpg.asset.json";
+import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
 import salomeaAsset from "@/assets/g-salomea.jpg.asset.json";
 import marcoJuliaAsset from "@/assets/g-marco-julia.jpg.asset.json";
 import robertoValeriaAsset from "@/assets/g-roberto-valeria.jpg.asset.json";
