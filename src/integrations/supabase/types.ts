@@ -18,38 +18,50 @@ export type Database = {
         Row: {
           amount_mxn: number
           created_at: string
+          currency: string
           guest_email: string
           guest_name: string
           id: string
           notes: string | null
+          paid_at: string | null
           party_size: number
           status: string
+          stripe_payment_intent: string | null
           stripe_session_id: string | null
           tour_id: string
+          unit_price_mxn: number | null
         }
         Insert: {
           amount_mxn: number
           created_at?: string
+          currency?: string
           guest_email: string
           guest_name: string
           id?: string
           notes?: string | null
+          paid_at?: string | null
           party_size?: number
           status?: string
+          stripe_payment_intent?: string | null
           stripe_session_id?: string | null
           tour_id: string
+          unit_price_mxn?: number | null
         }
         Update: {
           amount_mxn?: number
           created_at?: string
+          currency?: string
           guest_email?: string
           guest_name?: string
           id?: string
           notes?: string | null
+          paid_at?: string | null
           party_size?: number
           status?: string
+          stripe_payment_intent?: string | null
           stripe_session_id?: string | null
           tour_id?: string
+          unit_price_mxn?: number | null
         }
         Relationships: [
           {
@@ -148,15 +160,62 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      confirm_booking_and_decrement: {
+        Args: {
+          _booking_id: string
+          _payment_intent: string
+          _session_id: string
+        }
+        Returns: {
+          already_paid: boolean
+          amount_mxn: number
+          booking_id: string
+          guest_email: string
+          guest_name: string
+          meeting_point: string
+          party_size: number
+          tour_date: string
+          tour_id: string
+          tour_title: string
+        }[]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      mark_booking_failed: { Args: { _booking_id: string }; Returns: undefined }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -283,6 +342,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
