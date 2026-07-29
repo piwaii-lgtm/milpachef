@@ -101,7 +101,75 @@ function svgToBase64(svg: string) {
   return btoa(binary);
 }
 
-export function generateTicketAttachments(input: {
+const SERIF = "Lora, Georgia, serif";
+const SANS = "Open Sans, Arial, sans-serif";
+
+function buildTicketSvg(input: {
+  guestName: string;
+  tourTitle: string;
+  tourDate: string;
+  meetingPoint: string;
+  partySize: number;
+  reference: string;
+  index: number;
+  lang: Lang;
+}) {
+  const L = labels[input.lang];
+  const n = Math.max(1, Math.floor(input.partySize));
+  const titleLines = wrapText(input.tourTitle, 30, 2);
+  const meetingLines = wrapText(input.meetingPoint, 30, 2);
+  const guestLines = wrapText(input.guestName, 26, 1);
+  const dateLines = wrapText(formatDate(input.tourDate, input.lang), 38, 2);
+  const perfDots = Array.from(
+    { length: 24 },
+    (_, dot) => `<circle cx="380" cy="${28 + dot * 25}" r="4.5"/>`,
+  ).join("");
+
+  // Grid: dark stub 0-380, content column starts at x=440, side column at x=980.
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Milpa Chef ticket">
+  <rect width="1200" height="630" fill="#fbf4df"/>
+  <rect x="0" y="0" width="380" height="630" fill="#2f4a2a"/>
+  <path d="M300 0 C346 92 268 150 318 236 C362 316 284 380 330 476 C368 560 306 590 336 630 L380 630 L380 0 Z" fill="#d5a83f" opacity="0.18"/>
+  <g fill="#fbf4df" opacity="0.5">${perfDots}</g>
+  <g font-family="${SERIF}" fill="#fbf4df">
+    <text x="56" y="104" font-size="40" font-weight="700" letter-spacing="3">${escapeXml(L.header)}</text>
+    <text x="56" y="168" font-size="24">${escapeXml(L.ticket)}</text>
+  </g>
+  <rect x="56" y="124" width="88" height="5" fill="#d5a83f"/>
+  <g font-family="${SANS}" fill="#fbf4df">
+    <text x="56" y="252" font-size="22" font-weight="700" fill="#d5a83f" letter-spacing="1">${escapeXml(L.seat(input.index, n))}</text>
+    <text x="56" y="486" font-size="15" opacity="0.75" letter-spacing="2">${escapeXml(L.reference.toUpperCase())}</text>
+    <text x="56" y="526" font-size="28" font-weight="700">${escapeXml(input.reference)}</text>
+  </g>
+  <g font-family="${SERIF}" fill="#2f4a2a">
+    <text x="440" y="102" font-size="34" font-weight="700">${escapeXml(titleLines[0] ?? input.tourTitle)}</text>
+    ${titleLines[1] ? `<text x="440" y="146" font-size="34" font-weight="700">${escapeXml(titleLines[1])}</text>` : ""}
+  </g>
+  <rect x="440" y="${titleLines[1] ? 176 : 132}" width="672" height="2" fill="#d5a83f" opacity="0.7"/>
+  <g font-family="${SANS}">
+    <text x="440" y="238" font-size="14" fill="#6f6a5a" letter-spacing="2">${escapeXml(L.guest.toUpperCase())}</text>
+    <text x="440" y="274" font-size="26" font-weight="700" fill="#292722">${escapeXml(guestLines[0] ?? input.guestName)}</text>
+
+    <text x="440" y="342" font-size="14" fill="#6f6a5a" letter-spacing="2">${escapeXml(L.when.toUpperCase())}</text>
+    <text x="440" y="378" font-size="22" font-weight="700" fill="#292722">${escapeXml(dateLines[0] ?? "")}</text>
+    ${dateLines[1] ? `<text x="440" y="408" font-size="22" font-weight="700" fill="#292722">${escapeXml(dateLines[1])}</text>` : ""}
+
+    <text x="440" y="470" font-size="14" fill="#6f6a5a" letter-spacing="2">${escapeXml(L.where.toUpperCase())}</text>
+    <text x="440" y="506" font-size="22" font-weight="700" fill="#292722">${escapeXml(meetingLines[0] ?? input.meetingPoint)}</text>
+    ${meetingLines[1] ? `<text x="440" y="536" font-size="22" font-weight="700" fill="#292722">${escapeXml(meetingLines[1])}</text>` : ""}
+
+    <text x="980" y="238" font-size="14" fill="#6f6a5a" letter-spacing="2">${escapeXml(L.guests.toUpperCase())}</text>
+    <text x="980" y="292" font-size="46" font-weight="700" fill="#2f4a2a">${n}</text>
+  </g>
+  <rect x="440" y="566" width="672" height="1" fill="#d5a83f" opacity="0.6"/>
+  <g font-family="${SANS}" fill="#6f6a5a" font-size="15">
+    <text x="440" y="600">${escapeXml(L.presentThis)}</text>
+    <text x="1112" y="600" text-anchor="end">${escapeXml(L.footer)}</text>
+  </g>
+</svg>`;
+}
+
+export async function generateTicketAttachments(input: {
   guestName: string;
   tourTitle: string;
   tourDate: string;
@@ -109,46 +177,34 @@ export function generateTicketAttachments(input: {
   partySize: number;
   bookingId: string;
   lang: Lang;
-}): Array<{ filename: string; content: string }> {
-  const L = labels[input.lang];
+}): Promise<Array<{ filename: string; content: string }>> {
   const n = Math.max(1, Math.floor(input.partySize));
-  return Array.from({ length: n }, (_, index) => {
+  const stub = input.bookingId.slice(0, 8);
+  const svgs = Array.from({ length: n }, (_, index) => {
     const i = index + 1;
-    const reference = `${input.bookingId.slice(0, 8).toUpperCase()}-${i}`;
-    const titleLines = wrapText(input.tourTitle, 34, 2);
-    const meetingLines = wrapText(input.meetingPoint, 44, 2);
-    const guestLine = `${input.guestName} — ${L.seat(i, n)}`;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-label="Milpa Chef ticket">
-  <rect width="1200" height="640" fill="#fbf4df"/>
-  <rect x="0" y="0" width="340" height="640" fill="#2f4a2a"/>
-  <path d="M340 0 C380 80 305 130 350 210 C390 285 315 340 355 430 C390 510 330 565 360 640 L340 640 Z" fill="#d5a83f" opacity="0.35"/>
-  <g fill="#fbf4df" opacity="0.65">${Array.from({ length: 26 }, (_, dot) => `<circle cx="360" cy="${18 + dot * 24}" r="5"/>`).join("")}</g>
-  <text x="48" y="96" font-family="Georgia, serif" font-size="42" font-weight="700" letter-spacing="2" fill="#fbf4df">${escapeXml(L.header)}</text>
-  <rect x="48" y="122" width="92" height="6" fill="#d5a83f"/>
-  <text x="48" y="178" font-family="Georgia, serif" font-size="25" font-style="italic" fill="#fbf4df">${escapeXml(L.ticket)}</text>
-  <text x="48" y="250" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#d5a83f">${escapeXml(L.seat(i, n))}</text>
-  <text x="48" y="480" font-family="Arial, sans-serif" font-size="18" fill="#fbf4df" opacity="0.82">${escapeXml(L.reference)}</text>
-  <text x="48" y="520" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fbf4df">${escapeXml(reference)}</text>
-  <text x="420" y="100" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#2f4a2a">${escapeXml(titleLines[0] ?? input.tourTitle)}</text>
-  ${titleLines[1] ? `<text x="420" y="142" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#2f4a2a">${escapeXml(titleLines[1])}</text>` : ""}
-  <g font-family="Arial, sans-serif" fill="#292722">
-    <text x="420" y="218" font-size="17" fill="#6f6a5a" letter-spacing="1.5">${escapeXml(L.guest.toUpperCase())}</text>
-    <text x="420" y="252" font-size="28" font-weight="700">${escapeXml(guestLine)}</text>
-    <text x="420" y="314" font-size="17" fill="#6f6a5a" letter-spacing="1.5">${escapeXml(L.when.toUpperCase())}</text>
-    <text x="420" y="348" font-size="25" font-weight="700">${escapeXml(formatDate(input.tourDate, input.lang))}</text>
-    <text x="420" y="410" font-size="17" fill="#6f6a5a" letter-spacing="1.5">${escapeXml(L.where.toUpperCase())}</text>
-    <text x="420" y="444" font-size="24" font-weight="700">${escapeXml(meetingLines[0] ?? input.meetingPoint)}</text>
-    ${meetingLines[1] ? `<text x="420" y="476" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#292722">${escapeXml(meetingLines[1])}</text>` : ""}
-    <text x="900" y="410" font-size="17" fill="#6f6a5a" letter-spacing="1.5">${escapeXml(L.guests.toUpperCase())}</text>
-    <text x="900" y="454" font-size="54" font-weight="700" fill="#2f4a2a">${n}</text>
-  </g>
-  <rect x="420" y="548" width="620" height="1" fill="#d5a83f" opacity="0.75"/>
-  <text x="420" y="590" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#6f6a5a">${escapeXml(L.presentThis)}</text>
-  <text x="900" y="590" font-family="Arial, sans-serif" font-size="16" fill="#6f6a5a">${escapeXml(L.footer)}</text>
-</svg>`;
     return {
-      filename: `milpachef-ticket-${input.bookingId.slice(0, 8)}-${i}.svg`,
-      content: svgToBase64(svg),
+      i,
+      svg: buildTicketSvg({
+        ...input,
+        index: i,
+        reference: `${stub.toUpperCase()}-${i}`,
+      }),
     };
   });
+
+  try {
+    const { renderSvgToPngBase64 } = await import("./ticket-render.server");
+    return await Promise.all(
+      svgs.map(async ({ i, svg }) => ({
+        filename: `milpachef-ticket-${stub}-${i}.png`,
+        content: await renderSvgToPngBase64(svg),
+      })),
+    );
+  } catch (e) {
+    console.error("[ticket] PNG rendering failed, falling back to SVG", e);
+    return svgs.map(({ i, svg }) => ({
+      filename: `milpachef-ticket-${stub}-${i}.svg`,
+      content: svgToBase64(svg),
+    }));
+  }
 }
