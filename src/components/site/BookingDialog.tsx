@@ -49,7 +49,7 @@ export function BookingDialog({
       });
       if ("error" in result) throw new Error(result.error);
       // Stash the fresh client secret for the checkout route; keyed by bookingId.
-      const returnUrl = `${window.location.origin}/booking/return?session_id={CHECKOUT_SESSION_ID}&bookingId=${result.bookingId}`;
+      const returnUrl = `${window.location.origin}/booking/return?session_id={CHECKOUT_SESSION_ID}&bookingId=${result.bookingId}&t=${result.accessToken}`;
       sessionStorage.setItem(
         `stripe-cs:${result.bookingId}`,
         JSON.stringify({ clientSecret: result.clientSecret, returnUrl }),
