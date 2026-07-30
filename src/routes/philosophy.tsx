@@ -7,11 +7,11 @@ import { marketImage } from "@/lib/tour-images";
 export const Route = createFileRoute("/philosophy")({
   head: () => ({
     meta: [
-      { title: "Our Philosophy — MilpaChef, a knowledge centre for Mexican food" },
+      { title: "Our Philosophy | MilpaChef" },
       {
         name: "description",
         content:
-          "MilpaChef is not a tour agency: it is a knowledge centre. Read the manifesto, principles, mission and vision behind our work with Mexican gastronomy, territory and biocultural heritage.",
+          "MilpaChef is not a tour agency but a knowledge centre: the manifesto, principles and vision behind our work with Mexican gastronomy and territory.",
       },
       { property: "og:title", content: "Our Philosophy — MilpaChef" },
       {

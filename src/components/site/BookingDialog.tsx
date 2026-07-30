@@ -87,10 +87,12 @@ export function BookingDialog({
         <form onSubmit={handleSubmit} className="p-8 space-y-4">
             <p className="text-sm text-muted-foreground">{t("book.subtitle")}</p>
             <div>
-              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              <label htmlFor="booking-name" className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 {t("book.name")}
               </label>
               <input
+                id="booking-name"
+                name="name"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -98,10 +100,12 @@ export function BookingDialog({
               />
             </div>
             <div>
-              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              <label htmlFor="booking-email" className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 {t("book.email")}
               </label>
               <input
+                id="booking-email"
+                name="email"
                 required
                 type="email"
                 value={email}
@@ -110,10 +114,12 @@ export function BookingDialog({
               />
             </div>
             <div>
-              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              <label htmlFor="booking-party" className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 {t("book.party")}
               </label>
               <input
+                id="booking-party"
+                name="party"
                 required
                 type="number"
                 min={1}
@@ -124,10 +130,12 @@ export function BookingDialog({
               />
             </div>
             <div>
-              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              <label htmlFor="booking-notes" className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 {t("book.notes")}
               </label>
               <textarea
+                id="booking-notes"
+                name="notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
@@ -135,10 +143,12 @@ export function BookingDialog({
               />
             </div>
             <div>
-              <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
+              <label htmlFor="booking-language" className="block text-xs uppercase tracking-widest text-muted-foreground mb-1">
                 {t("book.language")}
               </label>
               <select
+                id="booking-language"
+                name="guestLanguage"
                 value={guestLang}
                 onChange={(e) => setGuestLang(e.target.value as "en" | "es" | "fr")}
                 className="w-full border border-input bg-background rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"

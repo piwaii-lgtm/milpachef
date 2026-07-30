@@ -9,7 +9,7 @@ export const Route = createFileRoute("/research")({
       {
         name: "description",
         content:
-          "MilpaChef research on sustainable gastronomy, Mexican food heritage and agrifood systems: publications, articles, studies, conference papers and academic collaborations.",
+          "MilpaChef research on sustainable gastronomy and Mexican agrifood systems: publications, articles, studies and academic collaborations.",
       },
       { property: "og:title", content: "MilpaChef Research — knowledge about Mexican food systems" },
       {

@@ -10,11 +10,11 @@ import { classImage } from "@/lib/tour-images";
 export const Route = createFileRoute("/classes")({
   head: () => ({
     meta: [
-      { title: "Cholula cooking classes with Milpa Chef — mole, tortillas, tamales" },
+      { title: "Cholula cooking classes | Milpa Chef" },
       {
         name: "description",
         content:
-          "Hands-on Mexican cooking classes in Cholula, Puebla with chef Alfonso Rocha Robles. Heirloom-corn tortillas, mole poblano, antojitos and tamales. Small groups, 4 hours.",
+          "Hands-on Mexican cooking classes in Cholula with chef Alfonso Rocha: heirloom-corn tortillas, mole poblano, antojitos and tamales in small groups.",
       },
       { property: "og:title", content: "Cholula cooking classes with Milpa Chef" },
       {

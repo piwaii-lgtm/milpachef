@@ -10,7 +10,7 @@ export const Route = createFileRoute("/resources")({
       {
         name: "description",
         content:
-          "Free MilpaChef® resources: digital recipe books using ancestral ingredients, educational cooking videos, research and articles on Mexican food and biocultural heritage.",
+          "Free MilpaChef® resources: digital recipe books with ancestral ingredients, cooking videos and articles on Mexican biocultural heritage.",
       },
       { property: "og:title", content: "MilpaChef® Resources" },
       {

@@ -18,7 +18,7 @@ const guestPhotos: Record<string, string> = {
 export const Route = createFileRoute("/experiences")({
   head: () => ({
     meta: [
-      { title: "Experiences — food tours, cooking classes & private | MilpaChef" },
+      { title: "Experiences in Cholula | MilpaChef" },
       {
         name: "description",
         content:

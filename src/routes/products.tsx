@@ -14,7 +14,7 @@ export const Route = createFileRoute("/products")({
       {
         name: "description",
         content:
-          "Selección MilpaChef®: a curated catalog of ancestral Mexican ingredients with territorial identity — mountain salt, heirloom beans, Simojovel chile, cacao, chicatana ants, aguamiel and more, shipped across Mexico.",
+          "Selección MilpaChef®: ancestral Mexican ingredients with territorial identity — mountain salt, heirloom beans, Simojovel chile, cacao and more.",
       },
       { property: "og:title", content: "Selección MilpaChef® — ingredients with a story" },
       {
