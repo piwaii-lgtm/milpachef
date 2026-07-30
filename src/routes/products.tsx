@@ -245,6 +245,76 @@ function ProductsPage() {
           </ul>
         </div>
       </section>
+
+      {/* Historia */}
+      <section
+        className="py-20"
+        style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 8%, var(--cream))" }}
+      >
+        <div className="container-editorial grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
+          <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">
+            {s.storyTitle}
+          </h2>
+          <div>
+            <p className="text-muted-foreground text-lg leading-relaxed">{s.storyBody}</p>
+            <div className="mt-10 grid sm:grid-cols-2 gap-10">
+              <div>
+                <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+                  {s.buyersTitle}
+                </div>
+                <ul className="space-y-2 text-primary">
+                  {s.buyers.map((b) => (
+                    <li key={b} className="border-b border-border pb-2">
+                      — {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+                  {s.shippingTitle}
+                </div>
+                <p className="text-muted-foreground leading-relaxed">{s.shippingBody}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impacto + CTA */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
+        <div className="container-editorial py-20 md:py-28 text-primary-foreground">
+          <h2 className="font-serif text-3xl md:text-5xl leading-tight max-w-3xl">
+            {s.impactTitle}
+          </h2>
+          <p className="text-primary-foreground/80 max-w-2xl mt-5 leading-relaxed">
+            {s.impactBody}
+          </p>
+        </div>
+      </section>
+
+      <section className="container-editorial py-20 md:py-28 text-center">
+        <h2 className="font-serif text-4xl md:text-5xl text-primary max-w-3xl mx-auto leading-tight">
+          {s.ctaTitle}
+        </h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed">{s.ctaBody}</p>
+        <div className="mt-9 flex flex-wrap gap-3 justify-center">
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-sm bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-[color:var(--milpa-deep)]"
+          >
+            {COPY.order[lang]}
+          </a>
+          <Link
+            to="/contact"
+            className="inline-flex items-center rounded-sm border border-primary text-primary px-6 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            {s.ctaPrimary}
+          </Link>
+        </div>
+      </section>
     </>
   );
 }
