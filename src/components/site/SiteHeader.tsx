@@ -8,7 +8,7 @@ export function SiteHeader() {
   const langs: Lang[] = ["en", "es", "fr"];
   const [open, setOpen] = useState(false);
   const linkCls =
-    "text-sm tracking-wide uppercase text-primary/70 hover:text-primary transition-colors";
+    "text-[11px] xl:text-sm tracking-wide uppercase whitespace-nowrap text-primary/70 hover:text-primary transition-colors";
   const activeCls = "text-primary";
   const items: { to: string; label: string; exact?: boolean }[] = [
     { to: "/", label: t("nav.home"), exact: true },
@@ -23,7 +23,7 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-border/60 bg-background/85 backdrop-blur sticky top-0 z-40">
-      <div className="container-editorial flex items-center justify-between h-16">
+      <div className="container-editorial flex items-center justify-between gap-3 h-16">
         <Link to="/" className="flex items-center" aria-label="Milpa Chef — home">
           <img
             src={logoAsset.url}
@@ -34,7 +34,7 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-3 lg:gap-4 xl:gap-6">
           {items.map((i) => (
             <Link
               key={i.to}
@@ -48,7 +48,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 xl:gap-4">
           <div className="flex items-center gap-1 text-xs text-muted-foreground" aria-label={t("lang.label")}>
             {langs.map((l) => (
               <button
@@ -75,7 +75,7 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={t("nav.menu")}
-            className="lg:hidden inline-flex flex-col justify-center gap-1.5 p-2 text-primary"
+            className="md:hidden inline-flex flex-col justify-center gap-1.5 p-2 text-primary"
           >
             <span className="block h-px w-5 bg-current" />
             <span className="block h-px w-5 bg-current" />
@@ -85,7 +85,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="lg:hidden border-t border-border/60 bg-background">
+        <nav className="md:hidden border-t border-border/60 bg-background">
           <ul className="container-editorial py-4 flex flex-col gap-3">
             {items.map((i) => (
               <li key={i.to}>
