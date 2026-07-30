@@ -43,9 +43,9 @@ export function AreaPage({ slug, image, imageAlt, ctaTo = "/contact" }: Props) {
 
       <section className="container-editorial py-20 md:py-24 grid md:grid-cols-2 gap-16">
         <div>
-          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-6">
+          <h2 className="uppercase tracking-[0.3em] text-xs text-accent mb-6">
             {t("platform.includes")}
-          </div>
+          </h2>
           <ul className="divide-y divide-border border-y border-border">
             {area.includes.map((item) => (
               <li key={item} className="py-4 font-serif text-2xl text-primary">
@@ -55,9 +55,9 @@ export function AreaPage({ slug, image, imageAlt, ctaTo = "/contact" }: Props) {
           </ul>
         </div>
         <div>
-          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-6">
+          <h2 className="uppercase tracking-[0.3em] text-xs text-accent mb-6">
             {t("platform.circle.title")}
-          </div>
+          </h2>
           <p className="text-muted-foreground leading-relaxed">{t("platform.circle.body")}</p>
           <div className="aspect-[4/3] overflow-hidden rounded-md mt-8">
             <img src={image} alt={imageAlt} loading="lazy" className="w-full h-full object-cover" />
@@ -70,9 +70,9 @@ export function AreaPage({ slug, image, imageAlt, ctaTo = "/contact" }: Props) {
         style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 8%, var(--cream))" }}
       >
         <div className="container-editorial">
-          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-8">
+          <h2 className="uppercase tracking-[0.3em] text-xs text-accent mb-8">
             {t("platform.areas")}
-          </div>
+          </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {others.map((a) => (
               <Link key={a.slug} to={a.to} className="border-t-2 border-accent pt-4 group">

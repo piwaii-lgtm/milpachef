@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "MilpaChef is a platform for sustainable Mexican gastronomy in Cholula, Puebla: food tours, cooking classes, ancestral products, consulting, academy, research and impact — led by chef and anthropologist Alfonso Rocha.",
+          "Sustainable Mexican gastronomy in Cholula, Puebla: food tours, cooking classes, ancestral products, consulting and academy, led by chef-anthropologist Alfonso Rocha.",
       },
       { property: "og:title", content: "MilpaChef — more than a food tour in Cholula" },
       {
@@ -161,7 +161,7 @@ function Home() {
               <div className="aspect-[4/3] overflow-hidden rounded-md mb-4">
                 <img
                   src={areaImages[a.slug]}
-                  alt={a.title}
+                  alt={`${a.title} — ${a.tagline}`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
