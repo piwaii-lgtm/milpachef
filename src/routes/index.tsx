@@ -5,6 +5,9 @@ import { useI18n } from "@/lib/i18n";
 import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
 import { heroImage, marketImage, classImage } from "@/lib/tour-images";
 import { getAreas, philosophy } from "@/lib/platform";
+import { getArea } from "@/lib/platform";
+import { home as homeCopy } from "@/lib/site-copy";
+import chefAsset from "@/assets/chef-milpa.png.asset.json";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
@@ -43,6 +46,22 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t, lang } = useI18n();
+  const c = homeCopy[lang];
+  const areaImages: Record<string, string> = {
+    experiences: heroImage,
+    products: marketImage,
+    consulting: classImage,
+    academy: classImage,
+  };
+  const areaLinks: Record<string, string> = {
+    experiences: "/experiences",
+    products: "/products",
+    consulting: "/consulting",
+    academy: "/academy",
+  };
+  const mainAreas = (["experiences", "products", "consulting", "academy"] as const).map((s) =>
+    getArea(lang, s),
+  );
   const [booking, setBooking] = useState<Tour | null>(null);
   const { data: tours = [] } = useQuery({ queryKey: ["tours"], queryFn: () => fetchTours(3) });
   const { data: classes = [] } = useQuery({
@@ -74,23 +93,23 @@ function Home() {
               {t("hero.eyebrow")}
             </div>
             <h1 className="font-serif text-5xl md:text-7xl leading-[1.05] mb-6">
-              {t("hero.title")}
+              {c.heroTitle}
             </h1>
             <p className="text-lg text-primary-foreground/80 max-w-xl leading-relaxed">
-              {t("hero.subtitle")}
+              {c.heroSubtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/tours"
+                to="/experiences"
                 className="inline-flex items-center rounded-sm bg-[color:var(--corn)] text-primary px-6 py-3 text-sm font-medium hover:brightness-95"
               >
-                {t("hero.cta")}
+                {c.heroCta}
               </Link>
               <Link
-                to="/about"
+                to="/philosophy"
                 className="inline-flex items-center rounded-sm border border-primary-foreground/40 text-primary-foreground px-6 py-3 text-sm hover:bg-primary-foreground/10"
               >
-                {t("hero.secondary")}
+                {c.heroSecondary}
               </Link>
             </div>
             <div className="mt-10 text-xs uppercase tracking-widest text-primary-foreground/60">
@@ -104,37 +123,48 @@ function Home() {
       <section className="container-editorial py-20 md:py-28">
         <div className="grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
           <div className="font-serif text-3xl md:text-4xl text-primary leading-tight space-y-2">
-            {philosophy[lang].map((line) => (
+            {c.philosophyLines.map((line) => (
               <p key={line}>{line}</p>
             ))}
           </div>
           <div>
             <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
-              {t("platform.eyebrow")}
+              {c.philosophyEyebrow}
             </div>
             <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">
-              {t("platform.title")}
+              {c.philosophyTitle}
             </h2>
-            <p className="text-muted-foreground mt-5 leading-relaxed text-lg">
-              {t("platform.lead")}
-            </p>
+            {c.philosophyBody.map((p) => (
+              <p key={p} className="text-muted-foreground mt-5 leading-relaxed text-lg">
+                {p}
+              </p>
+            ))}
             <Link
-              to="/platform"
+              to="/philosophy"
               className="mt-6 inline-flex text-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-[color:var(--milpa-deep)]"
             >
-              {t("nav.platform")} →
+              {c.philosophyCta} →
             </Link>
           </div>
         </div>
 
-        {/* Six areas */}
-        <div className="uppercase tracking-[0.3em] text-xs text-accent mt-20 mb-8">
-          {t("platform.areas")}
+        {/* Four areas of work */}
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mt-20 mb-3">
+          {c.howEyebrow}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {getAreas(lang).map((a) => (
-            <Link key={a.slug} to={a.to} className="border-t-2 border-accent pt-4 group">
-              <div className="text-xs tracking-widest text-muted-foreground mb-1">{a.number}</div>
+        <h2 className="font-serif text-3xl md:text-4xl text-primary">{c.howTitle}</h2>
+        <p className="text-muted-foreground mt-3 max-w-2xl">{c.howLead}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+          {mainAreas.map((a) => (
+            <Link key={a.slug} to={areaLinks[a.slug]} className="group">
+              <div className="aspect-[4/3] overflow-hidden rounded-md mb-4">
+                <img
+                  src={areaImages[a.slug]}
+                  alt={a.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
               <div className="font-serif text-2xl text-primary group-hover:text-[color:var(--milpa-deep)]">
                 {a.title}
               </div>
@@ -148,30 +178,27 @@ function Home() {
       <section className="container-editorial py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
-            {t("nav.about")}
+            {c.founderEyebrow}
           </div>
           <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6 leading-tight">
-            {t("about.title")}
+            {c.founderName}
           </h2>
-          <p className="text-muted-foreground leading-relaxed text-lg">{t("about.body")}</p>
-          <div className="grid sm:grid-cols-3 gap-6 mt-10">
-            {[1, 2, 3].map((i) => (
-              <div key={i}>
-                <div className="w-8 h-px bg-accent mb-3" />
-                <div className="font-serif text-lg text-primary mb-1">
-                  {t(`about.pillar${i}.title`)}
-                </div>
-                <div className="text-sm text-muted-foreground leading-relaxed">
-                  {t(`about.pillar${i}.body`)}
-                </div>
-              </div>
-            ))}
-          </div>
+          {c.founderBody.map((p) => (
+            <p key={p} className="text-muted-foreground leading-relaxed text-lg mb-4">
+              {p}
+            </p>
+          ))}
+          <Link
+            to="/about"
+            className="mt-4 inline-flex text-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-[color:var(--milpa-deep)]"
+          >
+            {c.founderCta} →
+          </Link>
         </div>
-        <div className="aspect-[4/5] overflow-hidden rounded-md">
+        <div className="aspect-[4/5] overflow-hidden rounded-md bg-[#f2a71b]">
           <img
-            src={marketImage}
-            alt="Milpa Chef at a Cholula market"
+            src={chefAsset.url}
+            alt="Alfonso S. Rocha Robles, founder of MilpaChef, holding heirloom black corn"
             loading="lazy"
             className="w-full h-full object-cover"
           />
@@ -245,11 +272,14 @@ function Home() {
       {/* Testimonials */}
       <section className="container-editorial py-24 md:py-32">
         <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4 text-center">
-          {t("testimonials.badge")}
+          {c.testimonialsEyebrow}
         </div>
         <h2 className="font-serif text-4xl md:text-5xl text-primary text-center mb-16">
           {t("testimonials.title")}
         </h2>
+        <p className="text-muted-foreground text-center max-w-2xl mx-auto -mt-10 mb-14">
+          {c.testimonialsLead}
+        </p>
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {testimonials.map((tt) => (
             <figure
@@ -303,6 +333,22 @@ function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* Closing invitation */}
+      <section className="container-editorial py-24 md:py-28 text-center">
+        <h2 className="font-serif text-4xl md:text-5xl text-primary max-w-3xl mx-auto leading-tight">
+          {c.closingTitle}
+        </h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed">
+          {c.closingBody}
+        </p>
+        <Link
+          to="/philosophy"
+          className="mt-9 inline-flex items-center rounded-sm bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-[color:var(--milpa-deep)]"
+        >
+          {c.closingCta}
+        </Link>
       </section>
 
       <BookingDialog tour={booking} open={!!booking} onClose={() => setBooking(null)} />
