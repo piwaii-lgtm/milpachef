@@ -14,6 +14,7 @@ import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConsultingRouteImport } from './routes/consulting'
@@ -52,6 +53,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpactRoute = ImpactRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/consulting'
     | '/contact'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/consulting'
     | '/contact'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/consulting'
     | '/contact'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
@@ -261,6 +273,7 @@ export interface RootRouteChildren {
   ConsultingRoute: typeof ConsultingRoute
   ContactRoute: typeof ContactRoute
   ImpactRoute: typeof ImpactRoute
+  PhilosophyRoute: typeof PhilosophyRoute
   PlatformRoute: typeof PlatformRoute
   ProductsRoute: typeof ProductsRoute
   ResearchRoute: typeof ResearchRoute
@@ -306,6 +319,13 @@ declare module '@tanstack/react-router' {
       path: '/platform'
       fullPath: '/platform'
       preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impact': {
@@ -432,6 +452,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConsultingRoute: ConsultingRoute,
   ContactRoute: ContactRoute,
   ImpactRoute: ImpactRoute,
+  PhilosophyRoute: PhilosophyRoute,
   PlatformRoute: PlatformRoute,
   ProductsRoute: ProductsRoute,
   ResearchRoute: ResearchRoute,
