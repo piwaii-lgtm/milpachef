@@ -26,6 +26,29 @@ export const Route = createFileRoute("/contact")({
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "MilpaChef",
+          description:
+            "Food tours, cooking classes and sustainable Mexican gastronomy in Cholula, Puebla.",
+          url: "https://milpachef.mx/contact",
+          email: "alfonso@milpachef.com",
+          telephone: "+522221706820",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "4 Poniente #722, Col. Centro",
+            addressLocality: "San Pedro Cholula",
+            addressRegion: "Puebla",
+            addressCountry: "MX",
+          },
+          sameAs: socials.map((s) => s.href),
+        }),
+      },
+    ],
   }),
   component: ContactPage,
 });
