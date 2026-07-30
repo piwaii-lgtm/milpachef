@@ -76,7 +76,7 @@ function ConsultingPage() {
                 className="bg-card border border-border/60 rounded-sm p-7 md:p-9 grid md:grid-cols-[auto_1fr] gap-8"
               >
                 <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground md:w-24">
-                  0{c.scales.length - i}
+                  0{i + 1}
                 </div>
                 <div>
                   <div className="font-serif text-3xl text-primary">{s.name}</div>
