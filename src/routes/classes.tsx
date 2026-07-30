@@ -70,6 +70,9 @@ function ClassesPage() {
       </section>
 
       <section className="container-editorial py-16 md:py-24">
+        <h2 className="font-serif text-3xl md:text-4xl mb-8">
+          {t("classes.upcoming")}
+        </h2>
         {isLoading ? (
           <div className="text-muted-foreground">…</div>
         ) : classes.length === 0 ? (
