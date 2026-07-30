@@ -13,7 +13,7 @@ export const Route = createFileRoute("/reserve")({
       {
         name: "description",
         content:
-          "Book upcoming Cholula food tours (MXN $595) and hands-on Mexican cooking classes (MXN $1,295) with Milpa Chef. Small groups, English, Spanish or French.",
+          "Book upcoming Cholula food tours and hands-on Mexican cooking classes with Milpa Chef. Small groups, English, Spanish or French.",
       },
       { property: "og:title", content: "Reserve a spot — Milpa Chef" },
       {

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/tours")({
       {
         name: "description",
         content:
-          "Full agenda of upcoming Gastro Tours by Milpa Chef in Cholula, Puebla. MXN $595, small groups of 10, Slow Food sourcing.",
+          "Full agenda of upcoming Gastro Tours by Milpa Chef in Cholula, Puebla. Small groups of 10, Slow Food sourcing.",
       },
       { property: "og:title", content: "Upcoming food tours in Cholula" },
       {

@@ -14,12 +14,12 @@ export const Route = createFileRoute("/classes")({
       {
         name: "description",
         content:
-          "Hands-on Mexican cooking classes in Cholula, Puebla with chef Alfonso Rocha Robles. Heirloom-corn tortillas, mole poblano, antojitos and tamales. Small groups, 4 hours, MXN $985.",
+          "Hands-on Mexican cooking classes in Cholula, Puebla with chef Alfonso Rocha Robles. Heirloom-corn tortillas, mole poblano, antojitos and tamales. Small groups, 4 hours.",
       },
       { property: "og:title", content: "Cholula cooking classes with Milpa Chef" },
       {
         property: "og:description",
-        content: "Hands-on Cholula cooking classes — heirloom corn, mole, tamales. MXN $985.",
+        content: "Hands-on Cholula cooking classes — heirloom corn, mole, tamales.",
       },
       { property: "og:url", content: "/classes" },
       { property: "og:type", content: "website" },
