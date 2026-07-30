@@ -10,7 +10,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Alfonso Rocha is a chef, anthropologist and sustainable gastronomy specialist with over seventeen years working with rural communities, producers and universities across Mexico. MilpaChef is his platform for food heritage.",
+          "Alfonso Rocha, chef and anthropologist, has spent 17+ years working with rural communities, producers and universities on Mexican food heritage.",
       },
       { property: "og:title", content: "About MilpaChef — Alfonso Rocha" },
       {
