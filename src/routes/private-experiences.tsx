@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { privatePage } from "@/lib/site-copy";
 import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
@@ -99,12 +99,6 @@ function PrivateExperiencesPage() {
           >
             {c.ctaWhatsApp}
           </a>
-          <Link
-            to="/contact"
-            className="inline-flex items-center rounded-sm border border-border text-primary px-6 py-3 text-sm hover:bg-primary/5"
-          >
-            /contact
-          </Link>
         </div>
       </section>
     </>

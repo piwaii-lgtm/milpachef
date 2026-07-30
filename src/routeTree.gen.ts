@@ -14,6 +14,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PrivateExperiencesRouteImport } from './routes/private-experiences'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as ImpactRouteImport } from './routes/impact'
@@ -55,6 +56,11 @@ const ResearchRoute = ResearchRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateExperiencesRoute = PrivateExperiencesRouteImport.update({
+  id: '/private-experiences',
+  path: '/private-experiences',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformRoute = PlatformRouteImport.update({
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/impact': typeof ImpactRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
+  '/private-experiences': typeof PrivateExperiencesRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/impact': typeof ImpactRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
+  '/private-experiences': typeof PrivateExperiencesRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/impact': typeof ImpactRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
+  '/private-experiences': typeof PrivateExperiencesRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/philosophy'
     | '/platform'
+    | '/private-experiences'
     | '/products'
     | '/research'
     | '/reserve'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/philosophy'
     | '/platform'
+    | '/private-experiences'
     | '/products'
     | '/research'
     | '/reserve'
@@ -275,6 +286,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/philosophy'
     | '/platform'
+    | '/private-experiences'
     | '/products'
     | '/research'
     | '/reserve'
@@ -300,6 +312,7 @@ export interface RootRouteChildren {
   ImpactRoute: typeof ImpactRoute
   PhilosophyRoute: typeof PhilosophyRoute
   PlatformRoute: typeof PlatformRoute
+  PrivateExperiencesRoute: typeof PrivateExperiencesRoute
   ProductsRoute: typeof ProductsRoute
   ResearchRoute: typeof ResearchRoute
   ReserveRoute: typeof ReserveRoute
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/private-experiences': {
+      id: '/private-experiences'
+      path: '/private-experiences'
+      fullPath: '/private-experiences'
+      preLoaderRoute: typeof PrivateExperiencesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform': {
@@ -495,6 +515,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpactRoute: ImpactRoute,
   PhilosophyRoute: PhilosophyRoute,
   PlatformRoute: PlatformRoute,
+  PrivateExperiencesRoute: PrivateExperiencesRoute,
   ProductsRoute: ProductsRoute,
   ResearchRoute: ResearchRoute,
   ReserveRoute: ReserveRoute,
@@ -507,13 +528,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
