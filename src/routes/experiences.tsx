@@ -87,9 +87,6 @@ function ExperiencesPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
           {c.pillars.map((p) => (
             <div key={p.label} className="border-t-2 border-accent pt-5">
-              <div className="text-3xl mb-3" aria-hidden>
-                {p.icon}
-              </div>
               <div className="font-serif text-2xl text-primary">{p.label}</div>
             </div>
           ))}
@@ -167,7 +164,7 @@ function ExperiencesPage() {
             {c.expect.map((e) => (
               <li key={e} className="flex gap-3 text-primary-foreground/85 leading-relaxed">
                 <span className="text-[color:var(--corn)]" aria-hidden>
-                  ✔
+                  —
                 </span>
                 <span>{e}</span>
               </li>

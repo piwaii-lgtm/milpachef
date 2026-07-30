@@ -346,10 +346,10 @@ export const experiencesPage: Record<Lang, ExperiencesCopy> = {
     diffBody:
       "Nuestras experiencias combinan gastronomía, biología, historia y patrimonio biocultural. Cada recorrido está diseñado para descubrir los alimentos desde su origen, conocer a quienes los producen y entender cómo forman parte de la identidad de cada región.",
     pillars: [
-      { icon: "🌽", label: "Territorio" },
-      { icon: "👩‍🌾", label: "Productores" },
-      { icon: "🍽", label: "Cultura gastronómica" },
-      { icon: "📚", label: "Conocimiento gastronómico" },
+      { icon: "", label: "Territorio" },
+      { icon: "", label: "Productores" },
+      { icon: "", label: "Cultura gastronómica" },
+      { icon: "", label: "Conocimiento gastronómico" },
     ],
     chooseEyebrow: "Elige tu experiencia",
     chooseTitle: "Tres formas de vivir la gastronomía mexicana",
@@ -415,10 +415,10 @@ export const experiencesPage: Record<Lang, ExperiencesCopy> = {
     diffBody:
       "Our experiences combine gastronomy, biology, history and biocultural heritage. Every itinerary is designed so you discover food from its origin, meet the people who produce it and understand how it shapes the identity of each region.",
     pillars: [
-      { icon: "🌽", label: "Territory" },
-      { icon: "👩‍🌾", label: "Producers" },
-      { icon: "🍽", label: "Food culture" },
-      { icon: "📚", label: "Gastronomic knowledge" },
+      { icon: "", label: "Territory" },
+      { icon: "", label: "Producers" },
+      { icon: "", label: "Food culture" },
+      { icon: "", label: "Gastronomic knowledge" },
     ],
     chooseEyebrow: "Choose your experience",
     chooseTitle: "Three ways to live Mexican gastronomy",
@@ -484,10 +484,10 @@ export const experiencesPage: Record<Lang, ExperiencesCopy> = {
     diffBody:
       "Nos expériences réunissent gastronomie, biologie, histoire et patrimoine bioculturel. Chaque parcours est conçu pour découvrir les aliments dès leur origine, rencontrer celles et ceux qui les produisent et comprendre comment ils façonnent l'identité de chaque région.",
     pillars: [
-      { icon: "🌽", label: "Territoire" },
-      { icon: "👩‍🌾", label: "Producteurs" },
-      { icon: "🍽", label: "Culture gastronomique" },
-      { icon: "📚", label: "Savoir gastronomique" },
+      { icon: "", label: "Territoire" },
+      { icon: "", label: "Producteurs" },
+      { icon: "", label: "Culture gastronomique" },
+      { icon: "", label: "Savoir gastronomique" },
     ],
     chooseEyebrow: "Choisissez votre expérience",
     chooseTitle: "Trois façons de vivre la gastronomie mexicaine",

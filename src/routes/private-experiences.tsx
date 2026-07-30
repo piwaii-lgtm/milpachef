@@ -70,7 +70,7 @@ function PrivateExperiencesPage() {
             {c.includes.map((i) => (
               <li key={i} className="flex gap-3 text-muted-foreground leading-relaxed">
                 <span className="text-accent" aria-hidden>
-                  ✔
+                  —
                 </span>
                 <span>{i}</span>
               </li>
