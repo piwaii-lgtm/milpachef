@@ -9,7 +9,7 @@ export const Route = createFileRoute("/impact")({
       {
         name: "description",
         content:
-          "MilpaChef impact: alliances with allied producers, networks and associations, social projects and conservation of Mexican gastronomic heritage, rooted in work with Slow Food Mexico and Comida Lenta A.C.",
+          "MilpaChef impact: allied producers, networks and associations, social projects and conservation of Mexican gastronomic heritage in Puebla.",
       },
       { property: "og:title", content: "MilpaChef Impact — strengthening local food systems" },
       {

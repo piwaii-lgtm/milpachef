@@ -9,7 +9,7 @@ import { BookingDialog } from "@/components/site/BookingDialog";
 export const Route = createFileRoute("/reserve")({
   head: () => ({
     meta: [
-      { title: "Reserve a spot — Cholula food tours & cooking classes | Milpa Chef" },
+      { title: "Reserve a spot in Cholula | Milpa Chef" },
       {
         name: "description",
         content:
