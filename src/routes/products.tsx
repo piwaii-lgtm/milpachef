@@ -2,23 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { PRODUCTS, CATEGORY_LABEL, type ProductCategory } from "@/lib/products";
+import { productsPage } from "@/lib/section-copy";
+import { Link } from "@tanstack/react-router";
 
 const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Ancestral foods from Chiapas & Puebla — Milpa Chef catalog" },
+      { title: "Selección MilpaChef® — ancestral Mexican ingredients" },
       {
         name: "description",
         content:
-          "Milpa Chef's catalog of ancestral Mexican ingredients: Maya salt from Zinacantán, heirloom beans, Simojovel chile, Soconusco cacao, achiote, chicatana ants, pulcatta and aguamiel concentrate. Delivered from Cholula.",
+          "Selección MilpaChef®: a curated catalog of ancestral Mexican ingredients with territorial identity — mountain salt, heirloom beans, Simojovel chile, cacao, chicatana ants, aguamiel and more, shipped across Mexico.",
       },
-      { property: "og:title", content: "Milpa Chef — Ancestral foods catalog" },
+      { property: "og:title", content: "Selección MilpaChef® — ingredients with a story" },
       {
         property: "og:description",
         content:
-          "Heirloom ingredients from Chiapas and Puebla, curated by Milpa Chef in Cholula.",
+          "Foods with territorial identity that preserve Mexico's biocultural heritage.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/products" },
@@ -70,6 +72,7 @@ const COPY = {
 function ProductsPage() {
   const { lang } = useI18n();
   const [cat, setCat] = useState<ProductCategory | "all">("all");
+  const s = productsPage[lang];
 
   const categories = useMemo(() => {
     const set = new Set<ProductCategory>(PRODUCTS.map((p) => p.category));
@@ -85,21 +88,61 @@ function ProductsPage() {
         style={{ backgroundColor: "var(--milpa-deep)" }}
       >
         <div className="relative container-editorial py-20 md:py-28 text-primary-foreground">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-4">
-              {COPY.eyebrow[lang]}
+              {s.eyebrow}
             </div>
-            <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] mb-4">
-              {COPY.title[lang]}
+            <h1 className="font-serif text-5xl md:text-7xl leading-[1.05] mb-4">
+              {s.title}
             </h1>
-            <p className="text-lg text-primary-foreground/80 max-w-xl leading-relaxed">
-              {COPY.subtitle[lang]}
+            <p className="font-serif italic text-xl md:text-2xl text-[color:var(--corn)] max-w-2xl">
+              {s.subtitle}
             </p>
+            {s.intro.map((p) => (
+              <p key={p} className="text-primary-foreground/80 max-w-2xl mt-5 leading-relaxed">
+                {p}
+              </p>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="container-editorial py-12 md:py-16">
+      {/* Qué es la Selección */}
+      <section className="container-editorial py-16 md:py-20 grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
+        <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">{s.whatTitle}</h2>
+        <div>
+          {s.whatBody.map((p) => (
+            <p key={p} className="text-muted-foreground text-lg leading-relaxed mb-4">
+              {p}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      {/* Criterios */}
+      <section
+        className="py-16 md:py-20"
+        style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 8%, var(--cream))" }}
+      >
+        <div className="container-editorial">
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-10">
+            {s.criteriaLabel}
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            {s.criteria.map((cr, i) => (
+              <div key={cr.title} className="border-t-2 border-accent pt-4">
+                <div className="text-xs text-muted-foreground tracking-widest mb-1">0{i + 1}</div>
+                <div className="font-serif text-xl text-primary">{cr.title}</div>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{cr.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container-editorial py-16 md:py-20">
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mb-3">{s.catalogLabel}</div>
+        <h2 className="font-serif text-3xl md:text-4xl text-primary mb-10">{s.catalogTitle}</h2>
         <div className="flex flex-wrap gap-2 mb-10">
           <FilterPill active={cat === "all"} onClick={() => setCat("all")}>
             {COPY.all[lang]}
@@ -200,6 +243,76 @@ function ProductsPage() {
               </a>
             </li>
           </ul>
+        </div>
+      </section>
+
+      {/* Historia */}
+      <section
+        className="py-20"
+        style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 8%, var(--cream))" }}
+      >
+        <div className="container-editorial grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
+          <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">
+            {s.storyTitle}
+          </h2>
+          <div>
+            <p className="text-muted-foreground text-lg leading-relaxed">{s.storyBody}</p>
+            <div className="mt-10 grid sm:grid-cols-2 gap-10">
+              <div>
+                <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+                  {s.buyersTitle}
+                </div>
+                <ul className="space-y-2 text-primary">
+                  {s.buyers.map((b) => (
+                    <li key={b} className="border-b border-border pb-2">
+                      — {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4">
+                  {s.shippingTitle}
+                </div>
+                <p className="text-muted-foreground leading-relaxed">{s.shippingBody}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impacto + CTA */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
+        <div className="container-editorial py-20 md:py-28 text-primary-foreground">
+          <h2 className="font-serif text-3xl md:text-5xl leading-tight max-w-3xl">
+            {s.impactTitle}
+          </h2>
+          <p className="text-primary-foreground/80 max-w-2xl mt-5 leading-relaxed">
+            {s.impactBody}
+          </p>
+        </div>
+      </section>
+
+      <section className="container-editorial py-20 md:py-28 text-center">
+        <h2 className="font-serif text-4xl md:text-5xl text-primary max-w-3xl mx-auto leading-tight">
+          {s.ctaTitle}
+        </h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed">{s.ctaBody}</p>
+        <div className="mt-9 flex flex-wrap gap-3 justify-center">
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-sm bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-[color:var(--milpa-deep)]"
+          >
+            {COPY.order[lang]}
+          </a>
+          <Link
+            to="/contact"
+            className="inline-flex items-center rounded-sm border border-primary text-primary px-6 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            {s.ctaPrimary}
+          </Link>
         </div>
       </section>
     </>
