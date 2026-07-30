@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
 import { heroImage, marketImage, classImage } from "@/lib/tour-images";
-import { getAreas, philosophy } from "@/lib/platform";
 import { getArea } from "@/lib/platform";
 import { home as homeCopy } from "@/lib/site-copy";
 import chefAsset from "@/assets/chef-milpa.png.asset.json";
