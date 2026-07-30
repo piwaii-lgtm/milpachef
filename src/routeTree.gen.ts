@@ -10,11 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as ExperiencesRouteImport } from './routes/experiences'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConsultingRouteImport } from './routes/consulting'
 import { Route as ClassesRouteImport } from './routes/classes'
@@ -32,6 +35,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReserveRoute = ReserveRouteImport.update({
@@ -54,9 +62,19 @@ const PlatformRoute = PlatformRouteImport.update({
   path: '/platform',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImpactRoute = ImpactRouteImport.update({
   id: '/impact',
   path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperiencesRoute = ExperiencesRouteImport.update({
+  id: '/experiences',
+  path: '/experiences',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -133,11 +151,14 @@ export interface FileRoutesByFullPath {
   '/classes': typeof ClassesRoute
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -153,11 +174,14 @@ export interface FileRoutesByTo {
   '/classes': typeof ClassesRoute
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -175,11 +199,14 @@ export interface FileRoutesById {
   '/classes': typeof ClassesRoute
   '/consulting': typeof ConsultingRoute
   '/contact': typeof ContactRoute
+  '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -197,11 +224,14 @@ export interface FileRouteTypes {
     | '/classes'
     | '/consulting'
     | '/contact'
+    | '/experiences'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -217,11 +247,14 @@ export interface FileRouteTypes {
     | '/classes'
     | '/consulting'
     | '/contact'
+    | '/experiences'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -238,11 +271,14 @@ export interface FileRouteTypes {
     | '/classes'
     | '/consulting'
     | '/contact'
+    | '/experiences'
     | '/impact'
+    | '/philosophy'
     | '/platform'
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -260,11 +296,14 @@ export interface RootRouteChildren {
   ClassesRoute: typeof ClassesRoute
   ConsultingRoute: typeof ConsultingRoute
   ContactRoute: typeof ContactRoute
+  ExperiencesRoute: typeof ExperiencesRoute
   ImpactRoute: typeof ImpactRoute
+  PhilosophyRoute: typeof PhilosophyRoute
   PlatformRoute: typeof PlatformRoute
   ProductsRoute: typeof ProductsRoute
   ResearchRoute: typeof ResearchRoute
   ReserveRoute: typeof ReserveRoute
+  ResourcesRoute: typeof ResourcesRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
@@ -278,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reserve': {
@@ -308,11 +354,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/impact': {
       id: '/impact'
       path: '/impact'
       fullPath: '/impact'
       preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiences': {
+      id: '/experiences'
+      path: '/experiences'
+      fullPath: '/experiences'
+      preLoaderRoute: typeof ExperiencesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -431,11 +491,14 @@ const rootRouteChildren: RootRouteChildren = {
   ClassesRoute: ClassesRoute,
   ConsultingRoute: ConsultingRoute,
   ContactRoute: ContactRoute,
+  ExperiencesRoute: ExperiencesRoute,
   ImpactRoute: ImpactRoute,
+  PhilosophyRoute: PhilosophyRoute,
   PlatformRoute: PlatformRoute,
   ProductsRoute: ProductsRoute,
   ResearchRoute: ResearchRoute,
   ReserveRoute: ReserveRoute,
+  ResourcesRoute: ResourcesRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,

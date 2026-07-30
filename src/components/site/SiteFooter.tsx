@@ -28,6 +28,7 @@ export function SiteFooter() {
             {t("footer.experiences")}
           </div>
           <ul className="space-y-2 text-sm">
+            <li><Link to="/experiences" className="hover:text-[color:var(--corn)]">{t("nav.experiences")}</Link></li>
             <li><Link to="/tours" className="hover:text-[color:var(--corn)]">{t("nav.tours")}</Link></li>
             <li><Link to="/classes" className="hover:text-[color:var(--corn)]">{t("nav.classes")}</Link></li>
             <li><Link to="/reserve" className="hover:text-[color:var(--corn)]">{t("footer.reserve")}</Link></li>
@@ -62,6 +63,8 @@ export function SiteFooter() {
           </div>
           <ul className="space-y-2 text-sm">
             <li><Link to="/" className="hover:text-[color:var(--corn)]">{t("nav.home")}</Link></li>
+            <li><Link to="/philosophy" className="hover:text-[color:var(--corn)]">{t("nav.philosophy")}</Link></li>
+            <li><Link to="/resources" className="hover:text-[color:var(--corn)]">{t("nav.resources")}</Link></li>
             <li><Link to="/about" className="hover:text-[color:var(--corn)]">{t("nav.about")}</Link></li>
             <li><Link to="/contact" className="hover:text-[color:var(--corn)]">{t("nav.contact")}</Link></li>
           </ul>
