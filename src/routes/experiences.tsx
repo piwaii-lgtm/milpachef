@@ -40,7 +40,7 @@ export const Route = createFileRoute("/experiences")({
 });
 
 function ExperiencesPage() {
-  const { lang } = useI18n();
+  const { t, lang } = useI18n();
   const c = experiencesPage[lang];
   const optionImages = [heroImage, classImage, groupAsset.url];
   const { data: testimonials = [] } = useQuery({
@@ -179,9 +179,12 @@ function ExperiencesPage() {
           <div className="uppercase tracking-[0.3em] text-xs text-accent mb-4 text-center">
             {c.testimonialsEyebrow}
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl text-primary text-center mb-14">
+          <h2 className="font-serif text-4xl md:text-5xl text-primary text-center mb-4">
             {c.testimonialsTitle}
           </h2>
+          <p className="text-center text-sm uppercase tracking-widest text-accent mb-14">
+            {t("testimonials.badge")}
+          </p>
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {testimonials.map((tt) => (
               <figure key={tt.id} className="border-l-2 border-accent pl-6 py-2 flex gap-5 items-start">
