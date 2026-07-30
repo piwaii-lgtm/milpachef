@@ -7,6 +7,8 @@ import { heroImage, marketImage, classImage } from "@/lib/tour-images";
 import { getArea } from "@/lib/platform";
 import { home as homeCopy } from "@/lib/site-copy";
 import chefAsset from "@/assets/chef-milpa.png.asset.json";
+import consultingImg from "@/assets/area-consulting.jpg";
+import academyImg from "@/assets/area-academy.jpg";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
@@ -47,10 +49,10 @@ function Home() {
   const { t, lang } = useI18n();
   const c = homeCopy[lang];
   const areaImages: Record<string, string> = {
-    experiences: heroImage,
+    experiences: groupAsset.url,
     products: marketImage,
-    consulting: classImage,
-    academy: classImage,
+    consulting: consultingImg,
+    academy: academyImg,
   };
   const areaLinks: Record<string, string> = {
     experiences: "/experiences",
