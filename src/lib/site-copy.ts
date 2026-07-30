@@ -310,3 +310,330 @@ export const resourcesPage: Record<Lang, ResourcesCopy> = {
     ],
   },
 };
+export type ExperiencesCopy = {
+  heroTitle: string;
+  heroSubtitle: string;
+  diffEyebrow: string;
+  diffTitle: string;
+  diffBody: string;
+  pillars: { icon: string; label: string }[];
+  chooseEyebrow: string;
+  chooseTitle: string;
+  options: { title: string; body: string; cta: string; to: string }[];
+  howEyebrow: string;
+  howTitle: string;
+  steps: { title: string; body: string }[];
+  expectEyebrow: string;
+  expectTitle: string;
+  expectLead: string;
+  expect: string[];
+  testimonialsEyebrow: string;
+  testimonialsTitle: string;
+  faqEyebrow: string;
+  faqTitle: string;
+  faqs: { q: string; a: string }[];
+  closingTitle: string;
+  closingQuote: string;
+};
+
+export const experiencesPage: Record<Lang, ExperiencesCopy> = {
+  es: {
+    heroTitle: "Experiencias",
+    heroSubtitle:
+      "Cada experiencia es una invitación a comprender la gastronomía mexicana desde su territorio, sus ingredientes, sus productores y las personas que la mantienen viva. Más que un recorrido, buscamos generar una conexión auténtica con la cultura alimentaria de México.",
+    diffEyebrow: "Qué nos hace distintos",
+    diffTitle: "¿Qué hace diferente una experiencia MilpaChef?",
+    diffBody:
+      "Nuestras experiencias combinan gastronomía, biología, historia y patrimonio biocultural. Cada recorrido está diseñado para descubrir los alimentos desde su origen, conocer a quienes los producen y entender cómo forman parte de la identidad de cada región.",
+    pillars: [
+      { icon: "🌽", label: "Territorio" },
+      { icon: "👩‍🌾", label: "Productores" },
+      { icon: "🍽", label: "Cultura gastronómica" },
+      { icon: "📚", label: "Conocimiento gastronómico" },
+    ],
+    chooseEyebrow: "Elige tu experiencia",
+    chooseTitle: "Tres formas de vivir la gastronomía mexicana",
+    options: [
+      {
+        title: "Tours Gastronómicos",
+        body: "Recorre mercados, cocinas, restaurantes y espacios tradicionales para descubrir la historia y la diversidad gastronómica de cada destino.",
+        cta: "Conoce nuestros Tours Gastronómicos",
+        to: "/tours",
+      },
+      {
+        title: "Cursos de Cocina",
+        body: "Aprende técnicas, ingredientes y recetas nacionales e internacionales desde una perspectiva cultural y sustentable, utilizando productos locales y de temporada.",
+        cta: "Explora las clases",
+        to: "/classes",
+      },
+      {
+        title: "Experiencias Privadas",
+        body: "Diseñamos experiencias personalizadas para viajeros, empresas, universidades y grupos interesados en conocer la gastronomía mexicana desde una perspectiva única.",
+        cta: "Solicita una experiencia",
+        to: "/private-experiences",
+      },
+    ],
+    howEyebrow: "Nuestra forma de trabajar",
+    howTitle: "Descubrir · Probar · Comprender · Conectar",
+    steps: [
+      { title: "Descubrir", body: "Conocer el territorio y su contexto." },
+      { title: "Probar", body: "Degustar ingredientes y platillos representativos." },
+      { title: "Comprender", body: "Entender las historias, las técnicas y las personas detrás de cada alimento." },
+      { title: "Conectar", body: "Llevarse una nueva forma de mirar la gastronomía." },
+    ],
+    expectEyebrow: "Lo que puedes esperar",
+    expectTitle: "En cada experiencia buscamos que puedas…",
+    expectLead: "",
+    expect: [
+      "Descubrir ingredientes locales.",
+      "Conocer productores y cocineras.",
+      "Comprender el contexto histórico y cultural.",
+      "Degustar preparaciones tradicionales y contemporáneas.",
+      "Conectar con el patrimonio gastronómico del territorio.",
+      "Apoyar economías locales.",
+    ],
+    testimonialsEyebrow: "Testimonios",
+    testimonialsTitle: "Lo que dicen quienes ya lo vivieron",
+    faqEyebrow: "Preguntas frecuentes",
+    faqTitle: "Antes de reservar",
+    faqs: [
+      { q: "¿Necesito experiencia previa?", a: "No." },
+      { q: "¿Hay opciones vegetarianas o para alergias?", a: "Sí." },
+      { q: "¿Las experiencias son privadas o compartidas?", a: "Depende: puede ser al gusto." },
+      { q: "¿En qué idiomas están disponibles?", a: "Español e inglés." },
+    ],
+    closingTitle: "Vive la gastronomía desde su origen.",
+    closingQuote:
+      "Cada recorrido es una oportunidad para descubrir que la gastronomía comienza mucho antes de llegar al plato.",
+  },
+  en: {
+    heroTitle: "Experiences",
+    heroSubtitle:
+      "Each experience is an invitation to understand Mexican gastronomy through its territory, its ingredients, its producers and the people who keep it alive. More than a tour, we look to create an authentic connection with Mexico's food culture.",
+    diffEyebrow: "What sets us apart",
+    diffTitle: "What makes a MilpaChef experience different?",
+    diffBody:
+      "Our experiences combine gastronomy, biology, history and biocultural heritage. Every itinerary is designed so you discover food from its origin, meet the people who produce it and understand how it shapes the identity of each region.",
+    pillars: [
+      { icon: "🌽", label: "Territory" },
+      { icon: "👩‍🌾", label: "Producers" },
+      { icon: "🍽", label: "Food culture" },
+      { icon: "📚", label: "Gastronomic knowledge" },
+    ],
+    chooseEyebrow: "Choose your experience",
+    chooseTitle: "Three ways to live Mexican gastronomy",
+    options: [
+      {
+        title: "Food Tours",
+        body: "Walk through markets, kitchens, restaurants and traditional spaces to discover the history and gastronomic diversity of each destination.",
+        cta: "Discover our food tours",
+        to: "/tours",
+      },
+      {
+        title: "Cooking Classes",
+        body: "Learn techniques, ingredients and Mexican and international recipes from a cultural and sustainable perspective, using local, seasonal produce.",
+        cta: "Explore the classes",
+        to: "/classes",
+      },
+      {
+        title: "Private Experiences",
+        body: "We design tailor-made experiences for travellers, companies, universities and groups who want to know Mexican gastronomy from a unique perspective.",
+        cta: "Request an experience",
+        to: "/private-experiences",
+      },
+    ],
+    howEyebrow: "How we work",
+    howTitle: "Discover · Taste · Understand · Connect",
+    steps: [
+      { title: "Discover", body: "Get to know the territory and its context." },
+      { title: "Taste", body: "Try the ingredients and dishes that define it." },
+      { title: "Understand", body: "Grasp the stories, techniques and people behind each food." },
+      { title: "Connect", body: "Leave with a new way of looking at gastronomy." },
+    ],
+    expectEyebrow: "What to expect",
+    expectTitle: "In every experience we want you to…",
+    expectLead: "",
+    expect: [
+      "Discover local ingredients.",
+      "Meet producers and traditional cooks.",
+      "Understand the historical and cultural context.",
+      "Taste traditional and contemporary preparations.",
+      "Connect with the food heritage of the territory.",
+      "Support local economies.",
+    ],
+    testimonialsEyebrow: "Testimonials",
+    testimonialsTitle: "What guests say",
+    faqEyebrow: "FAQ",
+    faqTitle: "Before you book",
+    faqs: [
+      { q: "Do I need previous experience?", a: "No." },
+      { q: "Are there vegetarian or allergy-friendly options?", a: "Yes." },
+      { q: "Are the experiences private or shared?", a: "It depends — either works." },
+      { q: "Which languages are available?", a: "Spanish and English." },
+    ],
+    closingTitle: "Live gastronomy from its origin.",
+    closingQuote:
+      "Every journey is a chance to discover that gastronomy begins long before it reaches the plate.",
+  },
+  fr: {
+    heroTitle: "Expériences",
+    heroSubtitle:
+      "Chaque expérience est une invitation à comprendre la gastronomie mexicaine à travers son territoire, ses ingrédients, ses producteurs et les personnes qui la font vivre. Plus qu'une visite, nous cherchons à créer un lien authentique avec la culture alimentaire du Mexique.",
+    diffEyebrow: "Ce qui nous distingue",
+    diffTitle: "Qu'est-ce qui rend une expérience MilpaChef différente ?",
+    diffBody:
+      "Nos expériences réunissent gastronomie, biologie, histoire et patrimoine bioculturel. Chaque parcours est conçu pour découvrir les aliments dès leur origine, rencontrer celles et ceux qui les produisent et comprendre comment ils façonnent l'identité de chaque région.",
+    pillars: [
+      { icon: "🌽", label: "Territoire" },
+      { icon: "👩‍🌾", label: "Producteurs" },
+      { icon: "🍽", label: "Culture gastronomique" },
+      { icon: "📚", label: "Savoir gastronomique" },
+    ],
+    chooseEyebrow: "Choisissez votre expérience",
+    chooseTitle: "Trois façons de vivre la gastronomie mexicaine",
+    options: [
+      {
+        title: "Tours gastronomiques",
+        body: "Parcourez marchés, cuisines, restaurants et lieux traditionnels pour découvrir l'histoire et la diversité gastronomique de chaque destination.",
+        cta: "Découvrir nos tours gastronomiques",
+        to: "/tours",
+      },
+      {
+        title: "Cours de cuisine",
+        body: "Apprenez techniques, ingrédients et recettes nationales et internationales dans une perspective culturelle et durable, avec des produits locaux et de saison.",
+        cta: "Explorer les cours",
+        to: "/classes",
+      },
+      {
+        title: "Expériences privées",
+        body: "Nous concevons des expériences sur mesure pour voyageurs, entreprises, universités et groupes souhaitant découvrir la gastronomie mexicaine autrement.",
+        cta: "Demander une expérience",
+        to: "/private-experiences",
+      },
+    ],
+    howEyebrow: "Notre façon de travailler",
+    howTitle: "Découvrir · Goûter · Comprendre · Connecter",
+    steps: [
+      { title: "Découvrir", body: "Connaître le territoire et son contexte." },
+      { title: "Goûter", body: "Déguster les ingrédients et plats représentatifs." },
+      { title: "Comprendre", body: "Saisir les histoires, les techniques et les personnes derrière chaque aliment." },
+      { title: "Connecter", body: "Repartir avec un autre regard sur la gastronomie." },
+    ],
+    expectEyebrow: "Ce qui vous attend",
+    expectTitle: "Dans chaque expérience, nous souhaitons que vous puissiez…",
+    expectLead: "",
+    expect: [
+      "Découvrir des ingrédients locaux.",
+      "Rencontrer producteurs et cuisinières.",
+      "Comprendre le contexte historique et culturel.",
+      "Déguster des préparations traditionnelles et contemporaines.",
+      "Vous relier au patrimoine gastronomique du territoire.",
+      "Soutenir les économies locales.",
+    ],
+    testimonialsEyebrow: "Témoignages",
+    testimonialsTitle: "Ce que disent nos invités",
+    faqEyebrow: "Questions fréquentes",
+    faqTitle: "Avant de réserver",
+    faqs: [
+      { q: "Faut-il une expérience préalable ?", a: "Non." },
+      { q: "Y a-t-il des options végétariennes ou pour allergies ?", a: "Oui." },
+      { q: "Les expériences sont-elles privées ou partagées ?", a: "Cela dépend : au choix." },
+      { q: "Dans quelles langues sont-elles disponibles ?", a: "Espagnol et anglais." },
+    ],
+    closingTitle: "Vivez la gastronomie dès son origine.",
+    closingQuote:
+      "Chaque parcours est l'occasion de découvrir que la gastronomie commence bien avant l'assiette.",
+  },
+};
+
+export type PrivateCopy = {
+  heroTitle: string;
+  heroSubtitle: string;
+  forEyebrow: string;
+  forTitle: string;
+  audiences: { title: string; body: string }[];
+  includesTitle: string;
+  includes: string[];
+  ctaTitle: string;
+  ctaBody: string;
+  ctaButton: string;
+  ctaWhatsApp: string;
+};
+
+export const privatePage: Record<Lang, PrivateCopy> = {
+  es: {
+    heroTitle: "Experiencias Privadas",
+    heroSubtitle:
+      "Diseñamos experiencias personalizadas para viajeros, empresas, universidades y grupos interesados en conocer la gastronomía mexicana desde una perspectiva única.",
+    forEyebrow: "Para quién",
+    forTitle: "Cada grupo, un recorrido distinto",
+    audiences: [
+      { title: "Viajeros y familias", body: "Recorridos a la medida, al ritmo de tu grupo y con los temas que más te interesan." },
+      { title: "Empresas", body: "Actividades de equipo, incentivos y encuentros con sentido alrededor de la mesa." },
+      { title: "Universidades", body: "Programas académicos de campo sobre sistemas alimentarios y patrimonio biocultural." },
+      { title: "Grupos y celebraciones", body: "Comidas, clases y catas privadas en cocinas y espacios tradicionales." },
+    ],
+    includesTitle: "Qué incluye",
+    includes: [
+      "Diseño del itinerario junto contigo.",
+      "Guía del chef-antropólogo Alfonso Rocha Robles.",
+      "Visitas a mercados, cocinas y productores.",
+      "Degustaciones y/o clase práctica según el formato.",
+      "Español e inglés (francés bajo petición).",
+    ],
+    ctaTitle: "Cuéntanos qué te gustaría vivir",
+    ctaBody: "Escríbenos con fechas, número de personas y qué te interesa. Preparamos una propuesta a la medida.",
+    ctaButton: "Escribir a MilpaChef",
+    ctaWhatsApp: "Escribir por WhatsApp",
+  },
+  en: {
+    heroTitle: "Private Experiences",
+    heroSubtitle:
+      "We design tailor-made experiences for travellers, companies, universities and groups who want to know Mexican gastronomy from a unique perspective.",
+    forEyebrow: "Who it's for",
+    forTitle: "Every group, a different journey",
+    audiences: [
+      { title: "Travellers & families", body: "Custom itineraries at your group's pace, focused on what interests you most." },
+      { title: "Companies", body: "Team activities, incentives and meaningful gatherings around the table." },
+      { title: "Universities", body: "Academic field programmes on food systems and biocultural heritage." },
+      { title: "Groups & celebrations", body: "Private meals, classes and tastings in traditional kitchens and spaces." },
+    ],
+    includesTitle: "What's included",
+    includes: [
+      "Itinerary designed together with you.",
+      "Guided by chef-anthropologist Alfonso Rocha Robles.",
+      "Visits to markets, kitchens and producers.",
+      "Tastings and/or hands-on class depending on the format.",
+      "Spanish and English (French on request).",
+    ],
+    ctaTitle: "Tell us what you'd like to experience",
+    ctaBody: "Write to us with dates, group size and your interests. We'll prepare a tailor-made proposal.",
+    ctaButton: "Email MilpaChef",
+    ctaWhatsApp: "Message on WhatsApp",
+  },
+  fr: {
+    heroTitle: "Expériences privées",
+    heroSubtitle:
+      "Nous concevons des expériences sur mesure pour voyageurs, entreprises, universités et groupes souhaitant découvrir la gastronomie mexicaine autrement.",
+    forEyebrow: "Pour qui",
+    forTitle: "Chaque groupe, un parcours différent",
+    audiences: [
+      { title: "Voyageurs et familles", body: "Des itinéraires sur mesure, au rythme de votre groupe et selon vos envies." },
+      { title: "Entreprises", body: "Activités d'équipe, incentives et rencontres porteuses de sens autour de la table." },
+      { title: "Universités", body: "Programmes académiques de terrain sur les systèmes alimentaires et le patrimoine bioculturel." },
+      { title: "Groupes et célébrations", body: "Repas, cours et dégustations privées dans des cuisines et lieux traditionnels." },
+    ],
+    includesTitle: "Ce qui est inclus",
+    includes: [
+      "Itinéraire conçu avec vous.",
+      "Accompagnement du chef-anthropologue Alfonso Rocha Robles.",
+      "Visites de marchés, cuisines et producteurs.",
+      "Dégustations et/ou cours pratique selon le format.",
+      "Espagnol et anglais (français sur demande).",
+    ],
+    ctaTitle: "Dites-nous ce que vous aimeriez vivre",
+    ctaBody: "Écrivez-nous avec vos dates, le nombre de personnes et vos centres d'intérêt. Nous préparons une proposition sur mesure.",
+    ctaButton: "Écrire à MilpaChef",
+    ctaWhatsApp: "Écrire sur WhatsApp",
+  },
+};
