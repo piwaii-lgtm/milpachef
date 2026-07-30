@@ -140,8 +140,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
           offers: {
             "@type": "Offer",
-            price: "595",
-            priceCurrency: "MXN",
             availability: "https://schema.org/InStock",
           },
         }),
