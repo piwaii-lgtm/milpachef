@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProductsRouteImport } from './routes/products'
@@ -34,6 +35,11 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReserveRoute = ReserveRouteImport.update({
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -174,6 +181,7 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/research': typeof ResearchRoute
   '/reserve': typeof ReserveRoute
+  '/resources': typeof ResourcesRoute
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/research'
     | '/reserve'
+    | '/resources'
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
@@ -291,6 +303,7 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ResearchRoute: typeof ResearchRoute
   ReserveRoute: typeof ReserveRoute
+  ResourcesRoute: typeof ResourcesRoute
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reserve': {
@@ -478,6 +498,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   ResearchRoute: ResearchRoute,
   ReserveRoute: ReserveRoute,
+  ResourcesRoute: ResourcesRoute,
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,

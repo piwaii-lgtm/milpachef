@@ -12,11 +12,12 @@ export function SiteHeader() {
   const activeCls = "text-primary";
   const items: { to: string; label: string; exact?: boolean }[] = [
     { to: "/", label: t("nav.home"), exact: true },
-    { to: "/tours", label: t("nav.tours") },
-    { to: "/classes", label: t("nav.classes") },
+    { to: "/philosophy", label: t("nav.philosophy") },
+    { to: "/experiences", label: t("nav.experiences") },
+    { to: "/academy", label: t("nav.academy") },
+    { to: "/consulting", label: t("nav.consulting") },
     { to: "/products", label: t("nav.products") },
-    { to: "/platform", label: t("nav.platform") },
-    { to: "/about", label: t("nav.about") },
+    { to: "/resources", label: t("nav.resources") },
     { to: "/contact", label: t("nav.contact") },
   ];
 
@@ -33,28 +34,18 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <Link to="/" className={linkCls} activeProps={{ className: activeCls }} activeOptions={{ exact: true }}>
-            {t("nav.home")}
-          </Link>
-          <Link to="/tours" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.tours")}
-          </Link>
-          <Link to="/classes" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.classes")}
-          </Link>
-          <Link to="/products" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.products")}
-          </Link>
-          <Link to="/platform" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.platform")}
-          </Link>
-          <Link to="/about" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.about")}
-          </Link>
-          <Link to="/contact" className={linkCls} activeProps={{ className: activeCls }}>
-            {t("nav.contact")}
-          </Link>
+        <nav className="hidden lg:flex items-center gap-6">
+          {items.map((i) => (
+            <Link
+              key={i.to}
+              to={i.to}
+              className={linkCls}
+              activeProps={{ className: activeCls }}
+              activeOptions={i.exact ? { exact: true } : undefined}
+            >
+              {i.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -84,7 +75,7 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={t("nav.menu")}
-            className="md:hidden inline-flex flex-col justify-center gap-1.5 p-2 text-primary"
+            className="lg:hidden inline-flex flex-col justify-center gap-1.5 p-2 text-primary"
           >
             <span className="block h-px w-5 bg-current" />
             <span className="block h-px w-5 bg-current" />
@@ -94,7 +85,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-border/60 bg-background">
+        <nav className="lg:hidden border-t border-border/60 bg-background">
           <ul className="container-editorial py-4 flex flex-col gap-3">
             {items.map((i) => (
               <li key={i.to}>
