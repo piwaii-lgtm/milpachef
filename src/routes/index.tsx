@@ -40,7 +40,10 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", as: "image", href: heroImage, fetchpriority: "high" },
+    ],
   }),
   component: Home,
 });
@@ -79,7 +82,15 @@ function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-40">
-          <img src={heroImage} alt="" className="w-full h-full object-cover" />
+          <img
+            src={heroImage}
+            alt=""
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
           <div
             className="absolute inset-0"
             style={{
