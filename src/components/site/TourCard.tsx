@@ -54,8 +54,7 @@ export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => vo
         </dl>
         <div className="mt-6 flex items-center justify-between">
           <div>
-            <div className="font-serif text-2xl text-primary leading-none">MXN ${tour.price_mxn}</div>
-            <div className="text-xs text-muted-foreground mt-1">
+            <div className="text-xs text-muted-foreground">
               {soldOut ? t("agenda.soldOut") : `${tour.spots_left} ${t("agenda.spotsLeft")}`}
             </div>
           </div>

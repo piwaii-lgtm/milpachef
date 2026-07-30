@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "MilpaChef is a platform for sustainable Mexican gastronomy in Cholula, Puebla: food tours (MXN $595), cooking classes (MXN $1,295), ancestral products, consulting, academy, research and impact — led by chef and anthropologist Alfonso Rocha.",
+          "MilpaChef is a platform for sustainable Mexican gastronomy in Cholula, Puebla: food tours, cooking classes, ancestral products, consulting, academy, research and impact — led by chef and anthropologist Alfonso Rocha.",
       },
       { property: "og:title", content: "MilpaChef — more than a food tour in Cholula" },
       {
