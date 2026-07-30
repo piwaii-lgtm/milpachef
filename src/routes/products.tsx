@@ -72,6 +72,7 @@ const COPY = {
 function ProductsPage() {
   const { lang } = useI18n();
   const [cat, setCat] = useState<ProductCategory | "all">("all");
+  const s = productsPage[lang];
 
   const categories = useMemo(() => {
     const set = new Set<ProductCategory>(PRODUCTS.map((p) => p.category));
@@ -87,21 +88,61 @@ function ProductsPage() {
         style={{ backgroundColor: "var(--milpa-deep)" }}
       >
         <div className="relative container-editorial py-20 md:py-28 text-primary-foreground">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-4">
-              {COPY.eyebrow[lang]}
+              {s.eyebrow}
             </div>
-            <h1 className="font-serif text-4xl md:text-6xl leading-[1.05] mb-4">
-              {COPY.title[lang]}
+            <h1 className="font-serif text-5xl md:text-7xl leading-[1.05] mb-4">
+              {s.title}
             </h1>
-            <p className="text-lg text-primary-foreground/80 max-w-xl leading-relaxed">
-              {COPY.subtitle[lang]}
+            <p className="font-serif italic text-xl md:text-2xl text-[color:var(--corn)] max-w-2xl">
+              {s.subtitle}
             </p>
+            {s.intro.map((p) => (
+              <p key={p} className="text-primary-foreground/80 max-w-2xl mt-5 leading-relaxed">
+                {p}
+              </p>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="container-editorial py-12 md:py-16">
+      {/* Qué es la Selección */}
+      <section className="container-editorial py-16 md:py-20 grid md:grid-cols-[1fr_1.2fr] gap-14 items-start">
+        <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">{s.whatTitle}</h2>
+        <div>
+          {s.whatBody.map((p) => (
+            <p key={p} className="text-muted-foreground text-lg leading-relaxed mb-4">
+              {p}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      {/* Criterios */}
+      <section
+        className="py-16 md:py-20"
+        style={{ backgroundColor: "color-mix(in oklab, var(--milpa) 8%, var(--cream))" }}
+      >
+        <div className="container-editorial">
+          <div className="uppercase tracking-[0.3em] text-xs text-accent mb-10">
+            {s.criteriaLabel}
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            {s.criteria.map((cr, i) => (
+              <div key={cr.title} className="border-t-2 border-accent pt-4">
+                <div className="text-xs text-muted-foreground tracking-widest mb-1">0{i + 1}</div>
+                <div className="font-serif text-xl text-primary">{cr.title}</div>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{cr.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container-editorial py-16 md:py-20">
+        <div className="uppercase tracking-[0.3em] text-xs text-accent mb-3">{s.catalogLabel}</div>
+        <h2 className="font-serif text-3xl md:text-4xl text-primary mb-10">{s.catalogTitle}</h2>
         <div className="flex flex-wrap gap-2 mb-10">
           <FilterPill active={cat === "all"} onClick={() => setCat("all")}>
             {COPY.all[lang]}
