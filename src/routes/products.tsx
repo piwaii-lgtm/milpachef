@@ -2,23 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { PRODUCTS, CATEGORY_LABEL, type ProductCategory } from "@/lib/products";
+import { productsPage } from "@/lib/section-copy";
+import { Link } from "@tanstack/react-router";
 
 const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Ancestral foods from Chiapas & Puebla — Milpa Chef catalog" },
+      { title: "Selección MilpaChef® — ancestral Mexican ingredients" },
       {
         name: "description",
         content:
-          "Milpa Chef's catalog of ancestral Mexican ingredients: Maya salt from Zinacantán, heirloom beans, Simojovel chile, Soconusco cacao, achiote, chicatana ants, pulcatta and aguamiel concentrate. Delivered from Cholula.",
+          "Selección MilpaChef®: a curated catalog of ancestral Mexican ingredients with territorial identity — mountain salt, heirloom beans, Simojovel chile, cacao, chicatana ants, aguamiel and more, shipped across Mexico.",
       },
-      { property: "og:title", content: "Milpa Chef — Ancestral foods catalog" },
+      { property: "og:title", content: "Selección MilpaChef® — ingredients with a story" },
       {
         property: "og:description",
         content:
-          "Heirloom ingredients from Chiapas and Puebla, curated by Milpa Chef in Cholula.",
+          "Foods with territorial identity that preserve Mexico's biocultural heritage.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/products" },
