@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "@/lib/i18n";
@@ -42,6 +42,15 @@ function BookingReturn() {
 
   const isPaid = data?.status === "paid";
   const isPending = !data || data.status === "pending" || isLoading;
+
+  // Google Ads conversion — fire once per confirmed sale
+  const conversionSent = useRef(false);
+  useEffect(() => {
+    if (!isPaid || conversionSent.current) return;
+    conversionSent.current = true;
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    gtag?.("event", "ads_conversion_Contact_1", {});
+  }, [isPaid]);
 
   return (
     <section className="container-editorial py-24 md:py-32 text-center max-w-2xl">
