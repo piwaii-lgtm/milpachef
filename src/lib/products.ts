@@ -1,4 +1,4 @@
-import salImg from "@/assets/products/sal.asset.json";
+import salImg from "@/assets/products/sal-130g.asset.json";
 import frijolRojoImg from "@/assets/products/frijol-rojo.asset.json";
 import frijolIbesImg from "@/assets/products/frijol-ibes.asset.json";
 import patasheteImg from "@/assets/products/patashete.asset.json";
