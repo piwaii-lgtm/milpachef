@@ -6,7 +6,7 @@ import philMercado from "@/assets/phil-mercado.jpg.asset.json";
 import philAprende from "@/assets/phil-aprende.jpg.asset.json";
 import philProyecto from "@/assets/phil-proyecto.jpg.asset.json";
 import philExperiencias from "@/assets/phil-experiencias.jpg.asset.json";
-import philTour from "@/assets/phil-tour.jpg.asset.json";
+import philInvite from "@/assets/phil-invite.jpg.asset.json";
 
 export const Route = createFileRoute("/philosophy")({
   head: () => ({
@@ -146,8 +146,8 @@ function PhilosophyPage() {
             <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">{c.inviteBody}</p>
           </div>
           <img
-            src={philTour.url}
-            alt="Chef Alfonso showing dried shrimp to a guest during a market tour"
+            src={philInvite.url}
+            alt="Chef Alfonso shopping at a local market with a producer, choosing fresh ingredients"
             loading="lazy"
             className="w-full aspect-[3/4] object-cover rounded-sm"
           />
