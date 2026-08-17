@@ -3,7 +3,6 @@ import { useI18n } from "@/lib/i18n";
 import { philosophyPage } from "@/lib/site-copy";
 import { philosophy } from "@/lib/platform";
 import philMercado from "@/assets/phil-mercado.jpg.asset.json";
-import philCampo from "@/assets/phil-campo.jpg.asset.json";
 import philAprende from "@/assets/phil-aprende.jpg.asset.json";
 import philProyecto from "@/assets/phil-proyecto.jpg.asset.json";
 import philExperiencias from "@/assets/phil-experiencias.jpg.asset.json";
@@ -69,12 +68,6 @@ function PhilosophyPage() {
             {c.understandTitle}
           </h2>
           <p className="text-muted-foreground mt-5 leading-relaxed text-lg">{c.understandBody}</p>
-          <img
-            src={philCampo.url}
-            alt="Producer holding freshly harvested squash blossoms at a local market"
-            loading="lazy"
-            className="mt-8 w-full aspect-[4/3] object-cover rounded-sm"
-          />
         </div>
       </section>
 
