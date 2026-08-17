@@ -3,8 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { experiencesPage } from "@/lib/site-copy";
 import { fetchTestimonials, pickQuote } from "@/lib/tours";
-import { heroImage, classImage, marketImage } from "@/lib/tour-images";
-import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
+import { marketImage } from "@/lib/tour-images";
+import expHero from "@/assets/exp-hero.jpg.asset.json";
+import expClasses from "@/assets/exp-classes.jpg.asset.json";
+import expPrivate from "@/assets/exp-private.jpg.asset.json";
+import expTable from "@/assets/exp-table.jpg.asset.json";
+import expTerritorio from "@/assets/exp-territorio.jpg.asset.json";
+import expProductores from "@/assets/exp-productores.jpg.asset.json";
+import expCultura from "@/assets/exp-cultura.jpg.asset.json";
+import expConocimiento from "@/assets/exp-conocimiento.jpg.asset.json";
 import salomeaAsset from "@/assets/g-salomea.jpg.asset.json";
 import marcoJuliaAsset from "@/assets/g-marco-julia.jpg.asset.json";
 import robertoValeriaAsset from "@/assets/g-roberto-valeria.jpg.asset.json";
@@ -56,7 +63,13 @@ export const Route = createFileRoute("/experiences")({
 function ExperiencesPage() {
   const { t, lang } = useI18n();
   const c = experiencesPage[lang];
-  const optionImages = [heroImage, classImage, groupAsset.url];
+  const optionImages = [marketImage, expClasses.url, expPrivate.url];
+  const pillarImages = [
+    expTerritorio.url,
+    expProductores.url,
+    expCultura.url,
+    expConocimiento.url,
+  ];
   const { data: testimonials = [] } = useQuery({
     queryKey: ["testimonials"],
     queryFn: fetchTestimonials,
@@ -67,7 +80,7 @@ function ExperiencesPage() {
       {/* 1 — Hero */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-35">
-          <img src={heroImage} alt="" className="w-full h-full object-cover" />
+          <img src={expHero.url} alt="" className="w-full h-full object-cover" />
           <div
             className="absolute inset-0"
             style={{
@@ -99,9 +112,19 @@ function ExperiencesPage() {
           <p className="text-muted-foreground text-lg leading-relaxed">{c.diffBody}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
-          {c.pillars.map((p) => (
-            <div key={p.label} className="border-t-2 border-accent pt-5">
-              <div className="font-serif text-2xl text-primary">{p.label}</div>
+          {c.pillars.map((p, i) => (
+            <div key={p.label}>
+              <div className="aspect-[4/3] overflow-hidden rounded-md mb-4">
+                <img
+                  src={pillarImages[i]}
+                  alt={p.label}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="border-t-2 border-accent pt-4">
+                <div className="font-serif text-2xl text-primary">{p.label}</div>
+              </div>
             </div>
           ))}
         </div>
@@ -167,7 +190,7 @@ function ExperiencesPage() {
       {/* 5 — What to expect */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-20">
-          <img src={marketImage} alt="" className="w-full h-full object-cover" />
+          <img src={expTable.url} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative container-editorial py-20 md:py-28 text-primary-foreground">
           <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-3">
