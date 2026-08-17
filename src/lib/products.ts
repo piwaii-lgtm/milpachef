@@ -8,6 +8,7 @@ import cacaoImg from "@/assets/products/cacao.asset.json";
 import chicatanaImg from "@/assets/products/chicatana.asset.json";
 import pulcattaImg from "@/assets/products/pulcatta.asset.json";
 import aguamielImg from "@/assets/products/aguamiel.asset.json";
+import mielImg from "@/assets/products/miel.asset.json";
 
 export type ProductCategory = "salt" | "beans" | "chile" | "seed" | "cacao" | "insect" | "spirit" | "sweetener";
 
@@ -205,6 +206,23 @@ export const PRODUCTS: Product[] = [
       { label: "250 ml glass jar", price: "$145" },
       { label: "Box of 12 jars", price: "$125 / jar" },
     ],
+  },
+  {
+    slug: "miel-multifloral",
+    category: "sweetener",
+    origin: "México",
+    image: mielImg.url,
+    name: {
+      en: "Multifloral Bee Honey",
+      es: "Miel de abeja multifloral",
+      fr: "Miel d'abeille multifloral",
+    },
+    description: {
+      en: "Raw multifloral honey, harvested from hives foraging a diversity of wild and cultivated blossoms. Unfiltered and unpasteurized.",
+      es: "Miel cruda multifloral, cosechada de colmenas que liban una diversidad de flores silvestres y cultivadas. Sin filtrar ni pasteurizar.",
+      fr: "Miel brut multifloral, récolté de ruches butinant une diversité de fleurs sauvages et cultivées. Ni filtré ni pasteurisé.",
+    },
+    prices: [{ label: "250 g jar", price: "$145" }],
   },
 ];
 
