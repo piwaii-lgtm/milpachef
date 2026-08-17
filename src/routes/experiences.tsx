@@ -6,7 +6,7 @@ import { fetchTestimonials, pickQuote } from "@/lib/tours";
 import { marketImage } from "@/lib/tour-images";
 import expHero from "@/assets/exp-hero.jpg.asset.json";
 import expClasses from "@/assets/exp-classes.jpg.asset.json";
-import expPrivate from "@/assets/exp-private.jpg.asset.json";
+import expPrivate from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
 import expTable from "@/assets/exp-table.jpg.asset.json";
 import expTerritorio from "@/assets/exp-territorio.jpg.asset.json";
 import expProductores from "@/assets/exp-productores.jpg.asset.json";
