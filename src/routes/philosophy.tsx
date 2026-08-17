@@ -6,7 +6,7 @@ import philMercado from "@/assets/phil-mercado.jpg.asset.json";
 import philAprende from "@/assets/phil-aprende.jpg.asset.json";
 import philProyecto from "@/assets/phil-proyecto.jpg.asset.json";
 import philExperiencias from "@/assets/phil-experiencias.jpg.asset.json";
-import philTour from "@/assets/phil-tour.jpg.asset.json";
+import philInvite from "@/assets/phil-invite.jpg.asset.json";
 
 export const Route = createFileRoute("/philosophy")({
   head: () => ({
