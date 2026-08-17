@@ -146,8 +146,8 @@ function PhilosophyPage() {
             <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">{c.inviteBody}</p>
           </div>
           <img
-            src={philTour.url}
-            alt="Chef Alfonso showing dried shrimp to a guest during a market tour"
+            src={philInvite.url}
+            alt="Chef Alfonso shopping at a local market with a producer, choosing fresh ingredients"
             loading="lazy"
             className="w-full aspect-[3/4] object-cover rounded-sm"
           />
