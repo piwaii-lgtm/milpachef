@@ -340,8 +340,8 @@ function Home() {
           </div>
           <div className="aspect-[4/3] overflow-hidden rounded-md">
             <img
-              src={groupAsset.url}
-              alt="Alfonso Rocha with a group of guests around a long shared table in Cholula"
+              src={homeExperiencesAsset.url}
+              alt="Alfonso Rocha with a guest at a Cholula market holding fresh local greens"
               loading="lazy"
               className="w-full h-full object-cover"
             />
