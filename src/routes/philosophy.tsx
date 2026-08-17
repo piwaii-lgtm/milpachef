@@ -3,7 +3,6 @@ import { useI18n } from "@/lib/i18n";
 import { philosophyPage } from "@/lib/site-copy";
 import { philosophy } from "@/lib/platform";
 import philMercado from "@/assets/phil-mercado.jpg.asset.json";
-import philCampo from "@/assets/phil-campo.jpg.asset.json";
 import philAprende from "@/assets/phil-aprende.jpg.asset.json";
 import philProyecto from "@/assets/phil-proyecto.jpg.asset.json";
 import philExperiencias from "@/assets/phil-experiencias.jpg.asset.json";
