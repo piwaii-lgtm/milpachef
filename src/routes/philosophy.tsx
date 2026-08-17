@@ -2,7 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { philosophyPage } from "@/lib/site-copy";
 import { philosophy } from "@/lib/platform";
-import { marketImage } from "@/lib/tour-images";
+import philMercado from "@/assets/phil-mercado.jpg.asset.json";
+import philCampo from "@/assets/phil-campo.jpg.asset.json";
+import philAprende from "@/assets/phil-aprende.jpg.asset.json";
+import philProyecto from "@/assets/phil-proyecto.jpg.asset.json";
+import philExperiencias from "@/assets/phil-experiencias.jpg.asset.json";
+import philTour from "@/assets/phil-tour.jpg.asset.json";
 
 export const Route = createFileRoute("/philosophy")({
   head: () => ({
@@ -34,8 +39,13 @@ function PhilosophyPage() {
   return (
     <>
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
-        <div className="absolute inset-0 opacity-25">
-          <img src={marketImage} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 opacity-30">
+          <img
+            src={philMercado.url}
+            alt=""
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+          />
         </div>
         <div className="relative container-editorial py-24 md:py-32 text-primary-foreground">
           <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-5">
@@ -59,7 +69,29 @@ function PhilosophyPage() {
             {c.understandTitle}
           </h2>
           <p className="text-muted-foreground mt-5 leading-relaxed text-lg">{c.understandBody}</p>
+          <img
+            src={philCampo.url}
+            alt="Producer holding freshly harvested squash blossoms at a local market"
+            loading="lazy"
+            className="mt-8 w-full aspect-[4/3] object-cover rounded-sm"
+          />
         </div>
+      </section>
+
+      <section className="container-editorial pb-4 grid sm:grid-cols-3 gap-4">
+        {[
+          { src: philAprende.url, alt: "Cook preparing nixtamal masa over a wood-fired comal" },
+          { src: philProyecto.url, alt: "Chef Alfonso with a producer at a traditional market stall" },
+          { src: philExperiencias.url, alt: "Guest choosing heirloom tomatoes at an agroecological market" },
+        ].map((img) => (
+          <img
+            key={img.src}
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            className="w-full aspect-[4/3] object-cover rounded-sm"
+          />
+        ))}
       </section>
 
       <section
@@ -113,10 +145,20 @@ function PhilosophyPage() {
       </section>
 
       <section className="container-editorial py-20 md:py-28">
-        <h2 className="font-serif text-4xl md:text-5xl text-primary max-w-2xl leading-tight">
-          {c.inviteTitle}
-        </h2>
-        <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">{c.inviteBody}</p>
+        <div className="grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
+          <div>
+            <h2 className="font-serif text-4xl md:text-5xl text-primary max-w-2xl leading-tight">
+              {c.inviteTitle}
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">{c.inviteBody}</p>
+          </div>
+          <img
+            src={philTour.url}
+            alt="Chef Alfonso showing dried shrimp to a guest during a market tour"
+            loading="lazy"
+            className="w-full aspect-[3/4] object-cover rounded-sm"
+          />
+        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
           {c.invites.map((inv) => (
             <Link key={inv.title} to={inv.to} className="border-t-2 border-accent pt-4 group">
