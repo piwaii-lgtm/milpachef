@@ -3,12 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
-import { heroImage, marketImage, classImage } from "@/lib/tour-images";
+import { classImage } from "@/lib/tour-images";
 import { getArea } from "@/lib/platform";
 import { home as homeCopy } from "@/lib/site-copy";
 import chefAsset from "@/assets/chef-milpa.png.asset.json";
-import consultingImg from "@/assets/area-consulting.jpg";
-import academyImg from "@/assets/area-academy.jpg";
+import homeHeroAsset from "@/assets/home-hero.jpg.asset.json";
+import homeProductsAsset from "@/assets/home-productos.jpg.asset.json";
+import homeConsultingAsset from "@/assets/home-consultoria.jpg.asset.json";
+import homeAcademyAsset from "@/assets/home-academia.jpg.asset.json";
+import homeExperiencesAsset from "@/assets/home-experiencias.jpg.asset.json";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
@@ -42,7 +45,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "/" },
-      { rel: "preload", as: "image", href: heroImage, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: homeHeroAsset.url, fetchpriority: "high" },
     ],
   }),
   component: Home,
@@ -52,10 +55,10 @@ function Home() {
   const { t, lang } = useI18n();
   const c = homeCopy[lang];
   const areaImages: Record<string, string> = {
-    experiences: groupAsset.url,
-    products: marketImage,
-    consulting: consultingImg,
-    academy: academyImg,
+    experiences: homeExperiencesAsset.url,
+    products: homeProductsAsset.url,
+    consulting: homeConsultingAsset.url,
+    academy: homeAcademyAsset.url,
   };
   const areaLinks: Record<string, string> = {
     experiences: "/experiences",
@@ -83,7 +86,7 @@ function Home() {
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-40">
           <img
-            src={heroImage}
+            src={homeHeroAsset.url}
             alt=""
             width={1920}
             height={1080}
