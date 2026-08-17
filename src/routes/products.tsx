@@ -4,6 +4,8 @@ import { useI18n } from "@/lib/i18n";
 import { PRODUCTS, CATEGORY_LABEL, type ProductCategory } from "@/lib/products";
 import { productsPage } from "@/lib/section-copy";
 import { Link } from "@tanstack/react-router";
+import heroAsset from "@/assets/products/hero.asset.json";
+import catalogAsset from "@/assets/catalogo-milpachef.pdf.asset.json";
 
 const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
@@ -67,6 +69,11 @@ const COPY = {
     es: "WhatsApp / teléfono",
     fr: "WhatsApp / téléphone",
   },
+  catalog: {
+    en: "Download the catalog (PDF)",
+    es: "Descargar el catálogo (PDF)",
+    fr: "Télécharger le catalogue (PDF)",
+  },
 } as const;
 
 function ProductsPage() {
@@ -87,7 +94,7 @@ function ProductsPage() {
         className="relative overflow-hidden"
         style={{ backgroundColor: "var(--milpa-deep)" }}
       >
-        <div className="relative container-editorial py-20 md:py-28 text-primary-foreground">
+        <div className="relative container-editorial py-20 md:py-28 text-primary-foreground grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center">
           <div className="max-w-3xl">
             <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-4">
               {s.eyebrow}
@@ -103,7 +110,21 @@ function ProductsPage() {
                 {p}
               </p>
             ))}
+            <a
+              href={catalogAsset.url}
+              download="Catalogo-MilpaChef.pdf"
+              className="mt-8 inline-flex items-center rounded-sm border border-[color:var(--corn)] text-[color:var(--corn)] px-6 py-3 text-sm hover:bg-[color:var(--corn)] hover:text-[color:var(--milpa-deep)] transition-colors"
+            >
+              {COPY.catalog[lang]}
+            </a>
           </div>
+          <img
+            src={heroAsset.url}
+            alt="Selección MilpaChef jars: aguamiel concentrate, mountain salt, Simojovel chile, multifloral honey and chicatana ant powder"
+            width={1800}
+            height={1350}
+            className="w-full rounded-sm object-cover shadow-2xl"
+          />
         </div>
       </section>
 
