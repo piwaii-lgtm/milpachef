@@ -69,12 +69,6 @@ function PhilosophyPage() {
             {c.understandTitle}
           </h2>
           <p className="text-muted-foreground mt-5 leading-relaxed text-lg">{c.understandBody}</p>
-          <img
-            src={philCampo.url}
-            alt="Producer holding freshly harvested squash blossoms at a local market"
-            loading="lazy"
-            className="mt-8 w-full aspect-[4/3] object-cover rounded-sm"
-          />
         </div>
       </section>
 
