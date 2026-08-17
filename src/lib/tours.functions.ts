@@ -35,7 +35,14 @@ export type TourInput = {
   category: "tour" | "class";
 };
 
-const ALLOWED_IMAGE_KEYS = ["hero", "tortillas", "street", "mezcal", "market", "class", "class-cooking", "class-market", "class-dish", "class-coaster", "chef-milpa"];
+const ALLOWED_IMAGE_KEYS = [
+  "hero", "tortillas", "street", "mezcal", "market",
+  "class", "class-cooking", "class-market", "class-dish", "class-coaster",
+  "chef-milpa", "chef-group-table",
+  "exp-hero", "exp-table", "exp-classes", "exp-private",
+  "exp-territorio", "exp-productores", "exp-cultura", "exp-conocimiento",
+  "phil-tour", "phil-mercado", "phil-aprende", "phil-experiencias",
+];
 const ALLOWED_CATEGORIES = ["tour", "class"] as const;
 
 function validate(input: TourInput): TourInput {
