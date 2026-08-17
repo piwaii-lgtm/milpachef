@@ -14,6 +14,7 @@ import homeAcademyAsset from "@/assets/home-academia.jpg.asset.json";
 import homeExperiencesAsset from "@/assets/home-experiencias.jpg.asset.json";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
+import groupAsset from "@/assets/chef-group-table-aesthetic.jpg.asset.json";
 import salomeaAsset from "@/assets/g-salomea.jpg.asset.json";
 import marcoJuliaAsset from "@/assets/g-marco-julia.jpg.asset.json";
 import robertoValeriaAsset from "@/assets/g-roberto-valeria.jpg.asset.json";
@@ -340,8 +341,8 @@ function Home() {
           </div>
           <div className="aspect-[4/3] overflow-hidden rounded-md">
             <img
-              src={homeExperiencesAsset.url}
-              alt="Alfonso Rocha with a guest at a Cholula market holding fresh local greens"
+              src={groupAsset.url}
+              alt="Alfonso Rocha with a group of guests around a long shared table in Cholula"
               loading="lazy"
               className="w-full h-full object-cover"
             />
