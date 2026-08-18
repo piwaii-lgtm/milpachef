@@ -45,13 +45,13 @@ const COPY = {
     fr: "Le garde-manger derrière la balade.",
   },
   subtitle: {
-    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities. Prices in MXN, ex-Cholula — shipping quoted on request.",
-    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras. Precios en MXN, puestos en Cholula — el envío se cotiza a la medida.",
-    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices. Prix en MXN, départ Cholula — livraison sur devis.",
+    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities. Ex-Cholula — shipping quoted on request.",
+    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras. Puestos en Cholula — el envío se cotiza a la medida.",
+    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices. Départ Cholula — livraison sur devis.",
   },
   all: { en: "All", es: "Todos", fr: "Tous" },
   origin: { en: "Origin", es: "Origen", fr: "Origine" },
-  prices: { en: "Prices (MXN)", es: "Precios (MXN)", fr: "Prix (MXN)" },
+  prices: { en: "Formats", es: "Presentaciones", fr: "Formats" },
   order: { en: "Order on WhatsApp", es: "Pedir por WhatsApp", fr: "Commander sur WhatsApp" },
   faqTitle: { en: "How to order", es: "Cómo pedir", fr: "Comment commander" },
   faqPay: {
@@ -60,9 +60,9 @@ const COPY = {
     fr: "Virement bancaire (facturation sur demande).",
   },
   faqShip: {
-    en: "All prices are ex-Cholula (San Pedro / San Andrés). Shipping is quoted per order based on volume and destination.",
-    es: "Los precios están puestos en Cholula (San Pedro / San Andrés). El costo de envío se cotiza según el pedido y destino.",
-    fr: "Les prix s'entendent départ Cholula (San Pedro / San Andrés). Les frais de livraison sont calculés par commande, selon le volume et la destination.",
+    en: "Orders ship ex-Cholula (San Pedro / San Andrés). Prices are listed in the PDF catalog; shipping is quoted per order based on volume and destination.",
+    es: "Los pedidos salen de Cholula (San Pedro / San Andrés). Los precios están en el catálogo PDF; el envío se cotiza según el pedido y destino.",
+    fr: "Les commandes partent de Cholula (San Pedro / San Andrés). Les prix figurent dans le catalogue PDF ; la livraison est calculée par commande.",
   },
   contactLine: {
     en: "WhatsApp / phone",
@@ -224,9 +224,8 @@ function ProductsPage() {
                     </div>
                     <ul className="space-y-1 text-sm">
                       {p.prices.map((pr) => (
-                        <li key={pr.label} className="flex justify-between gap-4">
-                          <span className="text-foreground/80">{pr.label}</span>
-                          <span className="font-medium text-primary">{pr.price}</span>
+                        <li key={pr.label} className="text-foreground/80">
+                          {pr.label}
                         </li>
                       ))}
                     </ul>
