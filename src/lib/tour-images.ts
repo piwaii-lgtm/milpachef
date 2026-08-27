@@ -67,7 +67,12 @@ export const tourImages: Record<string, string> = {
   "phil-mercado": philMercadoAsset.url,
   "phil-aprende": philAprendeAsset.url,
   "phil-experiencias": philExperienciasAsset.url,
+  "recursos-hero": recursosHeroAsset.url,
+  "recursos-recetas": recursosRecetasAsset.url,
 };
+
+export const recursosHeroImage = recursosHeroAsset.url;
+export const recursosRecetasImage = recursosRecetasAsset.url;
 
 export const heroImage = hero;
 export const marketImage = chefMarketAsset.url;
