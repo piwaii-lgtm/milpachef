@@ -31,6 +31,8 @@ import philTourAsset from "@/assets/phil-tour.jpg.asset.json";
 import philMercadoAsset from "@/assets/phil-mercado.jpg.asset.json";
 import philAprendeAsset from "@/assets/phil-aprende.jpg.asset.json";
 import philExperienciasAsset from "@/assets/phil-experiencias.jpg.asset.json";
+import recursosHeroAsset from "@/assets/recursos-hero.jpg.asset.json";
+import recursosRecetasAsset from "@/assets/recursos-recetas.jpg.asset.json";
 
 export const tourImages: Record<string, string> = {
   hero,
@@ -65,7 +67,12 @@ export const tourImages: Record<string, string> = {
   "phil-mercado": philMercadoAsset.url,
   "phil-aprende": philAprendeAsset.url,
   "phil-experiencias": philExperienciasAsset.url,
+  "recursos-hero": recursosHeroAsset.url,
+  "recursos-recetas": recursosRecetasAsset.url,
 };
+
+export const recursosHeroImage = recursosHeroAsset.url;
+export const recursosRecetasImage = recursosRecetasAsset.url;
 
 export const heroImage = hero;
 export const marketImage = chefMarketAsset.url;
