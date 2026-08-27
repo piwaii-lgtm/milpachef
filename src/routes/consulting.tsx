@@ -1,8 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { consultingPage } from "@/lib/section-copy";
-import consultingImg from "@/assets/area-consulting.jpg";
 import { marketImage } from "@/lib/tour-images";
+import consHeroAsset from "@/assets/cons-hero.jpg.asset.json";
+import consModeloAsset from "@/assets/cons-modelo.jpg.asset.json";
+import consOrganizacionAsset from "@/assets/cons-organizacion.jpg.asset.json";
+import consTerritorioAsset from "@/assets/cons-territorio.jpg.asset.json";
+import consSistemaAsset from "@/assets/cons-sistema.jpg.asset.json";
+
+const scaleImages = [
+  { src: marketImage, alt: "Native ingredients with territorial identity selected by MilpaChef" },
+  { src: consOrganizacionAsset.url, alt: "Women producers showing tortillas and native corn" },
+  { src: consTerritorioAsset.url, alt: "Maguey field with the Popocatépetl volcano at sunrise" },
+  { src: consSistemaAsset.url, alt: "Milpa farmer holding native corn cobs" },
+];
 
 export const Route = createFileRoute("/consulting")({
   head: () => ({
