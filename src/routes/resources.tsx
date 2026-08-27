@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { resourcesSection, YOUTUBE_CHANNEL } from "@/lib/section-copy";
-import { marketImage, classMarketImage } from "@/lib/tour-images";
+import { recursosHeroImage, recursosRecetasImage } from "@/lib/tour-images";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
