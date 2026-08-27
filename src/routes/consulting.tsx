@@ -1,8 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { consultingPage } from "@/lib/section-copy";
-import consultingImg from "@/assets/area-consulting.jpg";
 import { marketImage } from "@/lib/tour-images";
+import consHeroAsset from "@/assets/cons-hero.jpg.asset.json";
+import consModeloAsset from "@/assets/cons-modelo.jpg.asset.json";
+import consOrganizacionAsset from "@/assets/cons-organizacion.jpg.asset.json";
+import consTerritorioAsset from "@/assets/cons-territorio.jpg.asset.json";
+import consSistemaAsset from "@/assets/cons-sistema.jpg.asset.json";
+
+const scaleImages = [
+  { src: marketImage, alt: "Native ingredients with territorial identity selected by MilpaChef" },
+  { src: consOrganizacionAsset.url, alt: "Women producers showing tortillas and native corn" },
+  { src: consTerritorioAsset.url, alt: "Maguey field with the Popocatépetl volcano at sunrise" },
+  { src: consSistemaAsset.url, alt: "Milpa farmer holding native corn cobs" },
+];
 
 export const Route = createFileRoute("/consulting")({
   head: () => ({
@@ -36,7 +47,7 @@ function ConsultingPage() {
     <>
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-30">
-          <img src={consultingImg} alt="" className="w-full h-full object-cover" />
+          <img src={consHeroAsset.url} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative container-editorial py-24 md:py-32 text-primary-foreground">
           <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-5">
@@ -69,14 +80,35 @@ function ConsultingPage() {
           <p className="text-muted-foreground mt-5 max-w-3xl leading-relaxed">{c.modelLead}</p>
           <p className="text-muted-foreground mt-3 max-w-3xl leading-relaxed">{c.modelBody}</p>
 
+          <div className="mt-10 aspect-[16/7] overflow-hidden rounded-sm">
+            <img
+              src={consModeloAsset.url}
+              alt="Alfonso Rocha with a producer community presenting their transformed products"
+              loading="lazy"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
           <ol className="mt-12 space-y-6">
             {c.scales.map((s, i) => (
               <li
                 key={s.name}
                 className="bg-card border border-border/60 rounded-sm p-7 md:p-9 grid md:grid-cols-[auto_1fr] gap-8"
               >
-                <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground md:w-24">
-                  0{i + 1}
+                <div className="md:w-40">
+                  <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-3">
+                    0{i + 1}
+                  </div>
+                  {scaleImages[i] && (
+                    <div className="aspect-[4/3] overflow-hidden rounded-sm">
+                      <img
+                        src={scaleImages[i].src}
+                        alt={scaleImages[i].alt}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div>
                   <div className="font-serif text-3xl text-primary">{s.name}</div>
