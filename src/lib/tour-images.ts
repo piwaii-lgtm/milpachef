@@ -19,6 +19,9 @@ import expTerritorioAsset from "@/assets/exp-territorio.jpg.asset.json";
 import expProductoresAsset from "@/assets/exp-productores.jpg.asset.json";
 import expCulturaAsset from "@/assets/exp-cultura.jpg.asset.json";
 import expConocimientoAsset from "@/assets/exp-conocimiento.jpg.asset.json";
+import acadHeroAsset from "@/assets/acad-hero.jpg.asset.json";
+import acadBeijingAsset from "@/assets/acad-beijing.jpg.asset.json";
+import acadSlowfoodAsset from "@/assets/acad-slowfood.jpg.asset.json";
 import philTourAsset from "@/assets/phil-tour.jpg.asset.json";
 import philMercadoAsset from "@/assets/phil-mercado.jpg.asset.json";
 import philAprendeAsset from "@/assets/phil-aprende.jpg.asset.json";
@@ -45,6 +48,9 @@ export const tourImages: Record<string, string> = {
   "exp-productores": expProductoresAsset.url,
   "exp-cultura": expCulturaAsset.url,
   "exp-conocimiento": expConocimientoAsset.url,
+  "acad-hero": acadHeroAsset.url,
+  "acad-beijing": acadBeijingAsset.url,
+  "acad-slowfood": acadSlowfoodAsset.url,
   "phil-tour": philTourAsset.url,
   "phil-mercado": philMercadoAsset.url,
   "phil-aprende": philAprendeAsset.url,

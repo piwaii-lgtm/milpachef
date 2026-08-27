@@ -1,8 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { academyPage } from "@/lib/section-copy";
-import academyImg from "@/assets/area-academy.jpg";
-import { classImage } from "@/lib/tour-images";
+import acadHeroAsset from "@/assets/acad-hero.jpg.asset.json";
+import acadBeijingAsset from "@/assets/acad-beijing.jpg.asset.json";
+import acadSlowfoodAsset from "@/assets/acad-slowfood.jpg.asset.json";
+
+const academyImg = acadHeroAsset.url;
+const teachingImg = acadBeijingAsset.url;
+const closingImg = acadSlowfoodAsset.url;
 
 export const Route = createFileRoute("/academy")({
   head: () => ({
@@ -102,8 +107,8 @@ function AcademyPage() {
         </div>
         <div className="aspect-[4/5] overflow-hidden rounded-md">
           <img
-            src={academyImg}
-            alt="Alfonso Rocha Robles lecturing on sustainable gastronomy"
+            src={teachingImg}
+            alt="Alfonso Rocha Robles presenting native corn at an international conference"
             loading="lazy"
             className="w-full h-full object-cover"
           />
@@ -240,8 +245,8 @@ function AcademyPage() {
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <div className="aspect-[4/3] overflow-hidden rounded-md">
             <img
-              src={classImage}
-              alt="Hands-on learning with heirloom corn masa"
+              src={closingImg}
+              alt="Alfonso Rocha Robles speaking at a Slow Food conference"
               loading="lazy"
               className="w-full h-full object-cover"
             />
