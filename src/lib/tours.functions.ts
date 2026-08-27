@@ -42,6 +42,8 @@ const ALLOWED_IMAGE_KEYS = [
   "exp-hero", "exp-table", "exp-classes", "exp-private",
   "exp-territorio", "exp-productores", "exp-cultura", "exp-conocimiento",
   "phil-tour", "phil-mercado", "phil-aprende", "phil-experiencias",
+  "acad-hero", "acad-beijing", "acad-slowfood",
+  "cons-hero", "cons-modelo", "cons-organizacion", "cons-territorio", "cons-sistema",
 ];
 const ALLOWED_CATEGORIES = ["tour", "class"] as const;
 
