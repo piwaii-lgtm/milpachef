@@ -34,7 +34,7 @@ function ResourcesPage() {
     <>
       <section className="relative overflow-hidden" style={{ backgroundColor: "var(--milpa-deep)" }}>
         <div className="absolute inset-0 opacity-25">
-          <img src={marketImage} alt="" className="w-full h-full object-cover" />
+          <img src={recursosHeroImage} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative container-editorial py-24 md:py-32 text-primary-foreground">
           <div className="uppercase tracking-[0.3em] text-xs text-[color:var(--corn)] mb-5">
@@ -73,7 +73,7 @@ function ResourcesPage() {
         </div>
         <div className="aspect-[4/3] overflow-hidden rounded-md">
           <img
-            src={classMarketImage}
+            src={recursosRecetasImage}
             alt="Native ingredients used in MilpaChef recipes"
             loading="lazy"
             className="w-full h-full object-cover"
