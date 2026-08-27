@@ -22,6 +22,11 @@ import expConocimientoAsset from "@/assets/exp-conocimiento.jpg.asset.json";
 import acadHeroAsset from "@/assets/acad-hero.jpg.asset.json";
 import acadBeijingAsset from "@/assets/acad-beijing.jpg.asset.json";
 import acadSlowfoodAsset from "@/assets/acad-slowfood.jpg.asset.json";
+import consHeroAsset from "@/assets/cons-hero.jpg.asset.json";
+import consModeloAsset from "@/assets/cons-modelo.jpg.asset.json";
+import consOrganizacionAsset from "@/assets/cons-organizacion.jpg.asset.json";
+import consTerritorioAsset from "@/assets/cons-territorio.jpg.asset.json";
+import consSistemaAsset from "@/assets/cons-sistema.jpg.asset.json";
 import philTourAsset from "@/assets/phil-tour.jpg.asset.json";
 import philMercadoAsset from "@/assets/phil-mercado.jpg.asset.json";
 import philAprendeAsset from "@/assets/phil-aprende.jpg.asset.json";
@@ -51,6 +56,11 @@ export const tourImages: Record<string, string> = {
   "acad-hero": acadHeroAsset.url,
   "acad-beijing": acadBeijingAsset.url,
   "acad-slowfood": acadSlowfoodAsset.url,
+  "cons-hero": consHeroAsset.url,
+  "cons-modelo": consModeloAsset.url,
+  "cons-organizacion": consOrganizacionAsset.url,
+  "cons-territorio": consTerritorioAsset.url,
+  "cons-sistema": consSistemaAsset.url,
   "phil-tour": philTourAsset.url,
   "phil-mercado": philMercadoAsset.url,
   "phil-aprende": philAprendeAsset.url,
