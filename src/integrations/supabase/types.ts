@@ -79,6 +79,66 @@ export type Database = {
           },
         ]
       }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          description_en: string
+          description_es: string
+          description_fr: string
+          id: string
+          image_url: string
+          name_en: string
+          name_es: string
+          name_fr: string
+          origin: string
+          prices: Json
+          published: boolean
+          scientific: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description_en?: string
+          description_es?: string
+          description_fr?: string
+          id?: string
+          image_url?: string
+          name_en: string
+          name_es: string
+          name_fr: string
+          origin?: string
+          prices?: Json
+          published?: boolean
+          scientific?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description_en?: string
+          description_es?: string
+          description_fr?: string
+          id?: string
+          image_url?: string
+          name_en?: string
+          name_es?: string
+          name_fr?: string
+          origin?: string
+          prices?: Json
+          published?: boolean
+          scientific?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           created_at: string
@@ -126,6 +186,7 @@ export type Database = {
           duration_minutes: number
           id: string
           image_key: string
+          image_url: string | null
           meeting_point: string
           price_mxn: number
           slug: string
@@ -143,6 +204,7 @@ export type Database = {
           duration_minutes?: number
           id?: string
           image_key?: string
+          image_url?: string | null
           meeting_point: string
           price_mxn?: number
           slug: string
@@ -160,6 +222,7 @@ export type Database = {
           duration_minutes?: number
           id?: string
           image_key?: string
+          image_url?: string | null
           meeting_point?: string
           price_mxn?: number
           slug?: string
