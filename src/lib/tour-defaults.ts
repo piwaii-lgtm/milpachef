@@ -1,7 +1,7 @@
 import type { TourInput } from "@/lib/tours.functions";
 
 /** Generic photo + copy applied automatically when a new event card is added. */
-export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date" | "slug">> = {
+export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "slug">> = {
   tour: {
     title: "Gastro Tour by Milpa Chef",
     duration_minutes: 150,
