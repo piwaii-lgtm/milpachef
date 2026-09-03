@@ -32,6 +32,7 @@ import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicImgKeyRouteImport } from './routes/api/public/img/$key'
 
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
@@ -148,6 +149,11 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicImgKeyRoute = ApiPublicImgKeyRouteImport.update({
+  id: '/api/public/img/$key',
+  path: '/api/public/img/$key',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/booking/return': typeof BookingReturnRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -195,6 +202,7 @@ export interface FileRoutesByTo {
   '/booking/return': typeof BookingReturnRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/booking/return': typeof BookingReturnRoute
   '/_authenticated/admin/tours': typeof AuthenticatedAdminToursRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/booking/return'
     | '/admin/tours'
     | '/admin/'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/booking/return'
     | '/admin/tours'
     | '/admin'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   id:
     | '__root__'
@@ -296,6 +307,7 @@ export interface FileRouteTypes {
     | '/booking/return'
     | '/_authenticated/admin/tours'
     | '/_authenticated/admin/'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -320,6 +332,7 @@ export interface RootRouteChildren {
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
+  ApiPublicImgKeyRoute: typeof ApiPublicImgKeyRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -486,6 +499,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/img/$key': {
+      id: '/api/public/img/$key'
+      path: '/api/public/img/$key'
+      fullPath: '/api/public/img/$key'
+      preLoaderRoute: typeof ApiPublicImgKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -523,6 +543,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,
+  ApiPublicImgKeyRoute: ApiPublicImgKeyRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
