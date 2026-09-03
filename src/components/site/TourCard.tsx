@@ -5,6 +5,47 @@ import { tourImageSrc } from "@/lib/tour-images";
 
 export const WHATSAPP_NUMBER = "5222217068200";
 
+function ExperienceDescription({ text, title }: { text: string; title: string }) {
+  const withoutRepeatedTitle = text.trim().startsWith(title)
+    ? text.trim().slice(title.length).trim()
+    : text.trim();
+  const normalized = withoutRepeatedTitle
+    .replace(/\*\*(What(?:'|’)s included)\*\*/gi, "\n$1\n")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\s*•\s*/g, "\n• ")
+    .replace(/\s+\*\s+(?=\S)/g, "\n• ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  const lines = normalized.split("\n").map((line) => line.trim()).filter(Boolean);
+  const firstBullet = lines.findIndex((line) => line.startsWith("• "));
+  const prose = firstBullet === -1 ? lines : lines.slice(0, firstBullet);
+  const bullets = firstBullet === -1 ? [] : lines.slice(firstBullet);
+
+  return (
+    <div className="text-sm text-muted-foreground leading-relaxed flex-1 space-y-3">
+      {prose.map((line, index) => {
+        const isSectionLabel = index === prose.length - 1 && bullets.length > 0;
+        return isSectionLabel ? (
+          <h4 key={`${line}-${index}`} className="pt-2 font-medium text-primary">
+            {line}
+          </h4>
+        ) : (
+          <p key={`${line}-${index}`}>{line}</p>
+        );
+      })}
+      {bullets.length > 0 && (
+        <ul className="space-y-2 pl-4 list-disc marker:text-accent">
+          {bullets.map((line, index) => (
+            <li key={`${line}-${index}`} className="pl-1">
+              {line.slice(2).trim()}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function TourCard({
   tour,
   onBook,
@@ -56,9 +97,7 @@ export function TourCard({
       </div>
       <div className="p-6 flex flex-col flex-1">
         <h3 className="font-serif text-2xl text-primary mb-3">{tour.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-          {pickDescription(tour, lang)}
-        </p>
+        <ExperienceDescription text={pickDescription(tour, lang)} title={tour.title} />
         <dl className="mt-5 grid grid-cols-2 gap-3 text-xs">
           <div>
             <dt className="uppercase tracking-widest text-muted-foreground">{t("agenda.meetingPoint")}</dt>
