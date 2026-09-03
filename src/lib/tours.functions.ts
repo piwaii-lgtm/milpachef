@@ -15,6 +15,7 @@ export type AdminTour = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  image_url: string | null;
   category: "tour" | "class";
   created_at: string;
 };
@@ -32,6 +33,7 @@ export type TourInput = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  image_url: string | null;
   category: "tour" | "class";
 };
 
@@ -62,6 +64,7 @@ function validate(input: TourInput): TourInput {
     description_es: String(input.description_es ?? "").trim(),
     description_fr: String(input.description_fr ?? "").trim(),
     image_key: String(input.image_key ?? "hero").trim(),
+    image_url: String(input.image_url ?? "").trim() || null,
     category: String(input.category ?? "tour").trim() as "tour" | "class",
   };
   if (clean.title.length < 3 || clean.title.length > 160) throw new Error("Title must be 3-160 chars");
@@ -78,6 +81,7 @@ function validate(input: TourInput): TourInput {
     if (v.length < 10 || v.length > 2000) throw new Error(`Description ${k} must be 10-2000 chars`);
   }
   if (!ALLOWED_IMAGE_KEYS.includes(clean.image_key)) throw new Error("Unknown image key");
+  if (clean.image_url && clean.image_url.length > 500) throw new Error("Image URL is too long");
   if (!ALLOWED_CATEGORIES.includes(clean.category)) throw new Error("Unknown category");
   return clean;
 }

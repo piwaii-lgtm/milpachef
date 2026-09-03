@@ -1,10 +1,10 @@
 import { useI18n } from "@/lib/i18n";
 import { formatTourDate, pickDescription, type Tour } from "@/lib/tours";
-import { tourImages } from "@/lib/tour-images";
+import { tourImageSrc } from "@/lib/tour-images";
 
 export function TourCard({ tour, onBook }: { tour: Tour; onBook: (t: Tour) => void }) {
   const { t, lang } = useI18n();
-  const img = tourImages[tour.image_key] ?? tourImages.hero;
+  const img = tourImageSrc(tour);
   const soldOut = tour.spots_left <= 0;
   const isClass = tour.category === "class";
   return (

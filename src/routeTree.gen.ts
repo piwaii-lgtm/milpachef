@@ -31,7 +31,9 @@ import { Route as BookingReturnRouteImport } from './routes/booking.return'
 import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
+import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicImgKeyRouteImport } from './routes/api/public/img/$key'
 
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
@@ -142,12 +144,23 @@ const AuthenticatedAdminToursRoute = AuthenticatedAdminToursRouteImport.update({
   path: '/admin/tours',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminProductsRoute =
+  AuthenticatedAdminProductsRouteImport.update({
+    id: '/admin/products',
+    path: '/admin/products',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicImgKeyRoute = ApiPublicImgKeyRouteImport.update({
+  id: '/api/public/img/$key',
+  path: '/api/public/img/$key',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -169,8 +182,10 @@ export interface FileRoutesByFullPath {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -193,8 +208,10 @@ export interface FileRoutesByTo {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesById {
@@ -219,8 +236,10 @@ export interface FileRoutesById {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRoute
   '/_authenticated/admin/tours': typeof AuthenticatedAdminToursRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRouteTypes {
@@ -245,8 +264,10 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/admin/products'
     | '/admin/tours'
     | '/admin/'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -269,8 +290,10 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/admin/products'
     | '/admin/tours'
     | '/admin'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   id:
     | '__root__'
@@ -294,8 +317,10 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/_authenticated/admin/products'
     | '/_authenticated/admin/tours'
     | '/_authenticated/admin/'
+    | '/api/public/img/$key'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -320,6 +345,7 @@ export interface RootRouteChildren {
   ToursRoute: typeof ToursRoute
   BookingCheckoutRoute: typeof BookingCheckoutRoute
   BookingReturnRoute: typeof BookingReturnRoute
+  ApiPublicImgKeyRoute: typeof ApiPublicImgKeyRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -479,6 +505,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminToursRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/products': {
+      id: '/_authenticated/admin/products'
+      path: '/admin/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -486,15 +519,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/img/$key': {
+      id: '/api/public/img/$key'
+      path: '/api/public/img/$key'
+      fullPath: '/api/public/img/$key'
+      preLoaderRoute: typeof ApiPublicImgKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
   AuthenticatedAdminToursRoute: typeof AuthenticatedAdminToursRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
   AuthenticatedAdminToursRoute: AuthenticatedAdminToursRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
@@ -523,6 +565,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToursRoute: ToursRoute,
   BookingCheckoutRoute: BookingCheckoutRoute,
   BookingReturnRoute: BookingReturnRoute,
+  ApiPublicImgKeyRoute: ApiPublicImgKeyRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport

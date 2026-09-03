@@ -10,6 +10,7 @@ export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date"
     spots_left: 10,
     price_mxn: 595,
     image_key: "hero",
+    image_url: null,
     category: "tour",
     description_en:
       "Walk Cholula with Alfonso and taste the flavours of the milpa: heirloom corn, street antojitos, salsas and mezcal, with the stories behind every bite.",
@@ -26,6 +27,7 @@ export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date"
     spots_left: 8,
     price_mxn: 1295,
     image_key: "class-cooking",
+    image_url: null,
     category: "class",
     description_en:
       "Cook traditional Cholula dishes hands-on with Alfonso: nixtamal and fresh tortillas, salsas de molcajete and a seasonal main, then share the table.",
