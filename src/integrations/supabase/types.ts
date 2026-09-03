@@ -30,6 +30,7 @@ export type Database = {
           status: string
           stripe_payment_intent: string | null
           stripe_session_id: string | null
+          tour_date_id: string | null
           tour_id: string
           unit_price_mxn: number | null
         }
@@ -48,6 +49,7 @@ export type Database = {
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id?: string | null
+          tour_date_id?: string | null
           tour_id: string
           unit_price_mxn?: number | null
         }
@@ -66,10 +68,18 @@ export type Database = {
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id?: string | null
+          tour_date_id?: string | null
           tour_id?: string
           unit_price_mxn?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "bookings_tour_date_id_fkey"
+            columns: ["tour_date_id"]
+            isOneToOne: false
+            referencedRelation: "tour_dates"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "bookings_tour_id_fkey"
             columns: ["tour_id"]
@@ -175,6 +185,47 @@ export type Database = {
         }
         Relationships: []
       }
+      tour_dates: {
+        Row: {
+          active: boolean
+          capacity: number
+          created_at: string
+          id: string
+          spots_left: number
+          starts_at: string
+          tour_id: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          capacity?: number
+          created_at?: string
+          id?: string
+          spots_left?: number
+          starts_at: string
+          tour_id: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          capacity?: number
+          created_at?: string
+          id?: string
+          spots_left?: number
+          starts_at?: string
+          tour_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tour_dates_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tours: {
         Row: {
           capacity: number
@@ -188,11 +239,12 @@ export type Database = {
           image_key: string
           image_url: string | null
           meeting_point: string
+          on_demand: boolean
           price_mxn: number
           slug: string
           spots_left: number
           title: string
-          tour_date: string
+          tour_date: string | null
         }
         Insert: {
           capacity?: number
@@ -206,11 +258,12 @@ export type Database = {
           image_key?: string
           image_url?: string | null
           meeting_point: string
+          on_demand?: boolean
           price_mxn?: number
           slug: string
           spots_left?: number
           title: string
-          tour_date: string
+          tour_date?: string | null
         }
         Update: {
           capacity?: number
@@ -224,11 +277,12 @@ export type Database = {
           image_key?: string
           image_url?: string | null
           meeting_point?: string
+          on_demand?: boolean
           price_mxn?: number
           slug?: string
           spots_left?: number
           title?: string
-          tour_date?: string
+          tour_date?: string | null
         }
         Relationships: []
       }
