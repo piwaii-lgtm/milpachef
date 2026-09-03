@@ -8,6 +8,7 @@ import {
   createTour,
   updateTour,
   deleteTour,
+  setTourDates,
   IMAGE_KEYS,
   CATEGORIES,
   type AdminTour,
@@ -17,6 +18,7 @@ import { TOUR_DEFAULTS, defaultSlug } from "@/lib/tour-defaults";
 import { AdminTabs } from "@/components/site/AdminTabs";
 import { tourImages, tourImageSrc } from "@/lib/tour-images";
 import { ImageUploadField } from "@/components/site/ImageUploadField";
+import { AvailabilityCalendar, type DraftDate } from "@/components/site/AvailabilityCalendar";
 
 export const Route = createFileRoute("/_authenticated/admin/tours")({
   head: () => ({
@@ -36,12 +38,9 @@ function toLocalInput(iso: string) {
 
 function blankForm(category: "tour" | "class"): TourInput {
   const d = new Date();
-  d.setDate(d.getDate() + 7);
-  d.setHours(14, 0, 0, 0);
   return {
     ...TOUR_DEFAULTS[category],
     slug: defaultSlug(category, d),
-    tour_date: toLocalInput(d.toISOString()),
   };
 }
 
@@ -50,6 +49,7 @@ function ManageToursPage() {
   const create = useServerFn(createTour);
   const update = useServerFn(updateTour);
   const remove = useServerFn(deleteTour);
+  const saveDates = useServerFn(setTourDates);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["admin-tours"],
@@ -59,6 +59,8 @@ function ManageToursPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<TourInput | null>(null);
   const [saving, setSaving] = useState(false);
+  const [dates, setDates] = useState<DraftDate[]>([]);
+  const [defaultTime, setDefaultTime] = useState("14:00");
   const [filter, setFilter] = useState<"all" | "upcoming" | "tour" | "class">("upcoming");
 
   const openEdit = (t: AdminTour) => {
@@ -66,7 +68,6 @@ function ManageToursPage() {
     setForm({
       title: t.title,
       slug: t.slug,
-      tour_date: toLocalInput(t.tour_date),
       duration_minutes: t.duration_minutes,
       meeting_point: t.meeting_point,
       capacity: t.capacity,
@@ -78,17 +79,29 @@ function ManageToursPage() {
       image_key: t.image_key,
       image_url: t.image_url ?? null,
       category: t.category ?? "tour",
+      on_demand: t.on_demand ?? false,
     });
+    setDates(
+      (t.dates ?? [])
+        .filter((d) => d.active)
+        .map((d) => ({
+          starts_at: new Date(d.starts_at).toISOString(),
+          capacity: d.capacity,
+          booked: Math.max(0, d.capacity - d.spots_left),
+        })),
+    );
   };
 
   const openNew = (category: "tour" | "class") => {
     setEditingId(null);
     setForm(blankForm(category));
+    setDates([]);
   };
 
   const close = () => {
     setEditingId(null);
     setForm(null);
+    setDates([]);
   };
 
   const set = <K extends keyof TourInput>(k: K, v: TourInput[K]) =>
@@ -100,13 +113,16 @@ function ManageToursPage() {
       const d = TOUR_DEFAULTS[category];
       // when creating, swap the generic photo/copy to match the new category
       if (editingId) return { ...f, category };
-      return { ...f, ...d, slug: f.slug, tour_date: f.tour_date };
+      return { ...f, ...d, slug: f.slug };
     });
 
   const cards = useMemo(() => {
     const rows = data ?? [];
     const now = Date.now();
-    if (filter === "upcoming") return rows.filter((t) => new Date(t.tour_date).getTime() >= now);
+    if (filter === "upcoming")
+      return rows.filter((t) =>
+        (t.dates ?? []).some((d) => d.active && new Date(d.starts_at).getTime() >= now),
+      );
     if (filter === "tour" || filter === "class") return rows.filter((t) => (t.category ?? "tour") === filter);
     return rows;
   }, [data, filter]);
@@ -116,17 +132,14 @@ function ManageToursPage() {
     if (!form) return;
     setSaving(true);
     try {
-      const payload: TourInput = {
-        ...form,
-        tour_date: new Date(form.tour_date).toISOString(),
-      };
-      if (editingId) {
-        await update({ data: { id: editingId, ...payload } });
-        toast.success("Experience updated");
-      } else {
-        await create({ data: payload });
-        toast.success("Experience published");
-      }
+      const payload: TourInput = { ...form, on_demand: dates.length === 0 };
+      const id = editingId
+        ? (await update({ data: { id: editingId, ...payload } })).id
+        : (await create({ data: payload })).id;
+      await saveDates({
+        data: { tourId: id, dates: dates.map((d) => ({ starts_at: d.starts_at, capacity: d.capacity })) },
+      });
+      toast.success(editingId ? "Experience updated" : "Experience published");
       close();
       refetch();
     } catch (err) {
@@ -137,7 +150,7 @@ function ManageToursPage() {
   };
 
   const onDelete = async (t: AdminTour) => {
-    if (!confirm(`Delete "${t.title}" on ${new Date(t.tour_date).toLocaleString()}?`)) return;
+    if (!confirm(`Delete "${t.title}" and all its dates?`)) return;
     try {
       await remove({ data: { id: t.id } });
       toast.success("Deleted");
@@ -204,7 +217,10 @@ function ManageToursPage() {
 
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {cards.map((t) => {
-          const past = new Date(t.tour_date).getTime() < Date.now();
+          const upcoming = (t.dates ?? [])
+            .filter((d) => d.active && new Date(d.starts_at).getTime() >= Date.now())
+            .sort((a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime());
+          const past = upcoming.length === 0;
           const isClass = (t.category ?? "tour") === "class";
           return (
             <article
@@ -232,23 +248,38 @@ function ManageToursPage() {
                 </span>
                 {past && (
                   <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm bg-background/90 text-muted-foreground">
-                    Past
+                    On request
                   </span>
                 )}
               </div>
               <div className="p-5 flex flex-col flex-1">
                 <div className="text-xs uppercase tracking-widest text-accent">
-                  {new Date(t.tour_date).toLocaleString()} · {t.duration_minutes} min
+                  {upcoming.length > 0
+                    ? `${upcoming.length} date${upcoming.length > 1 ? "s" : ""} available`
+                    : "No dates — WhatsApp on request"}{" "}
+                  · {t.duration_minutes} min
                 </div>
+                {upcoming.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {upcoming.slice(0, 6).map((d) => (
+                      <span key={d.id} className="text-[11px] px-2 py-0.5 rounded-sm border border-border text-primary">
+                        {new Date(d.starts_at).toLocaleDateString(undefined, { day: "numeric", month: "short" })}
+                        {" · "}
+                        {d.spots_left}/{d.capacity}
+                      </span>
+                    ))}
+                    {upcoming.length > 6 && (
+                      <span className="text-[11px] text-muted-foreground">+{upcoming.length - 6}</span>
+                    )}
+                  </div>
+                )}
                 <h3 className="font-serif text-xl text-primary mt-1">{t.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 line-clamp-3 flex-1">{t.description_es}</p>
                 <div className="text-xs text-muted-foreground mt-3">{t.meeting_point}</div>
                 <div className="mt-4 flex items-center justify-between">
                   <div>
                     <div className="font-serif text-xl text-primary leading-none">MXN ${t.price_mxn}</div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {t.spots_left}/{t.capacity} spots left · /{t.slug}
-                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">/{t.slug}</div>
                   </div>
                   <div className="flex gap-3 text-sm">
                     <button onClick={() => openEdit(t)} className="underline text-primary">Edit</button>
@@ -295,28 +326,34 @@ function ManageToursPage() {
             <input required className={inputCls} value={form.title} onChange={(e) => set("title", e.target.value)} />
           </Field>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Slug">
-              <input required className={inputCls} value={form.slug} onChange={(e) => set("slug", e.target.value)} placeholder="gastro-tour-2026-08-15" />
-            </Field>
-            <Field label="Date & time">
-              <input required type="datetime-local" className={inputCls} value={form.tour_date} onChange={(e) => set("tour_date", e.target.value)} />
-            </Field>
-          </div>
+          <Field label="Slug">
+            <input required className={inputCls} value={form.slug} onChange={(e) => set("slug", e.target.value)} placeholder="gastro-tour-cholula" />
+          </Field>
+
+          <Field label="Availability — click the days this experience runs">
+            <AvailabilityCalendar
+              dates={dates}
+              onChange={setDates}
+              defaultTime={defaultTime}
+              onDefaultTimeChange={setDefaultTime}
+              defaultCapacity={form.capacity}
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              Leave the calendar empty to make this an on-request experience — guests will be invited to
+              write on WhatsApp instead of booking online.
+            </p>
+          </Field>
 
           <Field label="Meeting point">
             <input required className={inputCls} value={form.meeting_point} onChange={(e) => set("meeting_point", e.target.value)} />
           </Field>
 
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <Field label="Duration (min)">
               <input required type="number" min={30} max={720} className={inputCls} value={form.duration_minutes} onChange={(e) => set("duration_minutes", Number(e.target.value))} />
             </Field>
-            <Field label="Capacity">
+            <Field label="Default seats per date">
               <input required type="number" min={1} max={100} className={inputCls} value={form.capacity} onChange={(e) => set("capacity", Number(e.target.value))} />
-            </Field>
-            <Field label="Spots left">
-              <input required type="number" min={0} max={100} className={inputCls} value={form.spots_left} onChange={(e) => set("spots_left", Number(e.target.value))} />
             </Field>
             <Field label="Price (MXN)">
               <input required type="number" min={1} className={inputCls} value={form.price_mxn} onChange={(e) => set("price_mxn", Number(e.target.value))} />
