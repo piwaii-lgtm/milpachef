@@ -15,7 +15,8 @@ import {
 } from "@/lib/tours.functions";
 import { TOUR_DEFAULTS, defaultSlug } from "@/lib/tour-defaults";
 import { AdminTabs } from "@/components/site/AdminTabs";
-import { tourImages } from "@/lib/tour-images";
+import { tourImages, tourImageSrc } from "@/lib/tour-images";
+import { ImageUploadField } from "@/components/site/ImageUploadField";
 
 export const Route = createFileRoute("/_authenticated/admin/tours")({
   head: () => ({
@@ -75,6 +76,7 @@ function ManageToursPage() {
       description_es: t.description_es,
       description_fr: t.description_fr,
       image_key: t.image_key,
+      image_url: t.image_url ?? null,
       category: t.category ?? "tour",
     });
   };
@@ -215,7 +217,7 @@ function ManageToursPage() {
             >
               <div className="aspect-[4/3] relative overflow-hidden">
                 <img
-                  src={tourImages[t.image_key] ?? tourImages.hero}
+                  src={tourImageSrc(t)}
                   alt={t.title}
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -321,17 +323,24 @@ function ManageToursPage() {
             </Field>
           </div>
 
-          <Field label="Cover image">
+          <Field label="Upload a new picture">
+            <ImageUploadField
+              value={form.image_url}
+              onChange={(url) => set("image_url", url || null)}
+            />
+          </Field>
+
+          <Field label="Or pick from the library">
             <div className="grid grid-cols-5 gap-2">
               {IMAGE_KEYS.map((k) => (
                 <button
                   type="button"
                   key={k}
-                  onClick={() => set("image_key", k)}
+                  onClick={() => { set("image_key", k); set("image_url", null); }}
                   title={k}
                   className={
                     "aspect-[4/3] overflow-hidden rounded-sm border-2 " +
-                    (form.image_key === k ? "border-primary" : "border-transparent opacity-70 hover:opacity-100")
+                    (!form.image_url && form.image_key === k ? "border-primary" : "border-transparent opacity-70 hover:opacity-100")
                   }
                 >
                   <img src={tourImages[k] ?? tourImages.hero} alt={k} className="w-full h-full object-cover" />

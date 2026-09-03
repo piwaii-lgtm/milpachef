@@ -79,3 +79,7 @@ export const marketImage = chefMarketAsset.url;
 export const classImage = classCooking;
 export const classMarketImage = classMarket;
 export const classDishImage = classDish;
+/** Uploaded photo wins over the preset library key. */
+export function tourImageSrc(tour: { image_key: string; image_url?: string | null }) {
+  return tour.image_url || tourImages[tour.image_key] || hero;
+}

@@ -14,6 +14,7 @@ export type Tour = {
   description_es: string;
   description_fr: string;
   image_key: string;
+  image_url: string | null;
   category: "tour" | "class";
 };
 
