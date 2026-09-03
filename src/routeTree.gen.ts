@@ -31,6 +31,7 @@ import { Route as BookingReturnRouteImport } from './routes/booking.return'
 import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
+import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as ApiPublicImgKeyRouteImport } from './routes/api/public/img/$key'
 
@@ -143,6 +144,12 @@ const AuthenticatedAdminToursRoute = AuthenticatedAdminToursRouteImport.update({
   path: '/admin/tours',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminProductsRoute =
+  AuthenticatedAdminProductsRouteImport.update({
+    id: '/admin/products',
+    path: '/admin/products',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -175,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
@@ -200,6 +208,7 @@ export interface FileRoutesByTo {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/admin/tours': typeof AuthenticatedAdminToursRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
@@ -227,6 +236,7 @@ export interface FileRoutesById {
   '/tours': typeof ToursRoute
   '/booking/checkout': typeof BookingCheckoutRoute
   '/booking/return': typeof BookingReturnRoute
+  '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRoute
   '/_authenticated/admin/tours': typeof AuthenticatedAdminToursRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/admin/products'
     | '/admin/tours'
     | '/admin/'
     | '/api/public/img/$key'
@@ -279,6 +290,7 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/admin/products'
     | '/admin/tours'
     | '/admin'
     | '/api/public/img/$key'
@@ -305,6 +317,7 @@ export interface FileRouteTypes {
     | '/tours'
     | '/booking/checkout'
     | '/booking/return'
+    | '/_authenticated/admin/products'
     | '/_authenticated/admin/tours'
     | '/_authenticated/admin/'
     | '/api/public/img/$key'
@@ -492,6 +505,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminToursRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/products': {
+      id: '/_authenticated/admin/products'
+      path: '/admin/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -510,11 +530,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
   AuthenticatedAdminToursRoute: typeof AuthenticatedAdminToursRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
   AuthenticatedAdminToursRoute: AuthenticatedAdminToursRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
