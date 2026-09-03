@@ -41,7 +41,7 @@ export const getBookingStatus = createServerFn({ method: "GET" })
     const { data: row, error } = await supabaseAdmin
       .from("bookings")
       .select(
-        "status, party_size, amount_mxn, guest_email, access_token, tours!inner(title, tour_date, meeting_point)",
+        "status, party_size, amount_mxn, guest_email, access_token, tour_dates(starts_at), tours!inner(title, tour_date, meeting_point)",
       )
       .eq("id", data.bookingId)
       .maybeSingle();
@@ -52,13 +52,14 @@ export const getBookingStatus = createServerFn({ method: "GET" })
     }
     const tour = row.tours as unknown as {
       title: string;
-      tour_date: string;
+      tour_date: string | null;
       meeting_point: string;
     };
+    const chosen = (row as { tour_dates: { starts_at: string } | null }).tour_dates;
     return {
       status: row.status as BookingStatus["status"],
       tourTitle: tour.title,
-      tourDate: tour.tour_date,
+      tourDate: chosen?.starts_at ?? tour.tour_date ?? undefined,
       meetingPoint: tour.meeting_point,
       partySize: row.party_size,
       amountMxn: row.amount_mxn,
@@ -83,14 +84,15 @@ export const listBookings = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("bookings")
       .select(
-        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, guest_language, stripe_session_id, stripe_payment_intent, paid_at, created_at, notes, tours!inner(title, tour_date)",
+        "id, tour_id, guest_name, guest_email, party_size, amount_mxn, status, guest_language, stripe_session_id, stripe_payment_intent, paid_at, created_at, notes, tour_dates(starts_at), tours!inner(title, tour_date)",
       )
       .order("paid_at", { ascending: false, nullsFirst: false })
       .order("created_at", { ascending: false })
       .limit(500);
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => {
-      const tour = r.tours as unknown as { title: string; tour_date: string };
+      const tour = r.tours as unknown as { title: string; tour_date: string | null };
+      const chosen = (r as unknown as { tour_dates: { starts_at: string } | null }).tour_dates;
       return {
         id: r.id,
         tour_id: r.tour_id,
@@ -106,7 +108,7 @@ export const listBookings = createServerFn({ method: "GET" })
         created_at: r.created_at,
         notes: r.notes,
         tour_title: tour.title,
-        tour_date: tour.tour_date,
+        tour_date: chosen?.starts_at ?? tour.tour_date ?? '',
       };
     });
   });
