@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { fetchTours, type Tour } from "@/lib/tours";
+import { fetchTours, type Tour, type TourDate } from "@/lib/tours";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/reserve")({
 
 function ReservePage() {
   const { t } = useI18n();
-  const [booking, setBooking] = useState<Tour | null>(null);
+  const [booking, setBooking] = useState<{ tour: Tour; date: TourDate } | null>(null);
   const { data: tours = [], isLoading: toursLoading } = useQuery({
     queryKey: ["tours", "food-tours", "reserve"],
     queryFn: () => fetchTours(24, "tour"),
@@ -66,7 +66,7 @@ function ReservePage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tours.map((tour) => (
-              <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+              <TourCard key={tour.id} tour={tour} onBook={(tour, date) => setBooking({ tour, date })} />
             ))}
           </div>
         </div>
@@ -79,13 +79,18 @@ function ReservePage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {classes.map((tour) => (
-              <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+              <TourCard key={tour.id} tour={tour} onBook={(tour, date) => setBooking({ tour, date })} />
             ))}
           </div>
         </div>
       )}
 
-      <BookingDialog tour={booking} open={!!booking} onClose={() => setBooking(null)} />
+      <BookingDialog
+        tour={booking?.tour ?? null}
+        date={booking?.date ?? null}
+        open={!!booking}
+        onClose={() => setBooking(null)}
+      />
     </section>
   );
 }

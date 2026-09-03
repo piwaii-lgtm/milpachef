@@ -13,6 +13,7 @@ export const startCheckout = createServerFn({ method: "POST" })
   .inputValidator(
     (data: {
       tourId: string;
+      tourDateId: string;
       partySize: number;
       guestName: string;
       guestEmail: string;
@@ -23,6 +24,7 @@ export const startCheckout = createServerFn({ method: "POST" })
       environment: StripeEnv;
     }) => {
       if (!/^[a-f0-9-]{36}$/i.test(data.tourId)) throw new Error("Invalid tourId");
+      if (!/^[a-f0-9-]{36}$/i.test(data.tourDateId)) throw new Error("Please choose a date");
       if (!Number.isInteger(data.partySize) || data.partySize < 1 || data.partySize > 10) {
         throw new Error("Party size must be between 1 and 10");
       }
@@ -44,16 +46,27 @@ export const startCheckout = createServerFn({ method: "POST" })
       // Trusted read of tour price + capacity
       const { data: tour, error: tourError } = await supabaseAdmin
         .from("tours")
-        .select("id, title, price_mxn, spots_left, tour_date")
+        .select("id, title, price_mxn, meeting_point")
         .eq("id", data.tourId)
         .maybeSingle();
       if (tourError) throw new Error(tourError.message);
-      if (!tour) return { error: "This tour is no longer available." };
-      if (tour.spots_left < data.partySize) {
-        return { error: `Only ${tour.spots_left} spot(s) left on this tour.` };
+      if (!tour) return { error: "This experience is no longer available." };
+
+      // Trusted read of the selected date
+      const { data: tourDate, error: dateError } = await supabaseAdmin
+        .from("tour_dates")
+        .select("id, tour_id, starts_at, spots_left, active")
+        .eq("id", data.tourDateId)
+        .maybeSingle();
+      if (dateError) throw new Error(dateError.message);
+      if (!tourDate || tourDate.tour_id !== tour.id || !tourDate.active) {
+        return { error: "That date is no longer available." };
       }
-      if (new Date(tour.tour_date).getTime() < Date.now()) {
-        return { error: "This tour has already started." };
+      if (tourDate.spots_left < data.partySize) {
+        return { error: `Only ${tourDate.spots_left} spot(s) left on that date.` };
+      }
+      if (new Date(tourDate.starts_at).getTime() < Date.now()) {
+        return { error: "That date has already passed." };
       }
 
       const unitPriceMxn = tour.price_mxn;
@@ -64,6 +77,7 @@ export const startCheckout = createServerFn({ method: "POST" })
         .from("bookings")
         .insert({
           tour_id: tour.id,
+          tour_date_id: tourDate.id,
           guest_name: data.guestName,
           guest_email: data.guestEmail,
           party_size: data.partySize,

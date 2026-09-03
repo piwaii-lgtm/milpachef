@@ -1,7 +1,7 @@
 import type { TourInput } from "@/lib/tours.functions";
 
 /** Generic photo + copy applied automatically when a new event card is added. */
-export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date" | "slug">> = {
+export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "slug">> = {
   tour: {
     title: "Gastro Tour by Milpa Chef",
     duration_minutes: 150,
@@ -12,6 +12,7 @@ export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date"
     image_key: "hero",
     image_url: null,
     category: "tour",
+    on_demand: false,
     description_en:
       "Walk Cholula with Alfonso and taste the flavours of the milpa: heirloom corn, street antojitos, salsas and mezcal, with the stories behind every bite.",
     description_es:
@@ -29,6 +30,7 @@ export const TOUR_DEFAULTS: Record<"tour" | "class", Omit<TourInput, "tour_date"
     image_key: "class-cooking",
     image_url: null,
     category: "class",
+    on_demand: false,
     description_en:
       "Cook traditional Cholula dishes hands-on with Alfonso: nixtamal and fresh tortillas, salsas de molcajete and a seasonal main, then share the table.",
     description_es:
