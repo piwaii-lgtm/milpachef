@@ -39,6 +39,19 @@ export const Route = createFileRoute("/products")({
     links: [{ rel: "canonical", href: "/products" }],
   }),
   component: ProductsPage,
+  errorComponent: () => (
+    <section className="container-editorial py-24 text-center">
+      <h1 className="font-serif text-3xl text-primary">Selección MilpaChef®</h1>
+      <p className="text-muted-foreground mt-3">
+        No pudimos cargar el catálogo en este momento. Vuelve a intentarlo en unos minutos.
+      </p>
+    </section>
+  ),
+  notFoundComponent: () => (
+    <section className="container-editorial py-24 text-center">
+      <h1 className="font-serif text-3xl text-primary">Página no encontrada</h1>
+    </section>
+  ),
 });
 
 const COPY = {
