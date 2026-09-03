@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { formatTourDate, type Tour } from "@/lib/tours";
+import { formatTourDate, type Tour, type TourDate } from "@/lib/tours";
 import { startCheckout } from "@/lib/payments.functions";
 import { getStripeEnvironment } from "@/lib/stripe";
 
 export function BookingDialog({
   tour,
+  date,
   open,
   onClose,
 }: {
   tour: Tour | null;
+  date: TourDate | null;
   open: boolean;
   onClose: () => void;
 }) {
@@ -29,9 +31,9 @@ export function BookingDialog({
       setSubmitting(false);
       setGuestLang(lang);
     }
-  }, [open, tour?.id, lang]);
+  }, [open, tour?.id, date?.id, lang]);
 
-  if (!open || !tour) return null;
+  if (!open || !tour || !date) return null;
 
   const total = tour.price_mxn * party;
 
@@ -42,6 +44,7 @@ export function BookingDialog({
       const result = await startCheckout({
         data: {
           tourId: tour.id,
+          tourDateId: date.id,
           partySize: party,
           guestName: name.trim(),
           guestEmail: email.trim(),
@@ -79,7 +82,7 @@ export function BookingDialog({
       >
         <div className="px-8 py-6 border-b border-border">
           <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-            {formatTourDate(tour.tour_date, lang)}
+            {formatTourDate(date.starts_at, lang)}
           </div>
           <h3 className="font-serif text-2xl text-primary">{tour.title}</h3>
         </div>
@@ -123,7 +126,7 @@ export function BookingDialog({
                 required
                 type="number"
                 min={1}
-                max={Math.max(1, tour.spots_left)}
+                max={Math.max(1, date.spots_left)}
                 value={party}
                 onChange={(e) => setParty(Math.max(1, Number(e.target.value) || 1))}
                 className="w-full border border-input bg-background rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"

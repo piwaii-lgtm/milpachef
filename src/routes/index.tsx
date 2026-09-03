@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { fetchTours, fetchTestimonials, pickQuote, type Tour } from "@/lib/tours";
+import { fetchTours, fetchTestimonials, pickQuote, type Tour, type TourDate } from "@/lib/tours";
 import { classImage } from "@/lib/tour-images";
 import { getArea } from "@/lib/platform";
 import { home as homeCopy } from "@/lib/site-copy";
@@ -69,7 +69,7 @@ function Home() {
   const mainAreas = (["experiences", "products", "consulting", "academy"] as const).map((s) =>
     getArea(lang, s),
   );
-  const [booking, setBooking] = useState<Tour | null>(null);
+  const [booking, setBooking] = useState<{ tour: Tour; date: TourDate } | null>(null);
   const { data: tours = [] } = useQuery({ queryKey: ["tours"], queryFn: () => fetchTours(3) });
   const { data: classes = [] } = useQuery({
     queryKey: ["tours", "classes", "home"],
@@ -245,7 +245,7 @@ function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {tours.map((tour) => (
-              <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+              <TourCard key={tour.id} tour={tour} onBook={(tour, date) => setBooking({ tour, date })} />
             ))}
           </div>
         </div>
@@ -277,7 +277,7 @@ function Home() {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {classes.map((tour) => (
-                <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+                <TourCard key={tour.id} tour={tour} onBook={(tour, date) => setBooking({ tour, date })} />
               ))}
             </div>
           </div>
@@ -366,7 +366,12 @@ function Home() {
         </Link>
       </section>
 
-      <BookingDialog tour={booking} open={!!booking} onClose={() => setBooking(null)} />
+      <BookingDialog
+        tour={booking?.tour ?? null}
+        date={booking?.date ?? null}
+        open={!!booking}
+        onClose={() => setBooking(null)}
+      />
     </>
   );
 }

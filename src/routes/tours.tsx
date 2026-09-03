@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { fetchTours, type Tour } from "@/lib/tours";
+import { fetchTours, type Tour, type TourDate } from "@/lib/tours";
 import { TourCard } from "@/components/site/TourCard";
 import { BookingDialog } from "@/components/site/BookingDialog";
 
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/tours")({
 
 function ToursPage() {
   const { t } = useI18n();
-  const [booking, setBooking] = useState<Tour | null>(null);
+  const [booking, setBooking] = useState<{ tour: Tour; date: TourDate } | null>(null);
   const { data: tours = [], isLoading } = useQuery({
     queryKey: ["tours", "food-tours"],
     queryFn: () => fetchTours(24, "tour"),
@@ -53,12 +53,17 @@ function ToursPage() {
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {tours.map((tour) => (
-            <TourCard key={tour.id} tour={tour} onBook={setBooking} />
+            <TourCard key={tour.id} tour={tour} onBook={(tour, date) => setBooking({ tour, date })} />
           ))}
         </div>
       )}
 
-      <BookingDialog tour={booking} open={!!booking} onClose={() => setBooking(null)} />
+      <BookingDialog
+        tour={booking?.tour ?? null}
+        date={booking?.date ?? null}
+        open={!!booking}
+        onClose={() => setBooking(null)}
+      />
 
       {/* Tastings + practical info (tours only) */}
       <div className="mt-24 md:mt-32 border-t border-border pt-16">
