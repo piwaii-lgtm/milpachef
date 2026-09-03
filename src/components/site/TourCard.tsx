@@ -10,7 +10,8 @@ function ExperienceDescription({ text, title }: { text: string; title: string })
     ? text.trim().slice(title.length).trim()
     : text.trim();
   const normalized = withoutRepeatedTitle
-    .replace(/\*\*(.*?)\*\*/g, "\n$1\n")
+    .replace(/\*\*(What(?:'|’)s included)\*\*/gi, "\n$1\n")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
     .replace(/\s*•\s*/g, "\n• ")
     .replace(/\s+\*\s+(?=\S)/g, "\n• ")
     .replace(/\n{3,}/g, "\n\n")
