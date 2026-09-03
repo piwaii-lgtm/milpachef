@@ -1,11 +1,19 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
+export type AdminTourDate = {
+  id: string;
+  starts_at: string;
+  capacity: number;
+  spots_left: number;
+  active: boolean;
+};
+
 export type AdminTour = {
   id: string;
   title: string;
   slug: string;
-  tour_date: string;
+  tour_date: string | null;
   duration_minutes: number;
   meeting_point: string;
   capacity: number;
@@ -17,13 +25,14 @@ export type AdminTour = {
   image_key: string;
   image_url: string | null;
   category: "tour" | "class";
+  on_demand: boolean;
   created_at: string;
+  dates: AdminTourDate[];
 };
 
 export type TourInput = {
   title: string;
   slug: string;
-  tour_date: string; // ISO
   duration_minutes: number;
   meeting_point: string;
   capacity: number;
@@ -35,6 +44,7 @@ export type TourInput = {
   image_key: string;
   image_url: string | null;
   category: "tour" | "class";
+  on_demand: boolean;
 };
 
 const ALLOWED_IMAGE_KEYS = [
@@ -54,7 +64,6 @@ function validate(input: TourInput): TourInput {
   const clean = {
     title: String(input.title ?? "").trim(),
     slug: String(input.slug ?? "").trim().toLowerCase(),
-    tour_date: String(input.tour_date ?? "").trim(),
     duration_minutes: Number(input.duration_minutes),
     meeting_point: String(input.meeting_point ?? "").trim(),
     capacity: Number(input.capacity),
@@ -66,10 +75,10 @@ function validate(input: TourInput): TourInput {
     image_key: String(input.image_key ?? "hero").trim(),
     image_url: String(input.image_url ?? "").trim() || null,
     category: String(input.category ?? "tour").trim() as "tour" | "class",
+    on_demand: Boolean(input.on_demand),
   };
   if (clean.title.length < 3 || clean.title.length > 160) throw new Error("Title must be 3-160 chars");
   if (!/^[a-z0-9-]{3,80}$/.test(clean.slug)) throw new Error("Slug must be lowercase letters, numbers, dashes (3-80)");
-  if (Number.isNaN(Date.parse(clean.tour_date))) throw new Error("Invalid tour date");
   if (!Number.isInteger(clean.duration_minutes) || clean.duration_minutes < 30 || clean.duration_minutes > 720)
     throw new Error("Duration must be 30-720 minutes");
   if (clean.meeting_point.length < 3 || clean.meeting_point.length > 240) throw new Error("Meeting point required");
@@ -105,10 +114,15 @@ export const listAllTours = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("tours")
-      .select("*")
-      .order("tour_date", { ascending: true });
+      .select("*, tour_dates(id, starts_at, capacity, spots_left, active)")
+      .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
-    return (data ?? []) as AdminTour[];
+    return (data ?? []).map((r: any) => ({
+      ...r,
+      dates: ((r.tour_dates ?? []) as AdminTourDate[]).sort(
+        (a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime(),
+      ),
+    })) as AdminTour[];
   });
 
 export const createTour = createServerFn({ method: "POST" })
@@ -123,7 +137,7 @@ export const createTour = createServerFn({ method: "POST" })
       .select("*")
       .single();
     if (error) throw new Error(error.message);
-    return row as AdminTour;
+    return { ...(row as object), dates: [] } as AdminTour;
   });
 
 export const updateTour = createServerFn({ method: "POST" })
@@ -143,7 +157,7 @@ export const updateTour = createServerFn({ method: "POST" })
       .select("*")
       .single();
     if (error) throw new Error(error.message);
-    return row as AdminTour;
+    return { ...(row as object), dates: [] } as AdminTour;
   });
 
 export const deleteTour = createServerFn({ method: "POST" })
@@ -158,6 +172,90 @@ export const deleteTour = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin.from("tours").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
+  });
+
+/**
+ * Replaces the availability calendar of an experience with the given list of
+ * dates. Dates that disappear are deleted when nobody booked them, otherwise
+ * they are deactivated so existing bookings keep their reference.
+ */
+export const setTourDates = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (data: { tourId: string; dates: { starts_at: string; capacity: number }[] }) => {
+      if (!/^[a-f0-9-]{36}$/i.test(data.tourId)) throw new Error("Invalid tour id");
+      if (!Array.isArray(data.dates) || data.dates.length > 200) throw new Error("Too many dates");
+      const dates = data.dates.map((d) => {
+        const ts = Date.parse(d.starts_at);
+        if (Number.isNaN(ts)) throw new Error("Invalid date");
+        const capacity = Number(d.capacity);
+        if (!Number.isInteger(capacity) || capacity < 1 || capacity > 100)
+          throw new Error("Capacity per date must be 1-100");
+        return { starts_at: new Date(ts).toISOString(), capacity };
+      });
+      return { tourId: data.tourId, dates };
+    },
+  )
+  .handler(async ({ data, context }): Promise<AdminTourDate[]> => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: existing, error: exErr } = await supabaseAdmin
+      .from("tour_dates")
+      .select("id, starts_at, capacity, spots_left, active")
+      .eq("tour_id", data.tourId);
+    if (exErr) throw new Error(exErr.message);
+
+    const wanted = new Map(data.dates.map((d) => [new Date(d.starts_at).getTime(), d]));
+    const kept = new Set<number>();
+
+    for (const row of existing ?? []) {
+      const key = new Date(row.starts_at).getTime();
+      const want = wanted.get(key);
+      if (want) {
+        kept.add(key);
+        const booked = Math.max(0, row.capacity - row.spots_left);
+        await supabaseAdmin
+          .from("tour_dates")
+          .update({
+            capacity: want.capacity,
+            spots_left: Math.max(0, want.capacity - booked),
+            active: true,
+          })
+          .eq("id", row.id);
+      } else {
+        const { count } = await supabaseAdmin
+          .from("bookings")
+          .select("id", { count: "exact", head: true })
+          .eq("tour_date_id", row.id);
+        if ((count ?? 0) > 0) {
+          await supabaseAdmin.from("tour_dates").update({ active: false }).eq("id", row.id);
+        } else {
+          await supabaseAdmin.from("tour_dates").delete().eq("id", row.id);
+        }
+      }
+    }
+
+    const toInsert = data.dates
+      .filter((d) => !kept.has(new Date(d.starts_at).getTime()))
+      .map((d) => ({
+        tour_id: data.tourId,
+        starts_at: d.starts_at,
+        capacity: d.capacity,
+        spots_left: d.capacity,
+      }));
+    if (toInsert.length) {
+      const { error } = await supabaseAdmin.from("tour_dates").insert(toInsert);
+      if (error) throw new Error(error.message);
+    }
+
+    const { data: fresh, error: freshErr } = await supabaseAdmin
+      .from("tour_dates")
+      .select("id, starts_at, capacity, spots_left, active")
+      .eq("tour_id", data.tourId)
+      .order("starts_at", { ascending: true });
+    if (freshErr) throw new Error(freshErr.message);
+    return (fresh ?? []) as AdminTourDate[];
   });
 
 export const IMAGE_KEYS = ALLOWED_IMAGE_KEYS;
