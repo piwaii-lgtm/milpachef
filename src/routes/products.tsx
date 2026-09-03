@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { PRODUCTS, CATEGORY_LABEL, type ProductCategory } from "@/lib/products";
+import { CATEGORY_LABEL, toProduct, type ProductCategory } from "@/lib/products";
+import { listPublicProducts } from "@/lib/products.functions";
 import { productsPage } from "@/lib/section-copy";
 import { Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/products/hero.asset.json";
@@ -9,7 +11,13 @@ import catalogAsset from "@/assets/catalogo-milpachef.pdf.asset.json";
 
 const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
+const productsQuery = queryOptions({
+  queryKey: ["public-products"],
+  queryFn: () => listPublicProducts(),
+});
+
 export const Route = createFileRoute("/products")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   head: () => ({
     meta: [
       { title: "Selección MilpaChef® — ancestral Mexican ingredients" },
@@ -80,13 +88,15 @@ function ProductsPage() {
   const { lang } = useI18n();
   const [cat, setCat] = useState<ProductCategory | "all">("all");
   const s = productsPage[lang];
+  const { data: rows } = useSuspenseQuery(productsQuery);
+  const products = useMemo(() => rows.map(toProduct), [rows]);
 
   const categories = useMemo(() => {
-    const set = new Set<ProductCategory>(PRODUCTS.map((p) => p.category));
+    const set = new Set<ProductCategory>(products.map((p) => p.category));
     return Array.from(set);
-  }, []);
+  }, [products]);
 
-  const filtered = cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === cat);
+  const filtered = cat === "all" ? products : products.filter((p) => p.category === cat);
 
   return (
     <>
