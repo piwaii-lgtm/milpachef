@@ -137,7 +137,7 @@ export const createTour = createServerFn({ method: "POST" })
       .select("*")
       .single();
     if (error) throw new Error(error.message);
-    return { ...(row as object), dates: [] } as AdminTour;
+    return { ...(row as Record<string, unknown>), dates: [] } as unknown as AdminTour;
   });
 
 export const updateTour = createServerFn({ method: "POST" })
@@ -157,7 +157,7 @@ export const updateTour = createServerFn({ method: "POST" })
       .select("*")
       .single();
     if (error) throw new Error(error.message);
-    return { ...(row as object), dates: [] } as AdminTour;
+    return { ...(row as Record<string, unknown>), dates: [] } as unknown as AdminTour;
   });
 
 export const deleteTour = createServerFn({ method: "POST" })
