@@ -13,6 +13,8 @@ export const Route = createFileRoute("/private-experiences")({
           "Tailor-made Mexican gastronomy experiences for travellers, companies, universities and groups, designed and guided by chef-anthropologist Alfonso Rocha Robles.",
       },
       { property: "og:title", content: "MilpaChef private experiences" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Custom food tours, cooking classes and field programmes for groups, companies and universities.",

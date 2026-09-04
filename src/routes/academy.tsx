@@ -19,6 +19,8 @@ export const Route = createFileRoute("/academy")({
           "MilpaChef® Academy: UDLAP teaching, research on biocultural heritage and food systems, publications and training in sustainable Mexican gastronomy.",
       },
       { property: "og:title", content: "MilpaChef® Academy — learning from the territory" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Teaching, applied research, publications and training on Mexican food heritage.",

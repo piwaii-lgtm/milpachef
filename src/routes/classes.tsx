@@ -17,6 +17,8 @@ export const Route = createFileRoute("/classes")({
           "Hands-on Mexican cooking classes in Cholula with chef Alfonso Rocha: heirloom-corn tortillas, mole poblano, antojitos and tamales in small groups.",
       },
       { property: "og:title", content: "Cholula cooking classes with Milpa Chef" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Hands-on Cholula cooking classes — heirloom corn, mole, tamales.",

@@ -16,6 +16,8 @@ export const Route = createFileRoute("/tours")({
           "Full agenda of upcoming Gastro Tours by Milpa Chef in Cholula, Puebla. Small groups of 10, Slow Food sourcing.",
       },
       { property: "og:title", content: "Upcoming food tours in Cholula" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "See dates for the next Gastro Tour by Milpa Chef and reserve online.",

@@ -13,6 +13,8 @@ export const Route = createFileRoute("/platform")({
           "MilpaChef is more than a food tour: experiences, consulting, products, academy, research and impact — a platform for sustainable Mexican gastronomy based in Cholula, Puebla.",
       },
       { property: "og:title", content: "The MilpaChef platform — six areas, one philosophy" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content:

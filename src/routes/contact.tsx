@@ -18,6 +18,8 @@ export const Route = createFileRoute("/contact")({
           "Get in touch for private food tours, chef's table dinners and custom Cholula itineraries with Milpa Chef.",
       },
       { property: "og:title", content: "Contact Milpa Chef" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Private tours, chef's table, custom itineraries in Cholula.",

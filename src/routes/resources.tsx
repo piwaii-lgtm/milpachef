@@ -13,6 +13,8 @@ export const Route = createFileRoute("/resources")({
           "Free MilpaChef® resources: digital recipe books with ancestral ingredients, cooking videos and articles on Mexican biocultural heritage.",
       },
       { property: "og:title", content: "MilpaChef® Resources" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Recipes, videos and knowledge to keep exploring sustainable Mexican gastronomy.",

@@ -55,7 +55,7 @@ function ManageToursPage() {
   const [saving, setSaving] = useState(false);
   const [dates, setDates] = useState<DraftDate[]>([]);
   const [defaultTime, setDefaultTime] = useState("14:00");
-  const [filter, setFilter] = useState<"all" | "upcoming" | "tour" | "class">("upcoming");
+  const [filter, setFilter] = useState<"all" | "upcoming" | "on-request" | "tour" | "class">("upcoming");
 
   const openEdit = (t: AdminTour) => {
     setEditingId(t.id);
@@ -117,6 +117,10 @@ function ManageToursPage() {
       return rows.filter((t) =>
         (t.dates ?? []).some((d) => d.active && new Date(d.starts_at).getTime() >= now),
       );
+    if (filter === "on-request")
+      return rows.filter(
+        (t) => !(t.dates ?? []).some((d) => d.active && new Date(d.starts_at).getTime() >= now),
+      );
     if (filter === "tour" || filter === "class") return rows.filter((t) => (t.category ?? "tour") === filter);
     return rows;
   }, [data, filter]);
@@ -133,7 +137,14 @@ function ManageToursPage() {
       await saveDates({
         data: { tourId: id, dates: dates.map((d) => ({ starts_at: d.starts_at, capacity: d.capacity })) },
       });
-      toast.success(editingId ? "Experience updated" : "Experience published");
+      if (dates.length === 0) setFilter("on-request");
+      toast.success(
+        dates.length === 0
+          ? "Saved as an on-request experience — guests will book via WhatsApp"
+          : editingId
+            ? "Experience updated"
+            : "Experience published",
+      );
       close();
       refetch();
     } catch (err) {
@@ -174,7 +185,7 @@ function ManageToursPage() {
 
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="flex gap-1 border border-border rounded-sm p-1 bg-card">
-          {(["upcoming", "all", "tour", "class"] as const).map((f) => (
+          {(["upcoming", "on-request", "all", "tour", "class"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
