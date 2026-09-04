@@ -18,6 +18,8 @@ export const Route = createFileRoute("/philosophy")({
           "MilpaChef is not a tour agency but a knowledge centre: the manifesto, principles and vision behind our work with Mexican gastronomy and territory.",
       },
       { property: "og:title", content: "Our Philosophy — MilpaChef" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Gastronomy begins long before the kitchen: territory, seeds, markets and communities.",

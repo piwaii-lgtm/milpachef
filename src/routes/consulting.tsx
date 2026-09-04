@@ -25,6 +25,8 @@ export const Route = createFileRoute("/consulting")({
           "MilpaChef® consulting for restaurants, hotels, institutions and producers: a four-scale model covering product, organisation, territory and food systems.",
       },
       { property: "og:title", content: "MilpaChef® Consulting — gastronomy with territorial identity" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content:

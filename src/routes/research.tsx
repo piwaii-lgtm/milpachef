@@ -12,6 +12,8 @@ export const Route = createFileRoute("/research")({
           "MilpaChef research on sustainable gastronomy and Mexican agrifood systems: publications, articles, studies and academic collaborations.",
       },
       { property: "og:title", content: "MilpaChef Research — knowledge about Mexican food systems" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Publications, studies and academic projects on Mexican food heritage.",

@@ -16,6 +16,8 @@ export const Route = createFileRoute("/reserve")({
           "Book upcoming Cholula food tours and hands-on Mexican cooking classes with Milpa Chef. Small groups, English, Spanish or French.",
       },
       { property: "og:title", content: "Reserve a spot — Milpa Chef" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Pick from upcoming Cholula food tours and Mexican cooking classes.",

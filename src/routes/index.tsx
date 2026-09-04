@@ -35,6 +35,8 @@ export const Route = createFileRoute("/")({
           "Sustainable Mexican gastronomy in Cholula, Puebla: food tours, cooking classes, ancestral products, consulting and academy, led by chef-anthropologist Alfonso Rocha.",
       },
       { property: "og:title", content: "MilpaChef — more than a food tour in Cholula" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content: "Experiences, products, consulting, academy, research and impact around sustainable Mexican gastronomy.",

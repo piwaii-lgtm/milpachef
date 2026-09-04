@@ -32,6 +32,8 @@ export const Route = createFileRoute("/experiences")({
           "MilpaChef experiences in Cholula, Puebla: food tours, traditional cooking classes and private experiences that connect territory, producers and Mexican food culture.",
       },
       { property: "og:title", content: "MilpaChef Experiences" },
+      { property: "og:image", content: "https://milpachef.mx/og-milpachef.jpg" },
+      { name: "twitter:image", content: "https://milpachef.mx/og-milpachef.jpg" },
       {
         property: "og:description",
         content:
