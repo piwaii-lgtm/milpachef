@@ -220,26 +220,6 @@ function ProductsPage() {
           ))}
         </div>
 
-        <div className="mt-16 border-t border-border/60 pt-10 max-w-2xl">
-          <h3 className="font-serif text-2xl text-primary mb-3">{COPY.faqTitle[lang]}</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed">
-            <li>{COPY.faqPay[lang]}</li>
-            <li>{COPY.faqShip[lang]}</li>
-            <li>
-              <span className="uppercase tracking-wider text-xs text-foreground/70">
-                {COPY.contactLine[lang]}:{" "}
-              </span>
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                target="_blank"
-                rel="noreferrer"
-                className="underline text-primary"
-              >
-                +52 222 170 6820
-              </a>
-            </li>
-          </ul>
-        </div>
       </section>
 
       {/* Historia */}
