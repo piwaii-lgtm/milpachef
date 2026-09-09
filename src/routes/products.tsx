@@ -7,9 +7,6 @@ import { listPublicProducts } from "@/lib/products.functions";
 import { productsPage } from "@/lib/section-copy";
 import { Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/products/hero.asset.json";
-import catalogAsset from "@/assets/catalogo-milpachef.pdf.asset.json";
-
-const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
 const productsQuery = queryOptions({
   queryKey: ["public-products"],
@@ -45,7 +42,7 @@ export const Route = createFileRoute("/products")({
     <section className="container-editorial py-24 text-center">
       <h1 className="font-serif text-3xl text-primary">Selección MilpaChef®</h1>
       <p className="text-muted-foreground mt-3">
-        No pudimos cargar el catálogo en este momento. Vuelve a intentarlo en unos minutos.
+        No pudimos cargar la selección en este momento. Vuelve a intentarlo en unos minutos.
       </p>
     </section>
   ),
@@ -58,9 +55,9 @@ export const Route = createFileRoute("/products")({
 
 const COPY = {
   eyebrow: {
-    en: "Catalog · Ancestral foods from Chiapas & Puebla",
-    es: "Catálogo · Alimentos ancestrales de Chiapas y Puebla",
-    fr: "Catalogue · Aliments ancestraux du Chiapas et de Puebla",
+    en: "Selection · Ancestral foods from Chiapas & Puebla",
+    es: "Selección · Alimentos ancestrales de Chiapas y Puebla",
+    fr: "Sélection · Aliments ancestraux du Chiapas et de Puebla",
   },
   title: {
     en: "The pantry behind the tour.",
@@ -68,35 +65,13 @@ const COPY = {
     fr: "Le garde-manger derrière la balade.",
   },
   subtitle: {
-    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities. Ex-Cholula — shipping quoted on request.",
-    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras. Puestos en Cholula — el envío se cotiza a la medida.",
-    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices. Départ Cholula — livraison sur devis.",
+    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities.",
+    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras.",
+    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices.",
   },
   all: { en: "All", es: "Todos", fr: "Tous" },
   origin: { en: "Origin", es: "Origen", fr: "Origine" },
   prices: { en: "Formats", es: "Presentaciones", fr: "Formats" },
-  order: { en: "Order on WhatsApp", es: "Pedir por WhatsApp", fr: "Commander sur WhatsApp" },
-  faqTitle: { en: "How to order", es: "Cómo pedir", fr: "Comment commander" },
-  faqPay: {
-    en: "Bank transfer (invoicing available on request).",
-    es: "Transferencia bancaria (facturamos si lo necesitas).",
-    fr: "Virement bancaire (facturation sur demande).",
-  },
-  faqShip: {
-    en: "Orders ship ex-Cholula (San Pedro / San Andrés). Prices are listed in the PDF catalog; shipping is quoted per order based on volume and destination.",
-    es: "Los pedidos salen de Cholula (San Pedro / San Andrés). Los precios están en el catálogo PDF; el envío se cotiza según el pedido y destino.",
-    fr: "Les commandes partent de Cholula (San Pedro / San Andrés). Les prix figurent dans le catalogue PDF ; la livraison est calculée par commande.",
-  },
-  contactLine: {
-    en: "WhatsApp / phone",
-    es: "WhatsApp / teléfono",
-    fr: "WhatsApp / téléphone",
-  },
-  catalog: {
-    en: "Download the catalog (PDF)",
-    es: "Descargar el catálogo (PDF)",
-    fr: "Télécharger le catalogue (PDF)",
-  },
 } as const;
 
 function ProductsPage() {
