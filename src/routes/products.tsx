@@ -225,6 +225,14 @@ function ProductsPage() {
                     ))}
                   </ul>
                 </div>
+                <a
+                  href={whatsappHref(p.name[lang], s.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-sm border border-primary text-primary px-5 py-2.5 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {s.whatsappButton}
+                </a>
               </div>
             </article>
           ))}
