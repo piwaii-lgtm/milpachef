@@ -7,9 +7,6 @@ import { listPublicProducts } from "@/lib/products.functions";
 import { productsPage } from "@/lib/section-copy";
 import { Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/products/hero.asset.json";
-import catalogAsset from "@/assets/catalogo-milpachef.pdf.asset.json";
-
-const WHATSAPP_NUMBER = "5222217068200"; // +52 222 170 6820 (from catalog)
 
 const productsQuery = queryOptions({
   queryKey: ["public-products"],
@@ -45,7 +42,7 @@ export const Route = createFileRoute("/products")({
     <section className="container-editorial py-24 text-center">
       <h1 className="font-serif text-3xl text-primary">Selección MilpaChef®</h1>
       <p className="text-muted-foreground mt-3">
-        No pudimos cargar el catálogo en este momento. Vuelve a intentarlo en unos minutos.
+        No pudimos cargar la selección en este momento. Vuelve a intentarlo en unos minutos.
       </p>
     </section>
   ),
@@ -58,9 +55,9 @@ export const Route = createFileRoute("/products")({
 
 const COPY = {
   eyebrow: {
-    en: "Catalog · Ancestral foods from Chiapas & Puebla",
-    es: "Catálogo · Alimentos ancestrales de Chiapas y Puebla",
-    fr: "Catalogue · Aliments ancestraux du Chiapas et de Puebla",
+    en: "Selection · Ancestral foods from Chiapas & Puebla",
+    es: "Selección · Alimentos ancestrales de Chiapas y Puebla",
+    fr: "Sélection · Aliments ancestraux du Chiapas et de Puebla",
   },
   title: {
     en: "The pantry behind the tour.",
@@ -68,35 +65,13 @@ const COPY = {
     fr: "Le garde-manger derrière la balade.",
   },
   subtitle: {
-    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities. Ex-Cholula — shipping quoted on request.",
-    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras. Puestos en Cholula — el envío se cotiza a la medida.",
-    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices. Départ Cholula — livraison sur devis.",
+    en: "A curated selection of heirloom ingredients that Alfonso sources directly from producer communities.",
+    es: "Selección de ingredientes que Alfonso trae directo de las comunidades productoras.",
+    fr: "Une sélection d'ingrédients ancestraux qu'Alfonso sourcé directement auprès des communautés productrices.",
   },
   all: { en: "All", es: "Todos", fr: "Tous" },
   origin: { en: "Origin", es: "Origen", fr: "Origine" },
   prices: { en: "Formats", es: "Presentaciones", fr: "Formats" },
-  order: { en: "Order on WhatsApp", es: "Pedir por WhatsApp", fr: "Commander sur WhatsApp" },
-  faqTitle: { en: "How to order", es: "Cómo pedir", fr: "Comment commander" },
-  faqPay: {
-    en: "Bank transfer (invoicing available on request).",
-    es: "Transferencia bancaria (facturamos si lo necesitas).",
-    fr: "Virement bancaire (facturation sur demande).",
-  },
-  faqShip: {
-    en: "Orders ship ex-Cholula (San Pedro / San Andrés). Prices are listed in the PDF catalog; shipping is quoted per order based on volume and destination.",
-    es: "Los pedidos salen de Cholula (San Pedro / San Andrés). Los precios están en el catálogo PDF; el envío se cotiza según el pedido y destino.",
-    fr: "Les commandes partent de Cholula (San Pedro / San Andrés). Les prix figurent dans le catalogue PDF ; la livraison est calculée par commande.",
-  },
-  contactLine: {
-    en: "WhatsApp / phone",
-    es: "WhatsApp / teléfono",
-    fr: "WhatsApp / téléphone",
-  },
-  catalog: {
-    en: "Download the catalog (PDF)",
-    es: "Descargar el catálogo (PDF)",
-    fr: "Télécharger le catalogue (PDF)",
-  },
 } as const;
 
 function ProductsPage() {
@@ -135,13 +110,6 @@ function ProductsPage() {
                 {p}
               </p>
             ))}
-            <a
-              href={catalogAsset.url}
-              download="Catalogo-MilpaChef.pdf"
-              className="mt-8 inline-flex items-center rounded-sm border border-[color:var(--corn)] text-[color:var(--corn)] px-6 py-3 text-sm hover:bg-[color:var(--corn)] hover:text-[color:var(--milpa-deep)] transition-colors"
-            >
-              {COPY.catalog[lang]}
-            </a>
           </div>
           <img
             src={heroAsset.url}
@@ -201,94 +169,57 @@ function ProductsPage() {
         </div>
 
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => {
-            const msg = encodeURIComponent(
-              lang === "es"
-                ? `Hola Milpa Chef, me interesa: ${p.name.es}.`
-                : lang === "fr"
-                  ? `Bonjour Milpa Chef, je suis intéressé(e) par : ${p.name.fr}.`
-                  : `Hi Milpa Chef, I'm interested in: ${p.name.en}.`,
-            );
-            return (
-              <article
-                key={p.slug}
-                className="flex flex-col bg-card border border-border/60 rounded-sm overflow-hidden"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-muted">
-                  <img
-                    src={p.image}
-                    alt={p.name[lang]}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6 flex flex-col flex-1 gap-4">
-                  <div>
-                    <div className="uppercase tracking-[0.2em] text-[10px] text-[color:var(--milpa)] mb-2">
-                      {CATEGORY_LABEL[p.category][lang]}
+          {filtered.map((p) => (
+            <article
+              key={p.slug}
+              className="flex flex-col bg-card border border-border/60 rounded-sm overflow-hidden"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-muted">
+                <img
+                  src={p.image}
+                  alt={p.name[lang]}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6 flex flex-col flex-1 gap-4">
+                <div>
+                  <div className="uppercase tracking-[0.2em] text-[10px] text-[color:var(--milpa)] mb-2">
+                    {CATEGORY_LABEL[p.category][lang]}
+                  </div>
+                  <h2 className="font-serif text-2xl leading-tight text-primary">
+                    {p.name[lang]}
+                  </h2>
+                  {p.scientific && (
+                    <div className="italic text-xs text-muted-foreground mt-1">
+                      {p.scientific}
                     </div>
-                    <h2 className="font-serif text-2xl leading-tight text-primary">
-                      {p.name[lang]}
-                    </h2>
-                    {p.scientific && (
-                      <div className="italic text-xs text-muted-foreground mt-1">
-                        {p.scientific}
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {p.description[lang]}
-                  </p>
-                  <div className="text-xs text-muted-foreground">
-                    <span className="uppercase tracking-wider">{COPY.origin[lang]}: </span>
-                    {p.origin}
-                  </div>
-                  <div className="border-t border-border/60 pt-4">
-                    <div className="uppercase tracking-[0.2em] text-[10px] text-muted-foreground mb-2">
-                      {COPY.prices[lang]}
-                    </div>
-                    <ul className="space-y-1 text-sm">
-                      {p.prices.map((pr) => (
-                        <li key={pr.label} className="text-foreground/80">
-                          {pr.label}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-auto inline-flex items-center justify-center rounded-sm bg-primary text-primary-foreground text-sm px-4 py-2 hover:bg-[color:var(--milpa-deep)] transition-colors"
-                  >
-                    {COPY.order[lang]}
-                  </a>
+                  )}
                 </div>
-              </article>
-            );
-          })}
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {p.description[lang]}
+                </p>
+                <div className="text-xs text-muted-foreground">
+                  <span className="uppercase tracking-wider">{COPY.origin[lang]}: </span>
+                  {p.origin}
+                </div>
+                <div className="border-t border-border/60 pt-4">
+                  <div className="uppercase tracking-[0.2em] text-[10px] text-muted-foreground mb-2">
+                    {COPY.prices[lang]}
+                  </div>
+                  <ul className="space-y-1 text-sm">
+                    {p.prices.map((pr) => (
+                      <li key={pr.label} className="text-foreground/80">
+                        {pr.label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
 
-        <div className="mt-16 border-t border-border/60 pt-10 max-w-2xl">
-          <h3 className="font-serif text-2xl text-primary mb-3">{COPY.faqTitle[lang]}</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed">
-            <li>{COPY.faqPay[lang]}</li>
-            <li>{COPY.faqShip[lang]}</li>
-            <li>
-              <span className="uppercase tracking-wider text-xs text-foreground/70">
-                {COPY.contactLine[lang]}:{" "}
-              </span>
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                target="_blank"
-                rel="noreferrer"
-                className="underline text-primary"
-              >
-                +52 222 170 6820
-              </a>
-            </li>
-          </ul>
-        </div>
       </section>
 
       {/* Historia */}
@@ -344,14 +275,6 @@ function ProductsPage() {
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed">{s.ctaBody}</p>
         <div className="mt-9 flex flex-wrap gap-3 justify-center">
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center rounded-sm bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-[color:var(--milpa-deep)]"
-          >
-            {COPY.order[lang]}
-          </a>
           <Link
             to="/contact"
             className="inline-flex items-center rounded-sm border border-primary text-primary px-6 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
