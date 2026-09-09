@@ -944,12 +944,12 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     title: "MilpaChef® Selection",
     subtitle: "Foods with territorial identity that preserve Mexico's biocultural heritage.",
     intro: [
-      "Every ancestral food in the MilpaChef® catalog is far more than an ingredient: it is the result of a history, a territory, a community and a way of understanding gastronomy as biocultural heritage.",
+      "Every ancestral food in the MilpaChef® Selection is far more than an ingredient: it is the result of a history, a territory, a community and a way of understanding gastronomy as biocultural heritage.",
       "We work directly with small producers and community projects to bring unique ingredients to cooks, restaurants, universities and food lovers across Mexico.",
     ],
     whatTitle: "What is the MilpaChef® Selection?",
     whatBody: [
-      "A curated catalog of Mexican ingredients chosen for their culinary, cultural, environmental and social value.",
+      "A curated selection of Mexican ingredients chosen for their culinary, cultural, environmental and social value.",
       "Each product was selected because it represents part of Mexico's food heritage and helps strengthen small producers and local food systems.",
     ],
     criteriaLabel: "Our five selection criteria",
@@ -964,7 +964,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     catalogTitle: "Ancestral ingredients",
     storyTitle: "More than an ingredient — a story.",
     storyBody:
-      "Every product includes information about its origin, producer community, history, culinary uses and preparation tips. The catalog is also meant to be a tool for sharing Mexican food heritage.",
+      "Every product includes information about its origin, producer community, history, culinary uses and preparation tips. The selection is also meant to be a tool for sharing Mexican food heritage.",
     buyersTitle: "Who buys from MilpaChef?",
     buyers: [
       "Restaurants",
@@ -984,7 +984,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ctaTitle: "Bring Mexico's food heritage into your kitchen.",
     ctaBody:
       "Discover unique ingredients selected by MilpaChef® and join a network connecting gastronomy, territory and communities.",
-    ctaPrimary: "Explore the catalog",
+    ctaPrimary: "Contact us",
   },
   fr: {
     eyebrow: "Sélection MilpaChef®",
@@ -992,12 +992,12 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     subtitle:
       "Des aliments à identité territoriale qui préservent le patrimoine bioculturel du Mexique.",
     intro: [
-      "Chaque aliment ancestral du catalogue MilpaChef® est bien plus qu'un ingrédient : c'est le fruit d'une histoire, d'un territoire, d'une communauté et d'une façon de comprendre la gastronomie comme patrimoine bioculturel.",
+      "Chaque aliment ancestral de la Sélection MilpaChef® est bien plus qu'un ingrédient : c'est le fruit d'une histoire, d'un territoire, d'une communauté et d'une façon de comprendre la gastronomie comme patrimoine bioculturel.",
       "Nous travaillons directement avec de petits producteurs et des projets communautaires pour rendre ces ingrédients accessibles aux cuisiniers, restaurants, universités et passionnés partout au Mexique.",
     ],
     whatTitle: "Qu'est-ce que la Sélection MilpaChef® ?",
     whatBody: [
-      "Un catalogue d'ingrédients mexicains choisis pour leur valeur gastronomique, culturelle, environnementale et sociale.",
+      "Une sélection d'ingrédients mexicains choisis pour leur valeur gastronomique, culturelle, environnementale et sociale.",
       "Chaque produit a été retenu parce qu'il représente une part du patrimoine alimentaire du Mexique et soutient les petits producteurs et les systèmes alimentaires locaux.",
     ],
     criteriaLabel: "Nos cinq critères de sélection",
@@ -1012,7 +1012,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     catalogTitle: "Ingrédients ancestraux",
     storyTitle: "Plus qu'un ingrédient, une histoire.",
     storyBody:
-      "Chaque produit du catalogue présente son origine, sa communauté productrice, son histoire, ses usages culinaires et des conseils de préparation. Le catalogue est aussi un outil de diffusion du patrimoine gastronomique mexicain.",
+      "Chaque produit de la sélection présente son origine, sa communauté productrice, son histoire, ses usages culinaires et des conseils de préparation. La sélection est aussi un outil de diffusion du patrimoine gastronomique mexicain.",
     buyersTitle: "Qui achète chez MilpaChef ?",
     buyers: [
       "Restaurants",
@@ -1032,7 +1032,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ctaTitle: "Faites entrer le patrimoine gastronomique du Mexique dans votre cuisine.",
     ctaBody:
       "Découvrez des ingrédients uniques sélectionnés par MilpaChef® et rejoignez un réseau qui relie gastronomie, territoire et communautés.",
-    ctaPrimary: "Explorer le catalogue",
+    ctaPrimary: "Contactez-nous",
   },
 };
 
