@@ -877,6 +877,9 @@ export type ProductsCopy = {
   criteria: { title: string; body: string }[];
   catalogLabel: string;
   catalogTitle: string;
+  infoNotice: string;
+  whatsappButton: string;
+  whatsappMessage: string;
   storyTitle: string;
   storyBody: string;
   buyersTitle: string;
