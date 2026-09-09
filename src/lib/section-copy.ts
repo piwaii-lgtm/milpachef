@@ -897,12 +897,12 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     subtitle:
       "Alimentos con identidad territorial que preservan el patrimonio biocultural de México.",
     intro: [
-      "Cada alimento ancestral del catálogo MilpaChef® representa mucho más que un ingrediente: es el resultado de una historia, un territorio, una comunidad y una forma de entender la gastronomía como patrimonio biocultural.",
+      "Cada alimento ancestral de la Selección MilpaChef® representa mucho más que un ingrediente: es el resultado de una historia, un territorio, una comunidad y una forma de entender la gastronomía como patrimonio biocultural.",
       "Trabajamos directamente con pequeños productores y proyectos comunitarios para acercar ingredientes únicos a cocineros, restaurantes, universidades y amantes de la gastronomía en todo México.",
     ],
     whatTitle: "¿Qué es la Selección MilpaChef®?",
     whatBody: [
-      "Es un catálogo curado de ingredientes mexicanos elegidos por su valor gastronómico, cultural, ambiental y social.",
+      "Es una selección curada de ingredientes mexicanos elegidos por su valor gastronómico, cultural, ambiental y social.",
       "Cada producto ha sido seleccionado porque representa una parte del patrimonio alimentario de México y contribuye al fortalecimiento de pequeños productores y sistemas alimentarios locales.",
     ],
     criteriaLabel: "Nuestros cinco criterios de selección",
@@ -917,7 +917,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     catalogTitle: "Ingredientes ancestrales",
     storyTitle: "Más que un ingrediente, una historia.",
     storyBody:
-      "Cada producto del catálogo incluye información sobre su origen, comunidad productora, historia, usos culinarios y recomendaciones de preparación. El objetivo es que el catálogo funcione también como una herramienta de divulgación del patrimonio gastronómico mexicano.",
+      "Cada producto de la selección incluye información sobre su origen, comunidad productora, historia, usos culinarios y recomendaciones de preparación. El objetivo es que la selección funcione también como una herramienta de divulgación del patrimonio gastronómico mexicano.",
     buyersTitle: "¿Quién compra en MilpaChef?",
     buyers: [
       "Restaurantes",
@@ -937,7 +937,7 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ctaTitle: "Lleva el patrimonio gastronómico de México a tu cocina.",
     ctaBody:
       "Descubre ingredientes únicos seleccionados por MilpaChef® y forma parte de una red que conecta gastronomía, territorio y comunidades.",
-    ctaPrimary: "Explorar catálogo",
+    ctaPrimary: "Contáctanos",
   },
   en: {
     eyebrow: "MilpaChef® Selection",
