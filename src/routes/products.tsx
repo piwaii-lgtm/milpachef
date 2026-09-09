@@ -275,14 +275,6 @@ function ProductsPage() {
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed">{s.ctaBody}</p>
         <div className="mt-9 flex flex-wrap gap-3 justify-center">
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center rounded-sm bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-[color:var(--milpa-deep)]"
-          >
-            {COPY.order[lang]}
-          </a>
           <Link
             to="/contact"
             className="inline-flex items-center rounded-sm border border-primary text-primary px-6 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
