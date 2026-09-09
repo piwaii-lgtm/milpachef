@@ -110,13 +110,6 @@ function ProductsPage() {
                 {p}
               </p>
             ))}
-            <a
-              href={catalogAsset.url}
-              download="Catalogo-MilpaChef.pdf"
-              className="mt-8 inline-flex items-center rounded-sm border border-[color:var(--corn)] text-[color:var(--corn)] px-6 py-3 text-sm hover:bg-[color:var(--corn)] hover:text-[color:var(--milpa-deep)] transition-colors"
-            >
-              {COPY.catalog[lang]}
-            </a>
           </div>
           <img
             src={heroAsset.url}
