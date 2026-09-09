@@ -74,6 +74,13 @@ const COPY = {
   prices: { en: "Formats", es: "Presentaciones", fr: "Formats" },
 } as const;
 
+const WHATSAPP_NUMBER = "522221706820";
+
+function whatsappHref(productName: string, template: string) {
+  const text = template.replace("{{product}}", productName);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
 function ProductsPage() {
   const { lang } = useI18n();
   const [cat, setCat] = useState<ProductCategory | "all">("all");
@@ -157,7 +164,7 @@ function ProductsPage() {
       <section className="container-editorial py-16 md:py-20">
         <div className="uppercase tracking-[0.3em] text-xs text-accent mb-3">{s.catalogLabel}</div>
         <h2 className="font-serif text-3xl md:text-4xl text-primary mb-10">{s.catalogTitle}</h2>
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-2 mb-6">
           <FilterPill active={cat === "all"} onClick={() => setCat("all")}>
             {COPY.all[lang]}
           </FilterPill>
@@ -167,6 +174,9 @@ function ProductsPage() {
             </FilterPill>
           ))}
         </div>
+        <p className="text-sm text-muted-foreground bg-muted/40 border border-border/60 rounded-sm p-4 mb-10 leading-relaxed">
+          {s.infoNotice}
+        </p>
 
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
@@ -215,6 +225,14 @@ function ProductsPage() {
                     ))}
                   </ul>
                 </div>
+                <a
+                  href={whatsappHref(p.name[lang], s.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-sm border border-primary text-primary px-5 py-2.5 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {s.whatsappButton}
+                </a>
               </div>
             </article>
           ))}

@@ -877,6 +877,9 @@ export type ProductsCopy = {
   criteria: { title: string; body: string }[];
   catalogLabel: string;
   catalogTitle: string;
+  infoNotice: string;
+  whatsappButton: string;
+  whatsappMessage: string;
   storyTitle: string;
   storyBody: string;
   buyersTitle: string;
@@ -915,6 +918,10 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ],
     catalogLabel: "Explora la Selección MilpaChef®",
     catalogTitle: "Ingredientes ancestrales",
+    infoNotice:
+      "Estamos preparando nuestro catálogo para hacer llegar los productos de Selección MilpaChef® a todo México. Mientras tanto, si te interesa alguno de nuestros productos, contacta al chef Alfonso Rocha por WhatsApp para solicitar información.",
+    whatsappButton: "Solicitar información por WhatsApp",
+    whatsappMessage: "Hola, Alfonso. Me interesa conocer más sobre {{product}}. ¿Podrías darme información?",
     storyTitle: "Más que un ingrediente, una historia.",
     storyBody:
       "Cada producto de la selección incluye información sobre su origen, comunidad productora, historia, usos culinarios y recomendaciones de preparación. El objetivo es que la selección funcione también como una herramienta de divulgación del patrimonio gastronómico mexicano.",
@@ -962,6 +969,10 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ],
     catalogLabel: "Explore the MilpaChef® Selection",
     catalogTitle: "Ancestral ingredients",
+    infoNotice:
+      "We are preparing our catalog to bring Selección MilpaChef® products to all of Mexico. In the meantime, if you are interested in any of our products, contact chef Alfonso Rocha via WhatsApp to request information.",
+    whatsappButton: "Request information on WhatsApp",
+    whatsappMessage: "Hi Alfonso. I'm interested in learning more about {{product}}. Could you give me information?",
     storyTitle: "More than an ingredient — a story.",
     storyBody:
       "Every product includes information about its origin, producer community, history, culinary uses and preparation tips. The selection is also meant to be a tool for sharing Mexican food heritage.",
@@ -1010,6 +1021,10 @@ export const productsPage: Record<Lang, ProductsCopy> = {
     ],
     catalogLabel: "Explorez la Sélection MilpaChef®",
     catalogTitle: "Ingrédients ancestraux",
+    infoNotice:
+      "Nous préparons notre catalogue pour faire parvenir les produits de la Sélection MilpaChef® partout au Mexique. En attendant, si l'un de nos produits vous intéresse, contactez le chef Alfonso Rocha par WhatsApp pour demander des informations.",
+    whatsappButton: "Demander des informations sur WhatsApp",
+    whatsappMessage: "Bonjour Alfonso. Je souhaite en savoir plus sur {{product}}. Pourriez-vous me donner des informations ?",
     storyTitle: "Plus qu'un ingrédient, une histoire.",
     storyBody:
       "Chaque produit de la sélection présente son origine, sa communauté productrice, son histoire, ses usages culinaires et des conseils de préparation. La sélection est aussi un outil de diffusion du patrimoine gastronomique mexicain.",
