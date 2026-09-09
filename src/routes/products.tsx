@@ -74,6 +74,13 @@ const COPY = {
   prices: { en: "Formats", es: "Presentaciones", fr: "Formats" },
 } as const;
 
+const WHATSAPP_NUMBER = "522221706820";
+
+function whatsappHref(productName: string, template: string) {
+  const text = template.replace("{{product}}", productName);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
 function ProductsPage() {
   const { lang } = useI18n();
   const [cat, setCat] = useState<ProductCategory | "all">("all");
