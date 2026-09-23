@@ -61,9 +61,9 @@ export async function fetchTours(limit = 12, category?: "tour" | "class"): Promi
     dates: upcomingDates(r.tour_dates),
   }));
 
-  // Experiences with upcoming dates come first (soonest first), then on-demand ones.
+  // Experiences with upcoming dates come first (soonest first); those without
+  // upcoming dates are never hidden — they show as on-demand (WhatsApp).
   return rows
-    .filter((r) => r.dates.length > 0 || r.on_demand)
     .sort((a, b) => {
       const at = a.dates[0] ? new Date(a.dates[0].starts_at).getTime() : Infinity;
       const bt = b.dates[0] ? new Date(b.dates[0].starts_at).getTime() : Infinity;
