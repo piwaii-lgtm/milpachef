@@ -55,7 +55,7 @@ function ManageToursPage() {
   const [saving, setSaving] = useState(false);
   const [dates, setDates] = useState<DraftDate[]>([]);
   const [defaultTime, setDefaultTime] = useState("14:00");
-  const [filter, setFilter] = useState<"all" | "upcoming" | "on-request" | "tour" | "class">("upcoming");
+  const [filter, setFilter] = useState<"all" | "upcoming" | "on-request" | "tour" | "class">("all");
 
   const openEdit = (t: AdminTour) => {
     setEditingId(t.id);
@@ -233,7 +233,7 @@ function ManageToursPage() {
               className={
                 "flex flex-col overflow-hidden rounded-md border bg-card " +
                 (isClass ? "border-[color:var(--corn)]/60 " : "border-border ") +
-                (past ? "opacity-60" : "")
+                ""
               }
             >
               <div className="aspect-[4/3] relative overflow-hidden">
@@ -253,7 +253,7 @@ function ManageToursPage() {
                 </span>
                 {past && (
                   <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm bg-background/90 text-muted-foreground">
-                    On request
+                    No upcoming dates · shown on request
                   </span>
                 )}
               </div>
