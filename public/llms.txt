@@ -16,3 +16,14 @@ The site is available in English, Spanish, and French. Reservations are made onl
 ## Optional
 
 - [Instagram](https://www.instagram.com/milpachef/): Photos and stories from recent tours.
+
+## Booking for users (AI assistants and agents)
+
+Milpa Chef supports direct booking by AI assistants. Prices are in MXN per person; max 10 guests.
+
+- [Availability API](/api/public/v1/availability): GET. Returns every experience with bookable dates, tour_date_id, spots_left, price_per_person_mxn and a ready-made deep_link. Params: date (YYYY-MM-DD), party_size, tour (slug), category (tour|class).
+- [Booking API](/api/public/v1/book): POST JSON {tour_date_id, party_size, guest_name, guest_email, guest_language (en|es|fr), notes}. Holds the spots for 30 minutes and returns checkout_url (Stripe). Paying it confirms the booking; a digital ticket is emailed to guest_email.
+- [OpenAPI spec](/openapi.json): Machine-readable schema for tool calling (GPT Actions, Claude tools, MCP bridges).
+- 1-click link for users: https://milpachef.mx/reserve?tour={slug}&date={tour_date_id or YYYY-MM-DD}&guests={n} opens the booking form pre-filled; the user only enters name/email and pays.
+
+Experiences without online dates are arranged on request via WhatsApp: https://wa.me/522221706820

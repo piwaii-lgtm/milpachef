@@ -17,6 +17,7 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PrivateExperiencesRouteImport } from './routes/private-experiences'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as OpenapiDotjsonRouteImport } from './routes/openapi[.]json'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as ExperiencesRouteImport } from './routes/experiences'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -32,6 +33,8 @@ import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
 import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
+import { Route as ApiPublicV1BookRouteImport } from './routes/api/public/v1/book'
+import { Route as ApiPublicV1AvailabilityRouteImport } from './routes/api/public/v1/availability'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as ApiPublicImgKeyRouteImport } from './routes/api/public/img/$key'
 
@@ -73,6 +76,11 @@ const PlatformRoute = PlatformRouteImport.update({
 const PhilosophyRoute = PhilosophyRouteImport.update({
   id: '/philosophy',
   path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenapiDotjsonRoute = OpenapiDotjsonRouteImport.update({
+  id: '/openapi.json',
+  path: '/openapi.json',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpactRoute = ImpactRouteImport.update({
@@ -150,6 +158,16 @@ const AuthenticatedAdminProductsRoute =
     path: '/admin/products',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicV1BookRoute = ApiPublicV1BookRouteImport.update({
+  id: '/api/public/v1/book',
+  path: '/api/public/v1/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1AvailabilityRoute = ApiPublicV1AvailabilityRouteImport.update({
+  id: '/api/public/v1/availability',
+  path: '/api/public/v1/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -172,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/private-experiences': typeof PrivateExperiencesRoute
@@ -187,6 +206,8 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/v1/availability': typeof ApiPublicV1AvailabilityRoute
+  '/api/public/v1/book': typeof ApiPublicV1BookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -198,6 +219,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/private-experiences': typeof PrivateExperiencesRoute
@@ -213,6 +235,8 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/v1/availability': typeof ApiPublicV1AvailabilityRoute
+  '/api/public/v1/book': typeof ApiPublicV1BookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -226,6 +250,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/experiences': typeof ExperiencesRoute
   '/impact': typeof ImpactRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/philosophy': typeof PhilosophyRoute
   '/platform': typeof PlatformRoute
   '/private-experiences': typeof PrivateExperiencesRoute
@@ -241,6 +266,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$key': typeof ApiPublicImgKeyRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/v1/availability': typeof ApiPublicV1AvailabilityRoute
+  '/api/public/v1/book': typeof ApiPublicV1BookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -254,6 +281,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/experiences'
     | '/impact'
+    | '/openapi.json'
     | '/philosophy'
     | '/platform'
     | '/private-experiences'
@@ -269,6 +297,8 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/public/img/$key'
     | '/api/public/payments/webhook'
+    | '/api/public/v1/availability'
+    | '/api/public/v1/book'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -280,6 +310,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/experiences'
     | '/impact'
+    | '/openapi.json'
     | '/philosophy'
     | '/platform'
     | '/private-experiences'
@@ -295,6 +326,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/public/img/$key'
     | '/api/public/payments/webhook'
+    | '/api/public/v1/availability'
+    | '/api/public/v1/book'
   id:
     | '__root__'
     | '/'
@@ -307,6 +340,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/experiences'
     | '/impact'
+    | '/openapi.json'
     | '/philosophy'
     | '/platform'
     | '/private-experiences'
@@ -322,6 +356,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/api/public/img/$key'
     | '/api/public/payments/webhook'
+    | '/api/public/v1/availability'
+    | '/api/public/v1/book'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -335,6 +371,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ExperiencesRoute: typeof ExperiencesRoute
   ImpactRoute: typeof ImpactRoute
+  OpenapiDotjsonRoute: typeof OpenapiDotjsonRoute
   PhilosophyRoute: typeof PhilosophyRoute
   PlatformRoute: typeof PlatformRoute
   PrivateExperiencesRoute: typeof PrivateExperiencesRoute
@@ -347,6 +384,8 @@ export interface RootRouteChildren {
   BookingReturnRoute: typeof BookingReturnRoute
   ApiPublicImgKeyRoute: typeof ApiPublicImgKeyRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
+  ApiPublicV1AvailabilityRoute: typeof ApiPublicV1AvailabilityRoute
+  ApiPublicV1BookRoute: typeof ApiPublicV1BookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -405,6 +444,13 @@ declare module '@tanstack/react-router' {
       path: '/philosophy'
       fullPath: '/philosophy'
       preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/openapi.json': {
+      id: '/openapi.json'
+      path: '/openapi.json'
+      fullPath: '/openapi.json'
+      preLoaderRoute: typeof OpenapiDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impact': {
@@ -512,6 +558,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/v1/book': {
+      id: '/api/public/v1/book'
+      path: '/api/public/v1/book'
+      fullPath: '/api/public/v1/book'
+      preLoaderRoute: typeof ApiPublicV1BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/availability': {
+      id: '/api/public/v1/availability'
+      path: '/api/public/v1/availability'
+      fullPath: '/api/public/v1/availability'
+      preLoaderRoute: typeof ApiPublicV1AvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -555,6 +615,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ExperiencesRoute: ExperiencesRoute,
   ImpactRoute: ImpactRoute,
+  OpenapiDotjsonRoute: OpenapiDotjsonRoute,
   PhilosophyRoute: PhilosophyRoute,
   PlatformRoute: PlatformRoute,
   PrivateExperiencesRoute: PrivateExperiencesRoute,
@@ -567,6 +628,8 @@ const rootRouteChildren: RootRouteChildren = {
   BookingReturnRoute: BookingReturnRoute,
   ApiPublicImgKeyRoute: ApiPublicImgKeyRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
+  ApiPublicV1AvailabilityRoute: ApiPublicV1AvailabilityRoute,
+  ApiPublicV1BookRoute: ApiPublicV1BookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
