@@ -28,7 +28,7 @@ export const Route = createFileRoute("/reserve")({
     ],
     links: [{ rel: "canonical", href: "/reserve" }],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({
+  validateSearch: (s: Record<string, unknown>): { tour?: string; date?: string; guests?: number } => ({
     tour: typeof s.tour === "string" ? s.tour : undefined,
     date: typeof s.date === "string" ? s.date : undefined,
     guests: s.guests != null && !Number.isNaN(Number(s.guests)) ? Number(s.guests) : undefined,

@@ -9,113 +9,42 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ToursRouteImport } from './routes/tours'
-import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as ReserveRouteImport } from './routes/reserve'
-import { Route as ResearchRouteImport } from './routes/research'
-import { Route as ProductsRouteImport } from './routes/products'
-import { Route as PrivateExperiencesRouteImport } from './routes/private-experiences'
-import { Route as PlatformRouteImport } from './routes/platform'
-import { Route as PhilosophyRouteImport } from './routes/philosophy'
-import { Route as OpenapiDotjsonRouteImport } from './routes/openapi[.]json'
-import { Route as ImpactRouteImport } from './routes/impact'
-import { Route as ExperiencesRouteImport } from './routes/experiences'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ConsultingRouteImport } from './routes/consulting'
-import { Route as ClassesRouteImport } from './routes/classes'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AcademyRouteImport } from './routes/academy'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BookingReturnRouteImport } from './routes/booking.return'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ClassesRouteImport } from './routes/classes'
+import { Route as ConsultingRouteImport } from './routes/consulting'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ExperiencesRouteImport } from './routes/experiences'
+import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as OpenapiDotjsonRouteImport } from './routes/openapi[.]json'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PrivateExperiencesRouteImport } from './routes/private-experiences'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ReserveRouteImport } from './routes/reserve'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as ToursRouteImport } from './routes/tours'
 import { Route as BookingCheckoutRouteImport } from './routes/booking.checkout'
+import { Route as BookingReturnRouteImport } from './routes/booking.return'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
-import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
 import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
-import { Route as ApiPublicV1BookRouteImport } from './routes/api/public/v1/book'
-import { Route as ApiPublicV1AvailabilityRouteImport } from './routes/api/public/v1/availability'
-import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as AuthenticatedAdminToursRouteImport } from './routes/_authenticated/admin.tours'
 import { Route as ApiPublicImgKeyRouteImport } from './routes/api/public/img/$key'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicV1AvailabilityRouteImport } from './routes/api/public/v1/availability'
+import { Route as ApiPublicV1BookRouteImport } from './routes/api/public/v1/book'
 
-const ToursRoute = ToursRouteImport.update({
-  id: '/tours',
-  path: '/tours',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReserveRoute = ReserveRouteImport.update({
-  id: '/reserve',
-  path: '/reserve',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResearchRoute = ResearchRouteImport.update({
-  id: '/research',
-  path: '/research',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivateExperiencesRoute = PrivateExperiencesRouteImport.update({
-  id: '/private-experiences',
-  path: '/private-experiences',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlatformRoute = PlatformRouteImport.update({
-  id: '/platform',
-  path: '/platform',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PhilosophyRoute = PhilosophyRouteImport.update({
-  id: '/philosophy',
-  path: '/philosophy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OpenapiDotjsonRoute = OpenapiDotjsonRouteImport.update({
-  id: '/openapi.json',
-  path: '/openapi.json',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImpactRoute = ImpactRouteImport.update({
-  id: '/impact',
-  path: '/impact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExperiencesRoute = ExperiencesRouteImport.update({
-  id: '/experiences',
-  path: '/experiences',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConsultingRoute = ConsultingRouteImport.update({
-  id: '/consulting',
-  path: '/consulting',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ClassesRoute = ClassesRouteImport.update({
-  id: '/classes',
-  path: '/classes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AcademyRoute = AcademyRouteImport.update({
-  id: '/academy',
-  path: '/academy',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -123,18 +52,84 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BookingReturnRoute = BookingReturnRouteImport.update({
-  id: '/booking/return',
-  path: '/booking/return',
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsultingRoute = ConsultingRouteImport.update({
+  id: '/consulting',
+  path: '/consulting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperiencesRoute = ExperiencesRouteImport.update({
+  id: '/experiences',
+  path: '/experiences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenapiDotjsonRoute = OpenapiDotjsonRouteImport.update({
+  id: '/openapi.json',
+  path: '/openapi.json',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateExperiencesRoute = PrivateExperiencesRouteImport.update({
+  id: '/private-experiences',
+  path: '/private-experiences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToursRoute = ToursRouteImport.update({
+  id: '/tours',
+  path: '/tours',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingCheckoutRoute = BookingCheckoutRouteImport.update({
@@ -142,14 +137,14 @@ const BookingCheckoutRoute = BookingCheckoutRouteImport.update({
   path: '/booking/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingReturnRoute = BookingReturnRouteImport.update({
+  id: '/booking/return',
+  path: '/booking/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAdminToursRoute = AuthenticatedAdminToursRouteImport.update({
-  id: '/admin/tours',
-  path: '/admin/tours',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminProductsRoute =
@@ -158,14 +153,14 @@ const AuthenticatedAdminProductsRoute =
     path: '/admin/products',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const ApiPublicV1BookRoute = ApiPublicV1BookRouteImport.update({
-  id: '/api/public/v1/book',
-  path: '/api/public/v1/book',
-  getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminToursRoute = AuthenticatedAdminToursRouteImport.update({
+  id: '/admin/tours',
+  path: '/admin/tours',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ApiPublicV1AvailabilityRoute = ApiPublicV1AvailabilityRouteImport.update({
-  id: '/api/public/v1/availability',
-  path: '/api/public/v1/availability',
+const ApiPublicImgKeyRoute = ApiPublicImgKeyRouteImport.update({
+  id: '/api/public/img/$key',
+  path: '/api/public/img/$key',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPaymentsWebhookRoute =
@@ -174,9 +169,14 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicImgKeyRoute = ApiPublicImgKeyRouteImport.update({
-  id: '/api/public/img/$key',
-  path: '/api/public/img/$key',
+const ApiPublicV1AvailabilityRoute = ApiPublicV1AvailabilityRouteImport.update({
+  id: '/api/public/v1/availability',
+  path: '/api/public/v1/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1BookRoute = ApiPublicV1BookRouteImport.update({
+  id: '/api/public/v1/book',
+  path: '/api/public/v1/book',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -390,123 +390,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tours': {
-      id: '/tours'
-      path: '/tours'
-      fullPath: '/tours'
-      preLoaderRoute: typeof ToursRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reserve': {
-      id: '/reserve'
-      path: '/reserve'
-      fullPath: '/reserve'
-      preLoaderRoute: typeof ReserveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/research': {
-      id: '/research'
-      path: '/research'
-      fullPath: '/research'
-      preLoaderRoute: typeof ResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/private-experiences': {
-      id: '/private-experiences'
-      path: '/private-experiences'
-      fullPath: '/private-experiences'
-      preLoaderRoute: typeof PrivateExperiencesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/platform': {
-      id: '/platform'
-      path: '/platform'
-      fullPath: '/platform'
-      preLoaderRoute: typeof PlatformRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/philosophy': {
-      id: '/philosophy'
-      path: '/philosophy'
-      fullPath: '/philosophy'
-      preLoaderRoute: typeof PhilosophyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/openapi.json': {
-      id: '/openapi.json'
-      path: '/openapi.json'
-      fullPath: '/openapi.json'
-      preLoaderRoute: typeof OpenapiDotjsonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/impact': {
-      id: '/impact'
-      path: '/impact'
-      fullPath: '/impact'
-      preLoaderRoute: typeof ImpactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/experiences': {
-      id: '/experiences'
-      path: '/experiences'
-      fullPath: '/experiences'
-      preLoaderRoute: typeof ExperiencesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/consulting': {
-      id: '/consulting'
-      path: '/consulting'
-      fullPath: '/consulting'
-      preLoaderRoute: typeof ConsultingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/classes': {
-      id: '/classes'
-      path: '/classes'
-      fullPath: '/classes'
-      preLoaderRoute: typeof ClassesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/academy': {
-      id: '/academy'
-      path: '/academy'
-      fullPath: '/academy'
-      preLoaderRoute: typeof AcademyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -516,18 +404,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/booking/return': {
-      id: '/booking/return'
-      path: '/booking/return'
-      fullPath: '/booking/return'
-      preLoaderRoute: typeof BookingReturnRouteImport
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consulting': {
+      id: '/consulting'
+      path: '/consulting'
+      fullPath: '/consulting'
+      preLoaderRoute: typeof ConsultingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiences': {
+      id: '/experiences'
+      path: '/experiences'
+      fullPath: '/experiences'
+      preLoaderRoute: typeof ExperiencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/openapi.json': {
+      id: '/openapi.json'
+      path: '/openapi.json'
+      fullPath: '/openapi.json'
+      preLoaderRoute: typeof OpenapiDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform': {
+      id: '/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/private-experiences': {
+      id: '/private-experiences'
+      path: '/private-experiences'
+      fullPath: '/private-experiences'
+      preLoaderRoute: typeof PrivateExperiencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tours': {
+      id: '/tours'
+      path: '/tours'
+      fullPath: '/tours'
+      preLoaderRoute: typeof ToursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/booking/checkout': {
@@ -537,18 +530,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingCheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking/return': {
+      id: '/booking/return'
+      path: '/booking/return'
+      fullPath: '/booking/return'
+      preLoaderRoute: typeof BookingReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/admin/tours': {
-      id: '/_authenticated/admin/tours'
-      path: '/admin/tours'
-      fullPath: '/admin/tours'
-      preLoaderRoute: typeof AuthenticatedAdminToursRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/products': {
@@ -558,18 +551,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/v1/book': {
-      id: '/api/public/v1/book'
-      path: '/api/public/v1/book'
-      fullPath: '/api/public/v1/book'
-      preLoaderRoute: typeof ApiPublicV1BookRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/admin/tours': {
+      id: '/_authenticated/admin/tours'
+      path: '/admin/tours'
+      fullPath: '/admin/tours'
+      preLoaderRoute: typeof AuthenticatedAdminToursRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/v1/availability': {
-      id: '/api/public/v1/availability'
-      path: '/api/public/v1/availability'
-      fullPath: '/api/public/v1/availability'
-      preLoaderRoute: typeof ApiPublicV1AvailabilityRouteImport
+    '/api/public/img/$key': {
+      id: '/api/public/img/$key'
+      path: '/api/public/img/$key'
+      fullPath: '/api/public/img/$key'
+      preLoaderRoute: typeof ApiPublicImgKeyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/payments/webhook': {
@@ -579,11 +572,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/img/$key': {
-      id: '/api/public/img/$key'
-      path: '/api/public/img/$key'
-      fullPath: '/api/public/img/$key'
-      preLoaderRoute: typeof ApiPublicImgKeyRouteImport
+    '/api/public/v1/availability': {
+      id: '/api/public/v1/availability'
+      path: '/api/public/v1/availability'
+      fullPath: '/api/public/v1/availability'
+      preLoaderRoute: typeof ApiPublicV1AvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/book': {
+      id: '/api/public/v1/book'
+      path: '/api/public/v1/book'
+      fullPath: '/api/public/v1/book'
+      preLoaderRoute: typeof ApiPublicV1BookRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
