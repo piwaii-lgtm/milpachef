@@ -125,7 +125,7 @@ export async function createAgentBooking(input: BookInput) {
     };
   } catch (e) {
     console.error("[agent-book]", e);
-    await supabaseAdmin.from("bookings").update({ status: "cancelled" }).eq("id", booking.id);
+    await supabaseAdmin.from("bookings").update({ status: "canceled" }).eq("id", booking.id);
     return { status: 502, body: { error: "payment_setup_failed", detail: getStripeErrorMessage(e) } };
   }
 }
