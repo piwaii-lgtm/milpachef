@@ -11,11 +11,13 @@ export function BookingDialog({
   date,
   open,
   onClose,
+  initialParty,
 }: {
   tour: Tour | null;
   date: TourDate | null;
   open: boolean;
   onClose: () => void;
+  initialParty?: number;
 }) {
   const { t, lang } = useI18n();
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ export function BookingDialog({
     if (open) {
       setSubmitting(false);
       setGuestLang(lang);
+      if (initialParty) setParty(Math.max(1, Math.min(10, Math.floor(initialParty))));
     }
   }, [open, tour?.id, date?.id, lang]);
 

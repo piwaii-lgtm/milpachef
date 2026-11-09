@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { fetchTours, type Tour, type TourDate } from "@/lib/tours";
 import { TourCard } from "@/components/site/TourCard";
@@ -28,6 +28,11 @@ export const Route = createFileRoute("/reserve")({
     ],
     links: [{ rel: "canonical", href: "/reserve" }],
   }),
+  validateSearch: (s: Record<string, unknown>): { tour?: string; date?: string; guests?: number } => ({
+    tour: typeof s.tour === "string" ? s.tour : undefined,
+    date: typeof s.date === "string" ? s.date : undefined,
+    guests: s.guests != null && !Number.isNaN(Number(s.guests)) ? Number(s.guests) : undefined,
+  }),
   component: ReservePage,
 });
 
@@ -42,6 +47,20 @@ function ReservePage() {
     queryKey: ["tours", "classes", "reserve"],
     queryFn: () => fetchTours(24, "class"),
   });
+
+  const search = Route.useSearch();
+  useEffect(() => {
+    if (!search.tour || booking) return;
+    const all = [...tours, ...classes];
+    const tour = all.find((x) => x.slug === search.tour || x.id === search.tour);
+    if (!tour) return;
+    const date =
+      tour.dates.find((d) => d.id === search.date) ??
+      tour.dates.find((d) => search.date && d.starts_at.slice(0, 10) === search.date) ??
+      (search.date ? undefined : tour.dates[0]);
+    if (date) setBooking({ tour, date });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tours, classes, search.tour, search.date]);
 
   const isLoading = toursLoading || classesLoading;
   const isEmpty = !isLoading && tours.length === 0 && classes.length === 0;
@@ -91,6 +110,7 @@ function ReservePage() {
         tour={booking?.tour ?? null}
         date={booking?.date ?? null}
         open={!!booking}
+        initialParty={search.guests}
         onClose={() => setBooking(null)}
       />
     </section>
